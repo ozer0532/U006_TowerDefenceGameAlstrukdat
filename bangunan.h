@@ -15,27 +15,12 @@ typedef struct {
 }KOMPONEN;
 
 typedef KOMPONEN ElType;   /* type elemen tabel */
-typedef struct {
-	ElType TI[5]; /* memori tempat penyimpan elemen (container) */
-}CASTLE;
 
 typedef struct {
-	ElType TI[5]; /* memori tempat penyimpan elemen (container) */
-}TOWER;
-
-typedef struct {
-	ElType TI[5]; /* memori tempat penyimpan elemen (container) */
-}FORT;
-
-typedef struct {
-	ElType TI[5]; /* memori tempat penyimpan elemen (container) */
-}VILLAGE;
-
-typedef struct {
-	CASTLE C;
-    TOWER T;
-    FORT F;
-    VILLAGE V;
+	ElType C[5]; /* memori tempat penyimpan elemen (container) */
+    ElType T[5]; /* memori tempat penyimpan elemen (container) */
+    ElType F[5]; /* memori tempat penyimpan elemen (container) */
+    ElType V[5]; /* memori tempat penyimpan elemen (container) */
 }JNS;
 
 
