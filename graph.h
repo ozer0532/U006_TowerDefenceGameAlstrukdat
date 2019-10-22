@@ -11,7 +11,7 @@
 #define IdxMax 30
 
 typedef struct {
-    int Mem[IdxMax][IdxMax];
+    boolean Mem[IdxMax][IdxMax];
     int Neff; /* banyaknya/ukuran baris yg terdefinisi */
 } Graph;
 /* Jika x = Baris dan y = Kolom, maka Mem[x][y] = 1 menunjukkan bahwa terdapat relasi x->y */
