@@ -11,10 +11,9 @@
 #define KolMin 1
 #define KolMax 30
 
-typedef int indeks; /* indeks baris, kolom */
-typedef int ElType;
+
 typedef struct {
-    ElType Mem[BrsMax+1][KolMax+1];
+    int Mem[BrsMax+1][KolMax+1];
     int NBrsEff; /* banyaknya/ukuran baris yg terdefinisi */
     int NKolEff; /* banyaknya/ukuran kolom yg terdefinisi */
 } MATRIKS;
@@ -39,17 +38,17 @@ boolean IsIdxValid (int i, int j);
 /* Mengirimkan true jika i, j adalah indeks yang valid untuk matriks apa pun */
 
 /* *** Selektor: Untuk sebuah matriks M yang terdefinisi: *** */
-indeks GetFirstIdxBrs (MATRIKS M);
+int GetFirstIdxBrs (MATRIKS M);
 /* Mengirimkan indeks baris terkecil M */
-indeks GetFirstIdxKol (MATRIKS M);
+int GetFirstIdxKol (MATRIKS M);
 /* Mengirimkan indeks kolom terkecil M */
-indeks GetLastIdxBrs (MATRIKS M);
+int GetLastIdxBrs (MATRIKS M);
 /* Mengirimkan indeks baris terbesar M */
-indeks GetLastIdxKol (MATRIKS M);
+int GetLastIdxKol (MATRIKS M);
 /* Mengirimkan indeks kolom terbesar M */
-boolean IsIdxEff (MATRIKS M, indeks i, indeks j);
+boolean IsIdxEff (MATRIKS M, int i, int j);
 /* Mengirimkan true jika i, j adalah indeks efektif bagi M */
-ElType GetElmtDiagonal (MATRIKS M, indeks i);
+int GetElmtDiagonal (MATRIKS M, int i);
 /* Mengirimkan elemen M(i,i) */
 
 /* ********** Assignment  MATRIKS ********** */
@@ -88,9 +87,9 @@ MATRIKS KurangMATRIKS (MATRIKS M1, MATRIKS M2);
 MATRIKS KaliMATRIKS (MATRIKS M1, MATRIKS M2);
 /* Prekondisi : Ukuran kolom efektif M1 = ukuran baris efektif M2 */
 /* Mengirim hasil perkalian matriks: salinan M1 * M2 */
-MATRIKS KaliKons (MATRIKS M, ElType X);
+MATRIKS KaliKons (MATRIKS M, int X);
 /* Mengirim hasil perkalian setiap elemen M dengan X */
-void PKaliKons (MATRIKS * M, ElType K);
+void PKaliKons (MATRIKS * M, int K);
 /* I.S. M terdefinisi, K terdefinisi */
 /* F.S. Mengalikan setiap elemen M dengan K */
 
@@ -107,7 +106,7 @@ boolean EQSize (MATRIKS M1, MATRIKS M2);
 /* yaitu GetBrsEff(M1) = GetNBrsEff (M2) dan GetNKolEff (M1) = GetNKolEff (M2) */
 
 /* ********** Operasi lain ********** */
-int NBElmt (MATRIKS M);
+int NBElmtMTRX (MATRIKS M);
 /* Mengirimkan banyaknya elemen M */
 
 /* ********** KELOMPOK TEST TERHADAP MATRIKS ********** */

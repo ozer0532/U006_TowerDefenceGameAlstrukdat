@@ -4,6 +4,8 @@
 #ifndef BANGUNAN_H
 #define BANGUNAN_H
 
+#define Nil NULL
+
 #include "boolean.h"
 #include "point.h"
 #include "queue.h"
@@ -12,7 +14,7 @@
 typedef struct {
 	int A; 
     int M;
-    int P;
+    char P;     // y untuk Yes dan 'n' untuk No
     int U;
 }KOMPONEN;
 
@@ -28,15 +30,25 @@ typedef struct {
 
 
 typedef struct {
-	char Milik; //Terdiri dari A untuk player 1, B untuk player 2, X untuk bangunan yang belum dikuasai
-    JNS Jenis;  //Jenis Bangunannya
-    int Jpas;   //Jumlah pasukan
-    int Level;  //Level
-    char jenis; //for now biar gw bisa progress mesininput gini, gw ga paham cara ngeassign jenis kalo bentuknya kaya diatas
-    int A[5],M[5],U;
-    boolean P[5];
-    POINT Lok;  //Menunjukkan Lokasi. Diakses dengan Lok.X dan Lok.Y
+	char Milik; 
+    //Terdiri dari A untuk player 1, B untuk player 2, X untuk bangunan yang belum dikuasai
+    
+    JNS JenisAcuan;
+    /*Cara akses buat jenis acuan
+    Bangunan B;
+    B.C[1].A   -- nandain kalau ngeliat acuan dari Castle(C) Level 1 untuk bagian A nya 
+    B.F[5].P   -- melihat acuan dari Fort(F) Level 5 bagian P nya
+    */
+
+    int Jpas;       //Jumlah pasukan
+    int Level;      //Level
+    char Jenis;     //ini bisa dijadiin buat jenis bangunan saat ini
+    POINT Lok;      //Menunjukkan Lokasi. Diakses dengan Lok.X dan Lok.Y
     int hubungan[31];
+
+    //btw kayanya ngga akan kepake
+    int A[5],M[5],U;
+    boolean P[5];  
 }BANGUNAN;
 
 typedef struct {
@@ -46,6 +58,11 @@ typedef struct {
     Queue sA, sB;
     MATRIKS peta;
 }STATE;
+
+typedef struct {
+    Queue SA;
+    Queue SB;
+} Skill;
 
 
 #endif

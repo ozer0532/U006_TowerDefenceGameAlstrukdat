@@ -4,6 +4,7 @@
 #include <stdio.h>
 
 
+
 POINT MakePOINT (int X, int Y)
 //Merancang POINT dari komponen komponennya
 {
