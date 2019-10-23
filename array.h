@@ -11,6 +11,7 @@
 #define IdxMax 100
 #define IdxMin 1
 #define IdxUndef -999 
+#define ElUndef '*'
 
 
 /* Jenis Bangunan tidak ada kepemilikan*/
@@ -20,6 +21,14 @@ typedef struct {
   ElType TI[IdxMax+1]; /* memori tempat penyimpan elemen (container) */
 } BangunanTot;
 
+
+// Misalnya tabelnya maxnya 5 dan isinya POINT (8,2) (2,8) (4,5)  maka tabel arraynya akan menjadi (2,7)(2,8)(4,5) * * (Pendefinisian tabel harus SELALU terurut menaik berdasar lokasi)
+//Array Terurut berdasarkan Lokasinya 
+//Contoh : Lokasinya (8,2) (2,8) (4,5) * * (2,7) 
+//Maka akan terurut dari baris kemudian kolom (2,7)(2,8)(4,5)(8,2) * *
+// Metode searching dilakukan hingga menemukan ElUndef
+// Saat menghapus satu elemen maka elemen lainnya akan menggeser. Misal (2,7) dihapus maka jadi (2,8)(4,5)(8,2) * * *
+// Mirip PrioQueue
 
 /* ********** SELEKTOR ********** */
 #define TI(T)     (T).TI
@@ -88,17 +97,16 @@ void TulisIsiTab (TabInt T);
 /* ********** SEARCHING ********** */
 /* ***  Perhatian : Tabel boleh kosong!! *** */
 
-IdxType Search2 (TabInt T, ElType X);
+IdxType SearchLokasiBangunan (TabInt T, POINT X);
 /* Search apakah ada elemen tabel T yang bernilai X */
 /* Jika ada, menghasilkan indeks i terkecil, dengan elemen ke-i = X */
 /* Jika tidak ada, mengirimkan IdxUndef */
 /* Menghasilkan indeks tak terdefinisi (IdxUndef) jika tabel T kosong */
 /* Memakai skema search DENGAN boolean Found */
-boolean SearchB (TabInt T, ElType X);
+boolean IsBangunanNon (TabInt T, POINT X);
 /* Search apakah ada elemen tabel T yang bernilai X */
 /* Jika ada, menghasilkan true, jika tidak ada menghasilkan false */
 /* Memakai Skema search DENGAN boolean */
-boolean SearchSentinel (TabInt T, ElType X);
 
 
 
@@ -110,56 +118,29 @@ void CopyTab (TabInt Tin, TabInt * Tout);
 
 
 /* ********** SORTING ********** */
+
+
+//Array Terurut berdasarkan Lokasinya 
+//Contoh : Lokasinya (8,2) (2,8) (4,5) (2,7) 
+//Maka akan terurut dari barus kemudian kolom (2,7)(2,8)(4,5)(8,2)
+
+
+
 void InsSortAsc (TabInt * T);
 /* I.S. T boleh kosong */
 /* F.S. T elemennya terurut menaik dengan Insertion Sort */
 /* Proses : mengurutkan T sehingga elemennya menaik/membesar */
 /*          tanpa menggunakan tabel kerja */
 
-/* ********** MENAMBAH ELEMEN ********** */
-/* *** Menambahkan elemen terakhir *** */
-void AddAsLastEl (TabInt * T, ElType X);
-/* Proses: Menambahkan X sebagai elemen terakhir tabel */
-/* I.S. Tabel T boleh kosong, tetapi tidak penuh */
-/* F.S. X adalah elemen terakhir T yang baru */
-void AddEli (TabInt * T, ElType X, IdxType i);
-/* Menambahkan X sebagai elemen ke-i tabel tanpa mengganggu kontiguitas 
-   terhadap elemen yang sudah ada */
-/* I.S. Tabel tidak kosong dan tidak penuh */
-/*      i adalah indeks yang valid. */
-/* F.S. X adalah elemen ke-i T yang baru */
-/* Proses : Geser elemen ke-i+1 s.d. terakhir */
-/*          Isi elemen ke-i dengan X */
-
-/* ********** MENGHAPUS ELEMEN ********** */
-void DelLastEl (TabInt * T, ElType * X);
-/* Proses : Menghapus elemen terakhir tabel */
-/* I.S. Tabel tidak kosong */
-/* F.S. X adalah nilai elemen terakhir T sebelum penghapusan, */
-/*      Banyaknya elemen tabel berkurang satu */
-/*      Tabel T mungkin menjadi kosong */
-void DelEli (TabInt * T, IdxType i, ElType * X);
-/* Menghapus elemen ke-i tabel tanpa mengganggu kontiguitas */
-/* I.S. Tabel tidak kosong, i adalah indeks efektif yang valid */
-/* F.S. X adalah nilai elemen ke-i T sebelum penghapusan */
-/*      Banyaknya elemen tabel berkurang satu */
-/*      Tabel T mungkin menjadi kosong */
-/* Proses : Geser elemen ke-i+1 s.d. elemen terakhir */
-/*          Kurangi elemen efektif tabel */
 
 /* ********** TABEL DGN ELEMEN TERURUT MEMBESAR ********** */
-IdxType SearchUrut (TabInt T, ElType X);
+IdxType SearchUrut (TabInt T, POINT X);
 /* Prekondisi: Tabel T boleh kosong. Jika tidak kosong, elemen terurut membesar. */
 /* Mengirimkan indeks di mana harga X dengan indeks terkecil diketemukan */
 /* Mengirimkan IdxUndef jika tidak ada elemen tabel bernilai X */
 /* Menghasilkan indeks tak terdefinisi (IdxUndef) jika tabel kosong */
 
-void MaxMinUrut (TabInt T, ElType * Max, ElType * Min);
-/* I.S. Tabel T tidak kosong, elemen terurut membesar */
-/* F.S. Max berisi nilai maksimum T;
-        Min berisi nilai minimum T */
-
-void Add1Urut (TabInt * T, ElType X);
+void Add1Urut (TabInt * T, POINT X);
 /* Menambahkan X tanpa mengganggu keterurutan nilai dalam tabel */
 /* Nilai dalam tabel tidak harus unik. */
 /* I.S. Tabel T boleh kosong, boleh penuh. */
@@ -168,7 +149,7 @@ void Add1Urut (TabInt * T, ElType X);
 /*      Jika tabel penuh, maka tabel tetap. */
 /* Proses : Search tempat yang tepat sambil geser */
 /*          Insert X pada tempat yang tepat tersebut tanpa mengganggu keterurutan */
-void Del1Urut (TabInt * T, ElType X);
+void Del1Urut (TabInt * T, POINT X);
 /* Menghapus X yang pertama kali (pada indeks terkecil) yang ditemukan */
 /* I.S. Tabel tidak kosong */
 /* F.S. Jika ada elemen tabel bernilai X , */
