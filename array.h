@@ -36,43 +36,43 @@ typedef struct {
 
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create tabel kosong  */
-void MakeEmpty (TabInt * T);
+void MakeEmpty (BangunanTot * T);
 /* I.S. T sembarang */
 /* F.S. Terbentuk tabel T kosong dengan kapasitas IdxMax-IdxMin+1 */
 
-int NbElmt (TabInt T);
+int NbElmt (BangunanTot T);
 /* Mengirimkan banyaknya elemen efektif tabel */
 /* Mengirimkan nol jika tabel kosong */
 /* *** Daya tampung container *** */
-int MaxNbEl (TabInt T);
+int MaxNbEl (BangunanTot T);
 /* Mengirimkan maksimum elemen yang dapat ditampung oleh tabel */
 /* *** Selektor INDEKS *** */
-IdxType GetFirstIdx (TabInt T);
+IdxType GetFirstIdx (BangunanTot T);
 /* Prekondisi : Tabel T tidak kosong */
 /* Mengirimkan indeks elemen T pertama */
-IdxType GetLastIdx (TabInt T);
+IdxType GetLastIdx (BangunanTot T);
 /* Prekondisi : Tabel T tidak kosong */
 /* Mengirimkan indeks elemen T terakhir */
 
 /* ********** Test Indeks yang valid ********** */
-boolean IsIdxValid (TabInt T, IdxType i);
+boolean IsIdxValid (BangunanTot T, IdxType i);
 /* Mengirimkan true jika i adalah indeks yang valid utk ukuran tabel */
 /* yaitu antara indeks yang terdefinisi utk container*/
-boolean IsIdxEff (TabInt T, IdxType i);
+boolean IsIdxEff (BangunanTot T, IdxType i);
 /* Mengirimkan true jika i adalah indeks yang terdefinisi utk tabel */
 /* yaitu antara FirstIdx(T)..LastIdx(T) */
 
 /* ********** TEST KOSONG/PENUH ********** */
 /* *** Test tabel kosong *** */
-boolean IsEmpty (TabInt T);
+boolean IsEmpty (BangunanTot T);
 /* Mengirimkan true jika tabel T kosong, mengirimkan false jika tidak */
 /* *** Test tabel penuh *** */
-boolean IsFull (TabInt T);
+boolean IsFull (BangunanTot T);
 /* Mengirimkan true jika tabel T penuh, mengirimkan false jika tidak */
 
 /* ********** BACA dan TULIS dengan INPUT/OUTPUT device ********** */
 /* *** Mendefinisikan isi tabel dari pembacaan *** */
-void BacaIsi (TabInt * T);
+void BacaIsi (BangunanTot * T);
 /* I.S. T sembarang */
 /* F.S. Tabel T terdefinisi */
 /* Proses : membaca banyaknya elemen T dan mengisi nilainya */
@@ -83,7 +83,7 @@ void BacaIsi (TabInt * T);
       IdxMin satu per satu diakhiri enter */
 /*    Jika N = 0; hanya terbentuk T kosong */
 
-void TulisIsiTab (TabInt T);
+void TulisIsiTab (BangunanTot T);
 /* Proses : Menuliskan isi tabel dengan traversal, tabel ditulis di antara kurung siku; 
    antara dua elemen dipisahkan dengan separator "koma", tanpa tambahan karakter di depan,
    di tengah, atau di belakang, termasuk spasi dan enter */
@@ -97,13 +97,13 @@ void TulisIsiTab (TabInt T);
 /* ********** SEARCHING ********** */
 /* ***  Perhatian : Tabel boleh kosong!! *** */
 
-IdxType SearchLokasiBangunan (TabInt T, POINT X);
+IdxType SearchLokasiBangunan (BangunanTot T, POINT X);
 /* Search apakah ada elemen tabel T yang bernilai X */
 /* Jika ada, menghasilkan indeks i terkecil, dengan elemen ke-i = X */
 /* Jika tidak ada, mengirimkan IdxUndef */
 /* Menghasilkan indeks tak terdefinisi (IdxUndef) jika tabel T kosong */
 /* Memakai skema search DENGAN boolean Found */
-boolean IsBangunanNon (TabInt T, POINT X);
+boolean IsBangunanNon (BangunanTot T, POINT X);
 /* Search apakah ada elemen tabel T yang bernilai X */
 /* Jika ada, menghasilkan true, jika tidak ada menghasilkan false */
 /* Memakai Skema search DENGAN boolean */
@@ -111,7 +111,7 @@ boolean IsBangunanNon (TabInt T, POINT X);
 
 
 /* ********** OPERASI LAIN ********** */
-void CopyTab (TabInt Tin, TabInt * Tout);
+void CopyTab (BangunanTot Tin, BangunanTot * Tout);
 /* I.S. Tin terdefinisi, Tout sembarang */
 /* F.S. Tout berisi salinan dari Tin (elemen dan ukuran identik) */
 /* Proses : Menyalin isi Tin ke Tout */
@@ -126,7 +126,7 @@ void CopyTab (TabInt Tin, TabInt * Tout);
 
 
 
-void InsSortAsc (TabInt * T);
+void InsSortAsc (BangunanTot * T);
 /* I.S. T boleh kosong */
 /* F.S. T elemennya terurut menaik dengan Insertion Sort */
 /* Proses : mengurutkan T sehingga elemennya menaik/membesar */
@@ -134,13 +134,13 @@ void InsSortAsc (TabInt * T);
 
 
 /* ********** TABEL DGN ELEMEN TERURUT MEMBESAR ********** */
-IdxType SearchUrut (TabInt T, POINT X);
+IdxType SearchUrut (BangunanTot T, POINT X);
 /* Prekondisi: Tabel T boleh kosong. Jika tidak kosong, elemen terurut membesar. */
 /* Mengirimkan indeks di mana harga X dengan indeks terkecil diketemukan */
 /* Mengirimkan IdxUndef jika tidak ada elemen tabel bernilai X */
 /* Menghasilkan indeks tak terdefinisi (IdxUndef) jika tabel kosong */
 
-void Add1Urut (TabInt * T, POINT X);
+void Add1Urut (BangunanTot * T, POINT X);
 /* Menambahkan X tanpa mengganggu keterurutan nilai dalam tabel */
 /* Nilai dalam tabel tidak harus unik. */
 /* I.S. Tabel T boleh kosong, boleh penuh. */
@@ -149,7 +149,7 @@ void Add1Urut (TabInt * T, POINT X);
 /*      Jika tabel penuh, maka tabel tetap. */
 /* Proses : Search tempat yang tepat sambil geser */
 /*          Insert X pada tempat yang tepat tersebut tanpa mengganggu keterurutan */
-void Del1Urut (TabInt * T, POINT X);
+void Del1Urut (BangunanTot * T, POINT X);
 /* Menghapus X yang pertama kali (pada indeks terkecil) yang ditemukan */
 /* I.S. Tabel tidak kosong */
 /* F.S. Jika ada elemen tabel bernilai X , */
