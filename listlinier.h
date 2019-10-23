@@ -22,6 +22,7 @@ typedef struct {
 typedef struct {
     List L1;
 	List L2;
+    List GRAPH;
 } Pemain; 
 
 

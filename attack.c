@@ -8,7 +8,7 @@ void PrintDaftarBangunan1 (Pemain Pe)
 //Mencetak daftar bangunan dari pemain 1
 //I.S L adalah List1 YANG SUDAH TERDEFINISI dimana Info(L).Milik='A'
 {
-    int N;
+    int N,jmlh;
     address P;
     int no=1;
     P=First(Pe.L1);
@@ -43,6 +43,12 @@ void PrintDaftarBangunan1 (Pemain Pe)
         printf("Bangunan yang digunakan untuk menyerang: ");
         scanf("%d",&N);
         printf("Daftar bangunan yang dapat diserang:\n");
+        //////////////////////////
+        printf("Bangunan yang diserang : ");
+
+
+
+        scanf("Jumlah pasukkan: %d",&jmlh)
 
 
 
