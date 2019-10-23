@@ -14,32 +14,29 @@
 typedef struct {
 	int A; 
     int M;
-    char P;     // y untuk Yes dan 'n' untuk No
+    int P;     // 1 untuk Yes dan 0 untuk No
     int U;
 }KOMPONEN;
 
-typedef KOMPONEN ElType;   /* type elemen tabel */
-
-typedef struct {
-	ElType C[5]; /* memori tempat penyimpan elemen (container) */
-    ElType T[5]; /* memori tempat penyimpan elemen (container) */
-    ElType F[5]; /* memori tempat penyimpan elemen (container) */
-    ElType V[5]; /* memori tempat penyimpan elemen (container) */
-}JNS;
+typedef KOMPONEN EllType;   /* type elemen tabel */
 
 
-
-typedef struct {
-	char Milik; 
-    //Terdiri dari A untuk player 1, B untuk player 2, X untuk bangunan yang belum dikuasai
-    
-    JNS JenisAcuan;
+typedef struct {   
+    EllType C[5]; /* memori tempat penyimpan elemen (container) */
+    EllType T[5]; /* memori tempat penyimpan elemen (container) */
+    EllType F[5]; /* memori tempat penyimpan elemen (container) */
+    EllType V[5]; /* memori tempat penyimpan elemen (container) */
     /*Cara akses buat jenis acuan
-    Bangunan B;
-    B.C[1].A   -- nandain kalau ngeliat acuan dari Castle(C) Level 1 untuk bagian A nya 
+    Acuan A;
+    A.C[1].A   -- nandain kalau ngeliat acuan dari Castle(C) Level 1 untuk bagian A nya 
     B.F[5].P   -- melihat acuan dari Fort(F) Level 5 bagian P nya
     */
+}ACUAN;
 
+typedef struct {
+	int Milik; 
+    //Terdiri dari 1 untuk player 1, 2 untuk player 2, X untuk bangunan yang belum dikuasai
+    //Milik = 0 jika belom dimiliki siapa-siapa
     int Jpas;       //Jumlah pasukan
     int Level;      //Level
     char Jenis;     //ini bisa dijadiin buat jenis bangunan saat ini
@@ -65,4 +62,25 @@ typedef struct {
 } Skill;
 
 
+void Inisialisasi(ACUAN *Ac);
+//Jika ingin menggunakan acuan harus diinisialisasikan dulu
+
+//Cari acuan
+int CariDariAcuan (ACUAN Ac, char Jenis, int Lvl, char AMPU);
+//I.S Acuan harus sudah di INISIALISASIKAN
+//F.S Keluaran berupa integer
+
+void MakeBangunanEmpty (BANGUNAN *B);
+//Inisialisasi Bangunan dengan membuat semua elemennya 0
+
+BANGUNAN MakeBANGUNAN(BANGUNAN *B, int Milik, int Jpas, int Level, char Jenis,  POINT Lok);
+//Merancang BANGUNAN dari komponen-komponen yang ada
+// I.S BANGUNAN sembarang
+// F.S BANGUNAN terdefinisi
+
+boolean JumlahPasukanValid (BANGUNAN B, int JPas);
+//True jika jumlah pasukan  <=M
+
+void ResetBangunan(BANGUNAN *B, int JPasAwal, int Milik);
+//Reset bangunan dilakukan saat bangunan diambil alih
 #endif

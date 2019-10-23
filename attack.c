@@ -4,20 +4,58 @@
 #include "boolean.h"
 #include "attack.h"
 
-void PrintDaftarBangunan1 (Pemain Pe)
-//Mencetak daftar bangunan dari pemain 1
-//I.S L adalah List1 YANG SUDAH TERDEFINISI dimana Info(L).Milik='A'
+address SearchPOINT (List L, POINT Po)
 {
-    int N,jmlh;
     address P;
-    int no=1;
-    P=First(Pe.L1);
-    printf("Daftar bangunan:\n");
-
-    if (IsEmptyList(Pe.L1)) {
-        printf("Kamu belom punya bangunan\n");
+    boolean Found=false;
+    P=First(L);
+    while (Next(P)!= Nil && (!Found)) {
+        if (Info(P).Lok.X==Po.X  && Info(P).Lok.Y==Po.Y) {
+            Found = true;
+        }
+        else {
+            P=Next(P);
+        }
+    }
+    if (IsEmptyL(L)) {
+        return Nil;
     }
     else {
+        return P;
+    }
+}
+void CetakDaftarBangunan (Pemain Pe, int PEMAINKE)
+//Mencetak daftar bangunan dari pemain 1
+//I.S L adalah List1 YANG SUDAH TERDEFINISI dimana Info(L).Milik=1 
+{
+    int N;
+    address P;
+    int no=1;
+    boolean Empty=true;
+    
+    printf("Daftar bangunan:\n");
+
+    if (PEMAINKE==1 ){ 
+        P=First(Pe.L1);
+        if (IsEmptyL(Pe.L1)) {
+            printf("Kamu belom punya bangunan\n");
+        }
+        else {
+            Empty= false;
+        }
+    }
+    else {
+        P=First(Pe.L2);
+        if (IsEmptyL(Pe.L2)) {
+            printf("Kamu belom punya bangunan\n");
+        }
+        else {
+            Empty= false;
+        }
+    }
+
+
+    if(Empty==false) {
         while(Next(P)!=Nil) {
             printf("%d. ",no);
             
@@ -39,28 +77,34 @@ void PrintDaftarBangunan1 (Pemain Pe)
             no++;
             P=Next(P);
         }
-
-        printf("Bangunan yang digunakan untuk menyerang: ");
-        scanf("%d",&N);
-        printf("Daftar bangunan yang dapat diserang:\n");
-        //////////////////////////
-        printf("Bangunan yang diserang : ");
-
-
-
-        scanf("Jumlah pasukkan: %d",&jmlh)
-
-
-
     }
-
-
 }
 
-void PrintPOINT (BANGUNAN B)
-//Memprint Letak Bangunan B
-//I.S B terdefinisi
-//F.S tercetak ke layar (X,Y) tanpa enter spasi
+
+void UpdateBangunan (Pemain *Pe, BangunanTot *B,  POINT Po, int PEMAINKE, int Jmlh)
+//Membuat Bangunan menjadi berubah kepemilikan
+//Proses: Misal Bangunan milik P1 baru dikuasai maka LIST L1 berkurang 1  LIST L2 bertambah, Bangunan TOtal tetap
 {
-	printf("(%d,%d)",B.Lok.X,B.Lok.Y);
+    address P;
+    if (PEMAINKE==1){
+        List La= (*Pe).L1;
+        List Lb= (*Pe).L2;
+
+        if (IsBangunanNon(*B,Po))
+        {
+            P=AlokasiL((*B).TI[SearchLokasiBangunan(*B,Po)]);
+            ResetBangunan(Info(P),Jmlh,PEMAINKE);
+            InsertLastL(&La,P);
+            Del1Urut(B,Po);
+
+        }
+        else
+        {
+            P=SearchPOINT((*Pe).L2,Po);
+            ResetBangunan(Info(P),Jmlh,PEMAINKE);
+            InsertLastL(&La,P);
+            DelPL(&Lb,Info(P));
+        }
+    }
+    
 }

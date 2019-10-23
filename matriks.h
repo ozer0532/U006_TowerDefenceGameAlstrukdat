@@ -31,24 +31,23 @@ void MakeMATRIKS (int NB, int NK, MATRIKS * M);
 /* *** Selektor *** */
 #define NBrsEff(M) (M).NBrsEff
 #define NKolEff(M) (M).NKolEff
-#define Elmt(M,i,j) (M).Mem[(i)][(j)]
 
 /* *** Selektor "DUNIA MATRIKS" *** */
-boolean IsIdxValid (int i, int j);
+boolean IsIdxValidM (int i, int j);
 /* Mengirimkan true jika i, j adalah indeks yang valid untuk matriks apa pun */
 
 /* *** Selektor: Untuk sebuah matriks M yang terdefinisi: *** */
-int GetFirstIdxBrs (MATRIKS M);
+int GetFirstIdxBrsM (MATRIKS M);
 /* Mengirimkan indeks baris terkecil M */
-int GetFirstIdxKol (MATRIKS M);
+int GetFirstIdxKolM (MATRIKS M);
 /* Mengirimkan indeks kolom terkecil M */
-int GetLastIdxBrs (MATRIKS M);
+int GetLastIdxBrsM (MATRIKS M);
 /* Mengirimkan indeks baris terbesar M */
-int GetLastIdxKol (MATRIKS M);
+int GetLastIdxKolM (MATRIKS M);
 /* Mengirimkan indeks kolom terbesar M */
-boolean IsIdxEff (MATRIKS M, int i, int j);
+boolean IsIdxEffM (MATRIKS M, int i, int j);
 /* Mengirimkan true jika i, j adalah indeks efektif bagi M */
-int GetElmtDiagonal (MATRIKS M, int i);
+int GetElmtDiagonalM (MATRIKS M, int i);
 /* Mengirimkan elemen M(i,i) */
 
 /* ********** Assignment  MATRIKS ********** */
@@ -94,19 +93,19 @@ void PKaliKons (MATRIKS * M, int K);
 /* F.S. Mengalikan setiap elemen M dengan K */
 
 /* ********** KELOMPOK OPERASI RELASIONAL TERHADAP MATRIKS ********** */
-boolean EQ (MATRIKS M1, MATRIKS M2);
+boolean EQM (MATRIKS M1, MATRIKS M2);
 /* Mengirimkan true jika M1 = M2, yaitu NBElmt(M1) = NBElmt(M2) dan */
 /* untuk setiap i,j yang merupakan indeks baris dan kolom M1(i,j) = M2(i,j) */
 /* Juga merupakan strong EQ karena GetFirstIdxBrs(M1) = GetFirstIdxBrs(M2)
    dan GetLastIdxKol(M1) = GetLastIdxKol(M2) */
-boolean NEQ (MATRIKS M1, MATRIKS M2);
+boolean NEQM (MATRIKS M1, MATRIKS M2);
 /* Mengirimkan true jika M1 tidak sama dengan M2 */
-boolean EQSize (MATRIKS M1, MATRIKS M2);
+boolean EQSizeM (MATRIKS M1, MATRIKS M2);
 /* Mengirimkan true jika ukuran efektif matriks M1 sama dengan ukuran efektif M2 */
 /* yaitu GetBrsEff(M1) = GetNBrsEff (M2) dan GetNKolEff (M1) = GetNKolEff (M2) */
 
 /* ********** Operasi lain ********** */
-int NBElmtMTRX (MATRIKS M);
+int NBElmtM (MATRIKS M);
 /* Mengirimkan banyaknya elemen M */
 
 /* ********** KELOMPOK TEST TERHADAP MATRIKS ********** */
