@@ -8,6 +8,7 @@
 
 #include "boolean.h"
 #include "bangunan.h"
+#include "array.h"
 
 typedef BANGUNAN infotype;
 typedef struct tElmtlist *address;
@@ -22,7 +23,6 @@ typedef struct {
 typedef struct {
     List L1;
 	List L2;
-    List GRAPH;
 } Pemain; 
 
 

@@ -6,6 +6,7 @@
 
 #include "boolean.h"
 #include "bangunan.h"
+#include "listlinier.h"
 
 /*  Kamus Umum */
 #define IdxMax 100
@@ -19,6 +20,7 @@ typedef int IdxType;  /* type indeks */
 typedef BANGUNAN ElType;   /* type elemen tabel */
 typedef struct { 
   ElType TI[IdxMax+1]; /* memori tempat penyimpan elemen (container) */
+  address P;
 } BangunanTot;
 
 
@@ -36,7 +38,7 @@ typedef struct {
 
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create tabel kosong  */
-void MakeEmpty (BangunanTot * T);
+void MakeEmptyBangunanTot (BangunanTot * T);
 /* I.S. T sembarang */
 /* F.S. Terbentuk tabel T kosong dengan kapasitas IdxMax-IdxMin+1 */
 

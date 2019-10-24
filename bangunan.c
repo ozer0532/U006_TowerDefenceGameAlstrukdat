@@ -142,7 +142,7 @@ int CariDariAcuan (ACUAN Ac, char Jenis, int Lvl, char AMPU)
 
 }
 
-void MakeBangunanEmpty (BANGUNAN *B)
+void MakeBANGUNANEmpty (BANGUNAN *B)
 //Inisialisasi Bangunan dengan membuat semua elemennya 0
 {
     (*B).Milik=0;
@@ -161,7 +161,7 @@ BANGUNAN MakeBANGUNAN(BANGUNAN *B, int Milik, int Jpas, int Level, char Jenis,  
 {
     (*B).Milik=Milik;
     (*B).Jenis=Jenis;
-    (*B).Jpas=JPas;
+    (*B).Jpas=Jpas;
     (*B).Level=Level;
     (*B).Lok.X=Lok.X;
     (*B).Lok.Y=Lok.Y;

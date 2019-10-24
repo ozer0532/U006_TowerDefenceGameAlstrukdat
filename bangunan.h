@@ -48,18 +48,20 @@ typedef struct {
     boolean P[5];  
 }BANGUNAN;
 
-typedef struct {
-    BANGUNAN listb[31];
-    int JBang;
-    int turn;
-    Queue sA, sB;
-    MATRIKS peta;
-}STATE;
 
 typedef struct {
     Queue SA;
     Queue SB;
-} Skill;
+} SKILL;
+
+typedef struct {
+    BANGUNAN listb[31];
+    int JBang;
+    int turn;
+    SKILL S;
+    MATRIKS peta;
+}STATE;
+
 
 
 void Inisialisasi(ACUAN *Ac);
@@ -70,7 +72,7 @@ int CariDariAcuan (ACUAN Ac, char Jenis, int Lvl, char AMPU);
 //I.S Acuan harus sudah di INISIALISASIKAN
 //F.S Keluaran berupa integer
 
-void MakeBangunanEmpty (BANGUNAN *B);
+void MakeBANGUNANEmpty (BANGUNAN *B);
 //Inisialisasi Bangunan dengan membuat semua elemennya 0
 
 BANGUNAN MakeBANGUNAN(BANGUNAN *B, int Milik, int Jpas, int Level, char Jenis,  POINT Lok);
@@ -81,6 +83,6 @@ BANGUNAN MakeBANGUNAN(BANGUNAN *B, int Milik, int Jpas, int Level, char Jenis,  
 boolean JumlahPasukanValid (BANGUNAN B, int JPas);
 //True jika jumlah pasukan  <=M
 
-void ResetBangunan(BANGUNAN *B, int JPasAwal, int Milik);
+void ResetBANGUNAN(BANGUNAN *B, int JPasAwal, int Milik);
 //Reset bangunan dilakukan saat bangunan diambil alih
 #endif
