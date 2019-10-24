@@ -75,7 +75,7 @@ int CariDariAcuan (ACUAN Ac, char Jenis, int Lvl, char AMPU);
 void MakeBANGUNANEmpty (BANGUNAN *B);
 //Inisialisasi Bangunan dengan membuat semua elemennya 0
 
-BANGUNAN MakeBANGUNAN(BANGUNAN *B, int Milik, int Jpas, int Level, char Jenis,  POINT Lok);
+BANGUNAN MakeBANGUNAN (int Milik, int Jpas, int Level, char Jenis,  POINT Lok);
 //Merancang BANGUNAN dari komponen-komponen yang ada
 // I.S BANGUNAN sembarang
 // F.S BANGUNAN terdefinisi

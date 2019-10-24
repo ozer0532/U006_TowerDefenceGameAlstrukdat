@@ -12,7 +12,7 @@
 #define IdxMax 100
 #define IdxMin 1
 #define IdxUndef -999 
-#define ElUndef '*'
+#define ElUndef 999
 
 
 /* Jenis Bangunan tidak ada kepemilikan*/
@@ -22,6 +22,11 @@ typedef struct {
   ElType TI[IdxMax+1]; /* memori tempat penyimpan elemen (container) */
   address P;
 } BangunanTot;
+
+typedef int El2Type;   /* type elemen tabel */
+typedef struct { 
+  El2Type TI[IdxMax+1]; /* memori tempat penyimpan elemen (container) */\
+} Graph;
 
 
 // Misalnya tabelnya maxnya 5 dan isinya POINT (8,2) (2,8) (4,5)  maka tabel arraynya akan menjadi (2,7)(2,8)(4,5) * * (Pendefinisian tabel harus SELALU terurut menaik berdasar lokasi)

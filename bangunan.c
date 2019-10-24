@@ -154,18 +154,19 @@ void MakeBANGUNANEmpty (BANGUNAN *B)
 }
 
 
-BANGUNAN MakeBANGUNAN(BANGUNAN *B, int Milik, int Jpas, int Level, char Jenis,  POINT Lok)
+BANGUNAN MakeBANGUNAN (int Milik, int Jpas, int Level, char Jenis,  POINT Lok)
 //Merancang BANGUNAN dari komponen-komponen yang ada
 // I.S BANGUNAN terinisialisasi lewat MakeBangunanEmpty
 // F.S BANGUNAN terdefinisi
 {
-    (*B).Milik=Milik;
-    (*B).Jenis=Jenis;
-    (*B).Jpas=Jpas;
-    (*B).Level=Level;
-    (*B).Lok.X=Lok.X;
-    (*B).Lok.Y=Lok.Y;
-    return BANGUNAN;
+    BANGUNAN B;
+    (B).Milik=Milik;
+    (B).Jenis=Jenis;
+    (B).Jpas=Jpas;
+    (B).Level=Level;
+    (B).Lok.X=Lok.X;
+    (B).Lok.Y=Lok.Y;
+    return B;
 }
 
 boolean JumlahPasukanValid (BANGUNAN B, int JPas)
