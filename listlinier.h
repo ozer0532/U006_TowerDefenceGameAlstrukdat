@@ -8,9 +8,8 @@
 
 #include "boolean.h"
 #include "bangunan.h"
-#include "array.h"
 
-typedef BANGUNAN infotype;
+typedef int infotype;
 typedef struct tElmtlist *address;
 typedef struct tElmtlist {
 	infotype info;
@@ -58,11 +57,11 @@ void DealokasiL (address *P);
 /* Melakukan dealokasi/pengembalian address P */
 
 /****************** PENCARIAN SEBUAH ELEMEN LIST ******************/
-address SearchBangunanPemain (List L, POINT X);
+address SearchL (List L, infotype X);
 /* Mencari apakah ada elemen list dengan Info(P)= X */
 /* Jika ada, mengirimkan address elemen tersebut. */
 /* Jika tidak ada, mengirimkan Nil */
-boolean IsBangunanPemain (List L, POINT X);
+boolean IsBangunanPemain (List L, infotype X);
 /* Mencari apakah ada elemen list dengan Info(P)= X */
 /* Jika ada, mengirimkan address elemen tersebut. */
 /* Jika tidak ada, mengirimkan Nil */

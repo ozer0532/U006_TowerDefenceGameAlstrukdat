@@ -85,4 +85,7 @@ boolean JumlahPasukanValid (BANGUNAN B, int JPas);
 
 void ResetBANGUNAN(BANGUNAN *B, int JPasAwal, int Milik);
 //Reset bangunan dilakukan saat bangunan diambil alih
+
+void CopyBANGUNAN(BANGUNAN Bin, BANGUNAN *Bout);
+
 #endif

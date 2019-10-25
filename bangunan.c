@@ -177,7 +177,7 @@ boolean JumlahPasukanValid (BANGUNAN B, int JPas)
     return ((JPas <= CariDariAcuan(A,B.Jenis,B.Level,'M')) && (JPas >=0));
 }
 
-void ResetBangunan(BANGUNAN *B, int JPasAwal, int Milik)
+void ResetBANGUNAN(BANGUNAN *B, int JPasAwal, int Milik)
 //Reset bangunan dilakukan saat bangunan diambil alih
 {
     if (JumlahPasukanValid(*B,JPasAwal))
@@ -186,4 +186,14 @@ void ResetBangunan(BANGUNAN *B, int JPasAwal, int Milik)
         (*B).Jpas=JPasAwal;
         (*B).Level=1;
     }
+}
+
+void CopyBANGUNAN(BANGUNAN Bin, BANGUNAN *Bout)
+{
+    (*Bout).Milik=Bin.Milik;
+    (*Bout).Jenis=Bin.Jenis;
+    (*Bout).Jpas=Bin.Jpas;
+    (*Bout).Level=Bin.Level;
+    (*Bout).Lok.X=Bin.Lok.X;
+    (*Bout).Lok.Y=Bin.Lok.Y;
 }

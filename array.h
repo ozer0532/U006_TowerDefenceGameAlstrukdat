@@ -14,19 +14,28 @@
 #define IdxUndef -999 
 #define ElUndef 999
 
+typedef struct {
+  BANGUNAN B;
+  address P;
+} ElType;
 
 /* Jenis Bangunan tidak ada kepemilikan*/
 typedef int IdxType;  /* type indeks */
-typedef BANGUNAN ElType;   /* type elemen tabel */
 typedef struct { 
   ElType TI[IdxMax+1]; /* memori tempat penyimpan elemen (container) */
-  address P;
 } BangunanTot;
 
 typedef int El2Type;   /* type elemen tabel */
 typedef struct { 
   El2Type TI[IdxMax+1]; /* memori tempat penyimpan elemen (container) */\
 } Graph;
+
+//Penambahan dan pengurangan/del ellement pada Array tidak mementingkan address karena
+//address dianggap 0 di penambahan.
+
+//DelArray hanya melakuaknn PENG NOLAN terhadap address karena array dianggap tidak bisa terhapus elemennya.
+
+
 
 
 // Misalnya tabelnya maxnya 5 dan isinya POINT (8,2) (2,8) (4,5)  maka tabel arraynya akan menjadi (2,7)(2,8)(4,5) * * (Pendefinisian tabel harus SELALU terurut menaik berdasar lokasi)
@@ -74,37 +83,13 @@ boolean IsIdxEff (BangunanTot T, IdxType i);
 boolean IsEmpty (BangunanTot T);
 /* Mengirimkan true jika tabel T kosong, mengirimkan false jika tidak */
 /* *** Test tabel penuh *** */
-boolean IsFull (BangunanTot T);
-/* Mengirimkan true jika tabel T penuh, mengirimkan false jika tidak */
-
-/* ********** BACA dan TULIS dengan INPUT/OUTPUT device ********** */
-/* *** Mendefinisikan isi tabel dari pembacaan *** */
-void BacaIsi (BangunanTot * T);
-/* I.S. T sembarang */
-/* F.S. Tabel T terdefinisi */
-/* Proses : membaca banyaknya elemen T dan mengisi nilainya */
-/* 1. Baca banyaknya elemen diakhiri enter, misalnya N */
-/*    Pembacaan diulangi sampai didapat N yang benar yaitu 0 <= N <= MaxNbEl(T) */
-/*    Jika N tidak valid, tidak diberikan pesan kesalahan */
-/* 2. Jika 0 < N <= MaxNbEl(T); Lakukan N kali: Baca elemen mulai dari indeks 
-      IdxMin satu per satu diakhiri enter */
-/*    Jika N = 0; hanya terbentuk T kosong */
-
-void TulisIsiTab (BangunanTot T);
-/* Proses : Menuliskan isi tabel dengan traversal, tabel ditulis di antara kurung siku; 
-   antara dua elemen dipisahkan dengan separator "koma", tanpa tambahan karakter di depan,
-   di tengah, atau di belakang, termasuk spasi dan enter */
-/* I.S. T boleh kosong */
-/* F.S. Jika T tidak kosong: [e1,e2,...,en] */
-/* Contoh : jika ada tiga elemen bernilai 1, 20, 30 akan dicetak: [1,20,30] */
-/* Jika tabel kosong : menulis [] */
 
 
 
 /* ********** SEARCHING ********** */
 /* ***  Perhatian : Tabel boleh kosong!! *** */
 
-IdxType SearchLokasiBangunan (BangunanTot T, POINT X);
+IdxType SearchBangunanTotByAddress (BangunanTot T, address PP);
 /* Search apakah ada elemen tabel T yang bernilai X */
 /* Jika ada, menghasilkan indeks i terkecil, dengan elemen ke-i = X */
 /* Jika tidak ada, mengirimkan IdxUndef */
@@ -118,7 +103,7 @@ boolean IsBangunanNon (BangunanTot T, POINT X);
 
 
 /* ********** OPERASI LAIN ********** */
-void CopyTab (BangunanTot Tin, BangunanTot * Tout);
+void CopyBangunanTot(BangunanTot Tin, BangunanTot * Tout, IdxType in, IdxType out);
 /* I.S. Tin terdefinisi, Tout sembarang */
 /* F.S. Tout berisi salinan dari Tin (elemen dan ukuran identik) */
 /* Proses : Menyalin isi Tin ke Tout */
@@ -133,21 +118,14 @@ void CopyTab (BangunanTot Tin, BangunanTot * Tout);
 
 
 
-void InsSortAsc (BangunanTot * T);
+void InsSortAsc (BangunanTot * T); ///~~~~~~~~~~~~~~
 /* I.S. T boleh kosong */
 /* F.S. T elemennya terurut menaik dengan Insertion Sort */
 /* Proses : mengurutkan T sehingga elemennya menaik/membesar */
 /*          tanpa menggunakan tabel kerja */
 
 
-/* ********** TABEL DGN ELEMEN TERURUT MEMBESAR ********** */
-IdxType SearchUrut (BangunanTot T, POINT X);
-/* Prekondisi: Tabel T boleh kosong. Jika tidak kosong, elemen terurut membesar. */
-/* Mengirimkan indeks di mana harga X dengan indeks terkecil diketemukan */
-/* Mengirimkan IdxUndef jika tidak ada elemen tabel bernilai X */
-/* Menghasilkan indeks tak terdefinisi (IdxUndef) jika tabel kosong */
-
-void Add1Urut (BangunanTot * T, POINT X);
+void Add1Urut (BangunanTot * T, BANGUNAN Ba);//////////////////UNTUK PENAMBAHAN ARRAY
 /* Menambahkan X tanpa mengganggu keterurutan nilai dalam tabel */
 /* Nilai dalam tabel tidak harus unik. */
 /* I.S. Tabel T boleh kosong, boleh penuh. */
@@ -156,7 +134,21 @@ void Add1Urut (BangunanTot * T, POINT X);
 /*      Jika tabel penuh, maka tabel tetap. */
 /* Proses : Search tempat yang tepat sambil geser */
 /*          Insert X pada tempat yang tepat tersebut tanpa mengganggu keterurutan */
-void Del1Urut (BangunanTot * T, POINT X);
+
+void AddAsLastEl (BangunanTot * T, BANGUNAN Ba); //~~~~~~~~~~
+/* Proses: Menambahkan X sebagai elemen terakhir tabel */
+/* I.S. Tabel T boleh kosong, tetapi tidak penuh */
+/* F.S. X adalah elemen terakhir T yang baru */
+
+
+void Del1Urut (BangunanTot *T, address P, int JPasNetto, int PEMAINKE); //MENGHAPUS ADDRESS
+//Saat dihapus dari array artinya
+//Elemen Array berubah MILIK
+//address jadi 0
+//AKan terupdate JPas Awal sebanyak JUMLAH AKHIR nETTO. SUdah Hasil bersih dan bukan harus dikurang dari jumlah acuan
+
+
+
 /* Menghapus X yang pertama kali (pada indeks terkecil) yang ditemukan */
 /* I.S. Tabel tidak kosong */
 /* F.S. Jika ada elemen tabel bernilai X , */

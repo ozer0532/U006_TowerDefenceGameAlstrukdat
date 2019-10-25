@@ -10,6 +10,7 @@
 #include "array.h"
 #include "boolean.h"
 
+
 void CetakDaftarBangunan (Pemain Pe, int PEMAINKE);
 //Mencetak daftar bangunan dari pemain ke A atau B
 //I.S L adalah List1 YANG SUDAH TERDEFINISI dimana Info(L).Milik='A'
