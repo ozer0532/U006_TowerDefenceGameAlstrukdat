@@ -1,6 +1,7 @@
 #include "mesinkata.h"
 #include <stdio.h>
 #include "bangunan.h"
+#include "state.h"
 
 boolean EndKata;
 Kata CKata;
@@ -31,6 +32,10 @@ void TulisKata (Kata K){
         printf("%c",K.TabKata[i]);
     }
     printf("\n");
+}
+
+void IgnoreBlank(){
+    while ((CC == '\n' || CC==BLANK) && CC!= MARK) ADV();
 }
 
 void STARTKATA()
@@ -92,8 +97,19 @@ boolean IsKataSama (Kata K1, Kata K2)
 }
 int katatoint(Kata K){
     int bil=0;
-    for (int i; i<=K.Length;i++){
-        bil = bil*10 + ((int) (K.TabKata[i] - '0'));
+    for (int i=1; i<=K.Length;i++){
+      switch (K.TabKata[i]){
+        case '1': bil = bil*10 + 1;break;
+        case '2': bil = bil*10 + 2;break;
+        case '3': bil = bil*10 + 3;break;
+        case '4': bil = bil*10 + 4;break;
+        case '5': bil = bil*10 + 5;break;
+        case '6': bil = bil*10 + 6;break;
+        case '7': bil = bil*10 + 7;break;
+        case '8': bil = bil*10 + 8;break;
+        case '9': bil = bil*10 + 9;break;
+        default : bil = bil*10;break;
+      }
     }
     return bil;
 }
@@ -111,7 +127,7 @@ void SalinKata()
 
   // ALGORITMA
     i = 1;
-    while ((CC != MARK) &&  (CC != BLANK) && i <= NMax)
+    while ((CC != MARK) &&  (CC != BLANK) && (CC != '\n') && i <= NMax)
     {
       CKata.TabKata[i] = CC;
       ADV();
@@ -120,13 +136,15 @@ void SalinKata()
     CKata.Length = i - 1;
 }
 
-void SalinInput(STATE *s){
-    int part = 1;
+void LoadFile(STATE *s){
     STARTKATA();
     (*s).peta.NBrsEff = katatoint(CKata);
+    TulisKata(CKata);
     ADVKATA();
+    TulisKata(CKata);
     (*s).peta.NKolEff = katatoint(CKata);
     ADVKATA();
+    TulisKata(CKata);
     (*s).JBang = katatoint(CKata);
     for (int i = 1; i <=(*s).JBang; i++){
         ADVKATA();
@@ -138,9 +156,9 @@ void SalinInput(STATE *s){
         
         (*s).listbtot.TI[i].B.Level = 1;
         
-        if (i == 1) {(*s).listbtot.TI[i].B.Milik = 'A';}
-        else if (i == 2) {(*s).listbtot.TI[i].B.Milik = 'B';}
-        else {(*s).listbtot.TI[i].B.Milik = 'X';}
+        if (i == 1) {(*s).listbtot.TI[i].B.Milik = 1;}
+        else if (i == 2) {(*s).listbtot.TI[i].B.Milik = 2;}
+        else {(*s).listbtot.TI[i].B.Milik = 0;}
 
         // switch ((*s).listb[i].jenis){
         //     case 'C':
@@ -181,6 +199,14 @@ void SalinInput(STATE *s){
 
 }
 
+
+void PrintState(STATE S){
+  printf("besar peta %d x %d\n",S.peta.NBrsEff,S.peta.NKolEff);
+  printf("ada %d bangunan : \n",S.JBang);
+  for (int i = 1; i <=S.JBang;i++){
+    printf("%d. %c di lokasi %d %d level %d milik %d\n",i,S.listbtot.TI[i].B.Jenis,S.listbtot.TI[i].B.Lok.X,S.listbtot.TI[i].B.Lok.Y,S.listbtot.TI[i].B.Level,S.listbtot.TI[i].B.Milik);
+  }
+}
 
 STATE CopyState(STATE S){
   STATE undo;

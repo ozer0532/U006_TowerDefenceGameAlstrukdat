@@ -41,7 +41,7 @@ typedef struct {
     int Level;      //Level
     char Jenis;     //ini bisa dijadiin buat jenis bangunan saat ini
     POINT Lok;      //Menunjukkan Lokasi. Diakses dengan Lok.X dan Lok.Y
-    int hubungan[31];
+    int hubungan[31];   
 
     //btw kayanya ngga akan kepake
     // int A[5],M[5],U;
@@ -54,13 +54,13 @@ typedef struct {
     Queue SB;
 } SKILL;
 
-typedef struct {
-    //BangunanTot listbtot;
-    int JBang;
-    int turn;
-    SKILL S;
-    MATRIKS peta;
-}STATE;
+// typedef struct {
+//     BangunanTot listbtot;
+//     int JBang;
+//     int turn;
+//     SKILL S;
+//     MATRIKS peta;
+// }STATE;
 
 
 
