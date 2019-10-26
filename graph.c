@@ -12,12 +12,12 @@ Graph CreateEmptyGraph (vertex V[], edge E[]) {
     Neff(G) = sizeof(V);
     for (i = 1; i <= Neff(G); i++) {
         for (j = 1; j <= Neff(G); j++) {
-            Elmt(G, i, j) = false;
+            ElmtM(G, i, j) = false;
         }
     }
     for (i = 0; i < sizeof(E); i++) {
-        Elmt(G, Absis(E[i]), Ordinat(E[i])) = true;
-        Elmt(G, Ordinat(E[i]), Absis(E[i])) = true;
+        ElmtM(G, Absis(E[i]), Ordinat(E[i])) = true;
+        ElmtM(G, Ordinat(E[i]), Absis(E[i])) = true;
     }
     return G;
 }
@@ -29,7 +29,7 @@ boolean IsEmpty (Graph G) {
 
 /* Mengetes bila terdapat relas v1->v2 */
 boolean Adjacent (Graph G, vertex v1, vertex v2) {
-    return Elmt(G, v1, v2);
+    return ElmtM(G, v1, v2);
 }
 
 /* Mengetes bila v dan e berhubungan */
@@ -38,6 +38,21 @@ boolean Incident (Graph G, vertex v, edge e) {
 }
 
 /* Mengoutput semua vertex yang merupakan relasi dari v */
-vertex * Neighbors (Graph G, vertex v) {
-    
+ArrayVertex Neighbors (Graph G, vertex v) {
+    // KAMUS LOKAL
+    ArrayVertex verts;
+    int j = 1;
+
+    // ALGORITMA
+    for (int i = 1; i <= IdxMaxG; i++) {
+        Elmt(verts, i) = ElUndef;
+    }
+    for (int i = 1; i <= Neff(G); i++) {
+        if (Adjacent(G, v, ElmtM(G, v, i))) {
+            Elmt(verts, j) = i;
+            j++;
+        }
+    }
+
+    return verts;
 }

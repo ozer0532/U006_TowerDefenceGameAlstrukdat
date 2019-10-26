@@ -5,20 +5,25 @@
 
 #include "boolean.h"
 #include "point.h"
+#include "array.h"
 
 /* Ukuran minimum dan maksimum baris dan kolom */
 #define IdxMin 1
-#define IdxMax 30
+#define IdxMaxG 30
 
 typedef struct {
-    boolean Mem[IdxMax][IdxMax];
+    boolean Mem[IdxMaxG][IdxMaxG];
     int Neff; /* banyaknya/ukuran baris yg terdefinisi */
 } Graph;
 /* Jika x = Baris dan y = Kolom, maka Mem[x][y] = 1 menunjukkan bahwa terdapat relasi x->y */
 
+typedef struct {
+    boolean TI[IdxMaxG+1];
+} ArrayVertex;
+
 /* *** Selektor *** */
 #define Neff(M) (M).Neff
-#define Elmt(M,i,j) (M).Mem[(i)][(j)]
+#define ElmtM(M,i,j) (M).Mem[(i)][(j)]
 
 #define vertex int
 #define edge POINT
@@ -33,11 +38,12 @@ boolean IsEmpty (Graph G);
 
 boolean Adjacent (Graph G, vertex v1, vertex v2);
 /* Mengetes bila terdapat relas v1->v2 */
+/* Mengouput nilai ElmtM(G, v1, v2); */
 
 boolean Incident (Graph G, vertex v, edge e);
 /* Mengetes bila v dan e berhubungan */
 
-vertex * Neighbors (Graph G, vertex v);
+ArrayVertex Neighbors (Graph G, vertex v);
 /* Mengoutput semua vertex yang merupakan relasi dari v */
 
 /* Gak aku buat karena gak bakal dipake juga...
