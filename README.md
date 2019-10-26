@@ -9,8 +9,8 @@ for (vertex i = 1; i <= Neff(G); i++) {
         G.Mat[i][j] = ... // Apapun yang pengen dimasukkan
     }
 }
-
 ```
+
 ### Cara cari building yang bersebelahan:
 ``` 
 vertex v; // Index building yang ditinjau
@@ -21,3 +21,6 @@ for (vertex i = 1; i <= Neff(G); i++) {
     }
 }
 ```
+
+Reminder u/ asistensi selanjutnya:
+- Tanyain aksi move, kenapa bisa ke tempat musuh
