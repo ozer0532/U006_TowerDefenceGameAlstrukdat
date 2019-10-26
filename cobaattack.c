@@ -9,11 +9,22 @@ int main()
 {
     BangunanTot T;
     Pemain Pe;
+    CreateEmptyL(&(Pe.L1));
+    CreateEmptyL(&(Pe.L2));
     MakeEmptyBangunanTot(&T);
-    CopyBANGUNAN(MakeBANGUNAN(0,0,0,'C',MakePOINT(3,4)),&T.TI[1].B);
-    CopyBANGUNAN(MakeBANGUNAN(0,0,0,'T',MakePOINT(4,4)),&T.TI[2].B);
-    MakeBangunanPemain(&Pe,&T,2,1,40);
-    CetakDaftarBangunan(T,Pe,1);
+    PrintInfoL(Pe.L1);
+    
+    CopyBANGUNAN(MakeBANGUNAN(0,0,1,'C',MakePOINT(3,4)),&T.TI[1].B);
+    CopyBANGUNAN(MakeBANGUNAN(0,0,1,'T',MakePOINT(4,4)),&T.TI[2].B);
+    
+    MakeBangunanPemain(&Pe,&T,2,1,80);
+    address P= First(Pe.L1);
+    PrintInfoL(Pe.L1);
+    MakeBangunanPemain(&Pe,&T,2,2,30);
+    MakeBangunanPemain(&Pe,&T,2,2,120);
+    PrintInfoL(Pe.L1);
+    PrintInfoL(Pe.L2);
+    CetakDaftarBangunan(T,Pe,2);
 
     return 0;
 }
