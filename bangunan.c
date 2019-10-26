@@ -70,6 +70,7 @@ int CariDariAcuan (ACUAN Ac, char Jenis, int Lvl, char AMPU)
     if (Jenis=='C'&& Lvl==1 && AMPU=='M') {return (Ac.C[1].M);}
     if (Jenis=='C'&& Lvl==1 && AMPU=='P') {return (Ac.C[1].P);}
     if (Jenis=='C'&& Lvl==1 && AMPU=='U') {return (Ac.C[1].U);}
+    if (Jenis=='C'&& Lvl==0 && AMPU=='U') {return (Ac.C[1].U);}
 
     if (Jenis=='C'&& Lvl==2 && AMPU=='A') {return (Ac.C[2].A);}
     if (Jenis=='C'&& Lvl==2 && AMPU=='M') {return (Ac.C[2].M);}
@@ -90,6 +91,7 @@ int CariDariAcuan (ACUAN Ac, char Jenis, int Lvl, char AMPU)
     if (Jenis=='T'&& Lvl==1 && AMPU=='M') {return (Ac.T[1].M);}
     if (Jenis=='T'&& Lvl==1 && AMPU=='P') {return (Ac.T[1].P);}
     if (Jenis=='T'&& Lvl==1 && AMPU=='U') {return (Ac.T[1].U);}
+    if (Jenis=='T'&& Lvl==0 && AMPU=='U') {return (Ac.T[1].U);}
 
     if (Jenis=='T'&& Lvl==2 && AMPU=='A') {return (Ac.T[2].A);}
     if (Jenis=='T'&& Lvl==2 && AMPU=='M') {return (Ac.T[2].M);}
@@ -109,6 +111,7 @@ int CariDariAcuan (ACUAN Ac, char Jenis, int Lvl, char AMPU)
     if (Jenis=='F'&& Lvl==1 && AMPU=='M') {return (Ac.F[1].M);}
     if (Jenis=='F'&& Lvl==1 && AMPU=='P') {return (Ac.F[1].P);}
     if (Jenis=='F'&& Lvl==1 && AMPU=='U') {return (Ac.F[1].U);}
+    if (Jenis=='F'&& Lvl==0 && AMPU=='U') {return (Ac.F[1].U);}
 
     if (Jenis=='F'&& Lvl==2 && AMPU=='A') {return (Ac.F[2].A);}
     if (Jenis=='F'&& Lvl==2 && AMPU=='M') {return (Ac.F[2].M);}
@@ -127,6 +130,7 @@ int CariDariAcuan (ACUAN Ac, char Jenis, int Lvl, char AMPU)
     if (Jenis=='V'&& Lvl==1 && AMPU=='M') {return (Ac.V[1].M);}
     if (Jenis=='V'&& Lvl==1 && AMPU=='P') {return (Ac.V[1].P);}
     if (Jenis=='V'&& Lvl==1 && AMPU=='U') {return (Ac.V[1].U);}
+    if (Jenis=='V'&& Lvl==0 && AMPU=='U') {return (Ac.V[1].U);}
 
     if (Jenis=='V'&& Lvl==2 && AMPU=='A') {return (Ac.V[2].A);}
     if (Jenis=='V'&& Lvl==2 && AMPU=='M') {return (Ac.V[2].M);}
@@ -148,7 +152,7 @@ void MakeBANGUNANEmpty (BANGUNAN *B)
     (*B).Milik=0;
     (*B).Jenis='X';
     (*B).Jpas=0;
-    (*B).Level=0;
+    (*B).Level=1;
     (*B).Lok.X=0;
     (*B).Lok.Y=0;
 }
@@ -187,12 +191,11 @@ boolean IsAdaPertahanan(BANGUNAN B)
 void ResetBANGUNAN(BANGUNAN *B, int  JPasNetto, int Milik)
 //Reset bangunan dilakukan saat bangunan diambil alih
 {
-    if (JumlahPasukanValid(*B,JPasNetto))
-    {
+    
         (*B).Milik=Milik;
         (*B).Jpas=JPasNetto;
         (*B).Level=1;
-    }
+    
 }
 
 void CopyBANGUNAN(BANGUNAN Bin, BANGUNAN *Bout)

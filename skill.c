@@ -53,7 +53,7 @@ void Shield (Pemain Pe, BangunanTot *Ba, int PemainKe) //Bonus
         }
     }
 }
-void ExtraTurn ();
+void ExtraTurn (){}
     /*setelah pengaktifan skill ini berakhir, pemain selanjutnya tetap pemain yang sama*/
 
 void AttackUp() //Bonus
@@ -62,7 +62,7 @@ void AttackUp() //Bonus
     {
 
     }
-void CriticalHit (); //Bonus
+void CriticalHit (){} //Bonus
     /* Syarat: Musuh baru saja melakukan skill Extra Turn
         F.S: pada bangunan yang melakukan serangan tepta selanjutnya hanya berkurang 1/2 dari jumlah seharusnya. */
 void InstantReinforcement(Pemain Pe, BangunanTot *Ba, int PemainKe)

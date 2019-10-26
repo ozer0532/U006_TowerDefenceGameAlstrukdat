@@ -15,13 +15,13 @@ address AlokasiLTambahBangunan (BangunanTot *B, IdxType Index);
 //Saat ingin Alokasi / Buat List Liniear
 //F.S address di BangunanTOt sudah terisi oleh address dari Alokasi Index di List Linier
 
-void AddToLPemain (Pemain *Pe, BangunanTot *B,  IdxType Idx, int PEMAINKE, int JPasNetto);
+void AddToLPemain (Pemain *Pe, BangunanTot *T,  IdxType Idx, int PEMAINKE, int JPasNetto);
 //Bangunan menjadi berubah kepemilikan
 //Proses: Misal Bangunan milik P1 baru dikuasai maka LIST L1 berkurang 1  LIST L2 bertambah, Bangunan TOtal tetap
 //F.S Bangunan sudah beralih milik dan sudah di RESETBANGUNAN
 
 
-void MakeBangunanPemain (Pemain *Pe, BangunanTot *B, IdxType Idx, int PEMAINKE, int Jmlh);
+void MakeBangunanPemain (Pemain *Pe, BangunanTot *T, IdxType Idx, int PEMAINKE, int Jmlh);
 //INPUTAN Jmlh Awal harus Valid
 //Artinya Jmlh harus lebih dari 0 namun harus kurang dari sama dengan JPas Daftar Bangunan
 
