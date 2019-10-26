@@ -25,10 +25,7 @@ typedef struct {
   ElType TI[IdxMax+1]; /* memori tempat penyimpan elemen (container) */
 } BangunanTot;
 
-typedef int El2Type;   /* type elemen tabel */
-typedef struct { 
-  El2Type TI[IdxMax+1]; /* memori tempat penyimpan elemen (container) */\
-} Graph;
+
 
 //Penambahan dan pengurangan/del ellement pada Array tidak mementingkan address karena
 //address dianggap 0 di penambahan.
