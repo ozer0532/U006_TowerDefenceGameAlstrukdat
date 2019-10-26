@@ -141,7 +141,7 @@ void AddAsLastEl (BangunanTot * T, BANGUNAN Ba); //~~~~~~~~~~
 /* F.S. X adalah elemen terakhir T yang baru */
 
 
-void Del1Urut (BangunanTot *T, address P, int JPasNetto, int PEMAINKE); //MENGHAPUS ADDRESS
+void Del1Urut (BangunanTot *T, address Pe, IdxType Idx, int JPasNetto, int PEMAINKE); //MENGHAPUS ADDRESS
 //Saat dihapus dari array artinya
 //Elemen Array berubah MILIK
 //address jadi 0

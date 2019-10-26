@@ -177,13 +177,13 @@ boolean JumlahPasukanValid (BANGUNAN B, int JPas)
     return ((JPas <= CariDariAcuan(A,B.Jenis,B.Level,'M')) && (JPas >=0));
 }
 
-void ResetBANGUNAN(BANGUNAN *B, int JPasAwal, int Milik)
+void ResetBANGUNAN(BANGUNAN *B, int  JPasNetto, int Milik)
 //Reset bangunan dilakukan saat bangunan diambil alih
 {
-    if (JumlahPasukanValid(*B,JPasAwal))
+    if (JumlahPasukanValid(*B,JPasNetto))
     {
         (*B).Milik=Milik;
-        (*B).Jpas=JPasAwal;
+        (*B).Jpas=JPasNetto;
         (*B).Level=1;
     }
 }

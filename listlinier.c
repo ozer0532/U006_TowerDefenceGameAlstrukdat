@@ -21,7 +21,7 @@ void CreateEmptyL (List *L)
 }
 
 /****************** Manajemen Memori ******************/
-address AlokasiL (infotype X)
+address AlokasiL ( infotype X)
 /* Mengirimkan address hasil alokasi sebuah elemen */
 /* Jika alokasi berhasil, maka address tidak nil, dan misalnya */
 /* menghasilkan P, maka Info(P)=X, Next(P)=Nil */
@@ -149,9 +149,9 @@ void InsertAfterL (List *L, address P, address Prec)
     }
 }
 void InsertLastL (List *L, address P)
+{
 /* I.S. Sembarang, P sudah dialokasi  */
 /* F.S. P ditambahkan sebagai elemen terakhir yang baru */
-{
     address Last;
     Last=First(*L);
     if (Last!=Nil)

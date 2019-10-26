@@ -83,7 +83,7 @@ BANGUNAN MakeBANGUNAN (int Milik, int Jpas, int Level, char Jenis,  POINT Lok);
 boolean JumlahPasukanValid (BANGUNAN B, int JPas);
 //True jika jumlah pasukan  <=M
 
-void ResetBANGUNAN(BANGUNAN *B, int JPasAwal, int Milik);
+void ResetBANGUNAN(BANGUNAN *B, int  JPasNetto, int Milik);
 //Reset bangunan dilakukan saat bangunan diambil alih
 
 void CopyBANGUNAN(BANGUNAN Bin, BANGUNAN *Bout);

@@ -126,10 +126,10 @@ IdxType SearchBangunanTotByAddress (BangunanTot T, address PP)
 }
 
 
-void Del1Urut (BangunanTot *T, address P, int JPasNetto, int PEMAINKE)
+void Del1Urut (BangunanTot *T, address Pe, IdxType Idx, int JPasNetto, int PEMAINKE)
 {
-    IdxType i=SearchBangunanTotByAddress((*T),P);
-    (*T).TI[i].P=0;
+    IdxType i=Idx;
+    (*T).TI[i].P=Pe;
     (*T).TI[i].B.Milik=PEMAINKE;
     (*T).TI[i].B.Jpas=JPasNetto;
 }

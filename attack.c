@@ -4,6 +4,112 @@
 #include "boolean.h"
 #include "attack.h"
 
+address AlokasiLTambahBangunan (BangunanTot *B, IdxType Index)
+//Saat ingin Alokasi / Buat List Liniear
+//F.S address di BangunanTOt sudah terisi oleh address dari Alokasi Index di List Linier
+{
+    address Pe;
+    Pe=AlokasiL(Index);
+    (*B).P = Pe;
+    return (Pe);
+}
+
+
+void AddToLPemain (Pemain *Pe, BangunanTot *B,  IdxType Idx, int PEMAINKE, int JPasNetto)
+//Membuat Bangunan menjadi berubah kepemilikan
+//Proses: Misal Bangunan milik P1 baru dikuasai maka LIST L1 berkurang 1  LIST L2 bertambah, Bangunan TOtal tetap
+{
+    address P;
+    List La= (*Pe).L1;
+    List Lb= (*Pe).L2;
+    if (PEMAINKE==1){
+
+        if ((*B).TI[Idx].B.Milik=0)
+        {
+            P=AlokasiLTambahBangunan((*B),Idx),;
+            ResetBangunan(Info(P),JPasNetto,PEMAINKE);
+            InsertLastL(&La,P);
+            Del1Urut(B,P,JPasNetto,PEMAINKE);
+
+        }
+        else
+        {
+            P=SearchL(Lb,Idx);
+            ResetBANGUNAN(B,JPasNetto,PEMAINKE);
+            InsertLastL(&La,P);
+            Del1Urut(B,P,JPasNetto,PEMAINKE);
+            DelPL(&Lb,Idx);
+        }
+    }
+
+    if (PEMAINKE==2){
+        if ((*B).TI[Idx].B.Milik=0)
+        {
+            P=AlokasiLTambahBangunan((*B),Idx),;
+            ResetBangunan(Info(P),JPasNetto,PEMAINKE);
+            InsertLastL(&Lb,P);
+            Del1Urut(B,P,Idx,JPasNetto,PEMAINKE);
+
+        }
+        else
+        {
+            P=SearchL(La,Idx);
+            ResetBANGUNAN(B,JPasNetto,PEMAINKE);
+            InsertLastL(&Lb,P);
+            Del1Urut(B,P,Idx,JPasNetto,PEMAINKE);
+            DelPL(&La,Idx);
+        }
+    }
+}
+
+void MakeBangunanPemain (Pemain *Pe, BangunanTot *B,  IdxType Idx, int PEMAINKE, int Jmlh)
+{
+    address P;
+    int JHDiserang;
+    ACUAN Ac;
+    Inisialisasi(&Ac);
+    List La= (*Pe).L1;
+    List Lb= (*Pe).L2;
+    if (PEMAINKE==1) 
+    {
+        if ((*B).TI[Idx].B.Milik=0)
+        {
+            //Saat Belum dikuasai siapa2. Maka Minimal yang harus diserang adalah Sebanyak U
+            JHDiserang=CariDariAcuan(Ac,(*B).TI[Idx].B.Jenis,(*B).TI[Idx].B.Level,'U');
+            //Jika Jumlahnya lebih dari diserang
+            if (Jmlh>=JHDiserang)
+            {
+                //Jika belom menyentuh nilai max
+                if (JumlahPasukanValid((*B).TI[Idx].B,Jmlh-JHDiserang))
+                {
+                    AddToLPemain(Pe,B,Idx,PEMAINKE,Jmlh-JHDiserang)
+                }
+                
+                //Jika sudah menyentuh nilai max
+                else
+                {
+                    AddToLPemain(Pe,B,Idx,PEMAINKE,CariDariAcuan(Ac,(*B).TI[Idx].B.Jenis,(*B).TI[Idx].B.Level,'M'))
+                }
+                
+            }
+            //Jika jumlahnyaa kurang dari
+            else 
+            {
+
+            }
+        }
+        else
+        {
+
+        }
+    }
+}
+
+
+
+
+
+
 address SearchPOINT (List L, POINT Po)
 {
     address P;
@@ -81,30 +187,3 @@ void CetakDaftarBangunan (Pemain Pe, int PEMAINKE)
 }
 
 
-void UpdateBangunan (Pemain *Pe, BangunanTot *B,  POINT Po, int PEMAINKE, int Jmlh)
-//Membuat Bangunan menjadi berubah kepemilikan
-//Proses: Misal Bangunan milik P1 baru dikuasai maka LIST L1 berkurang 1  LIST L2 bertambah, Bangunan TOtal tetap
-{
-    address P;
-    if (PEMAINKE==1){
-        List La= (*Pe).L1;
-        List Lb= (*Pe).L2;
-
-        if (IsBangunanNon(*B,Po))
-        {
-            P=AlokasiL((*B).TI[SearchLokasiBangunan(*B,Po)]);
-            ResetBangunan(Info(P),Jmlh,PEMAINKE);
-            InsertLastL(&La,P);
-            Del1Urut(B,Po);
-
-        }
-        else
-        {
-            P=SearchPOINT((*Pe).L2,Po);
-            ResetBangunan(Info(P),Jmlh,PEMAINKE);
-            InsertLastL(&La,P);
-            DelPL(&Lb,Info(P));
-        }
-    }
-    
-}
