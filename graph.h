@@ -4,6 +4,7 @@
 #define GRAPH_H
 
 #include "boolean.h"
+#include "graph.h"
 #include "point.h"
 #include "array.h"
 

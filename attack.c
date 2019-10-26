@@ -245,4 +245,65 @@ void CetakDaftarBangunan (BangunanTot T, Pemain Pe, int PEMAINKE)
     }
 }
 
+void Attack(Graph G, BangunanTot *T, Pemain *Pe, int PEMAINKE, int no)
+{
+    int N,M,Pas;
+    address P;
+    int A[30];
+
+    CetakDaftarBangunan((*T),*Pe,PEMAINKE);
+    printf("Bangunan yang digunakan untuk menyerang: ");
+    scanf("%d",&N);
+    if (PEMAINKE==1) {
+         P=First((*Pe).L1);
+    }
+    else{
+        P=First((*Pe).L2);
+    }
+    
+    //Mencari no adalah Listnya index ke berapa
+    for(int i=1;i<no;i++) {
+        P=Next(P);
+    }
+
+    //Masukin nilai Index hubung ke array
+    printf("Bangunan yang dapat diserang:\n");
+    for (int j=1;j<=30;j++) {
+        A[j]=(Neighbors(G,Info(P)))[j];
+        if A[j]!=0 {
+            printf("%d. ",j);
+                
+            //Cetak nama bangunannya
+            if (T.TI[A[j]].B.Jenis =='C') {printf("Castle ");}
+            else if ((T.TI[A[j]].B.Jenis )=='T') {printf("Tower ");}
+            else if ((T.TI[A[j]].B.Jenis )=='V') {printf("Village ");}
+            else if ((T.TI[A[j]].B.Jenis )=='F') {printf("Fort ");}
+
+            //Cetak lokasinya
+            printf("(%d,%d) ",T.TI[A[j]].B.Lok.X,T.TI[Info(P)].B.Lok.Y);
+
+            //Cetak jumlah pasukannya
+            printf ("%d ",T.TI[A[j]].B.Jpas);
+
+            //cetak level
+            printf("lv. %d\n", T.TI[A[j]].B.Level);
+
+        }
+        
+        printf("Bangunan yang diserang: ");
+        scanf("%d",&M);
+        
+        printf("Jumlah pasukan: ");
+        scanf("%d",&Pas);
+
+        //Check apakah jumlah pasukan valid atau tidak
+        while ((*T).TI[Info(P)].B.Jpas < Pas || Pas<0 && ){
+            printf("Masukkan jumlah pasukan salah ~~\n");
+            printf("Jumlah pasukan: ");
+            scanf("%d",&Pas);
+        }
+        MakeBangunanPemain(Pe,T,Info(P),PEMAINKE,Pas);
+    }
+}
+
 

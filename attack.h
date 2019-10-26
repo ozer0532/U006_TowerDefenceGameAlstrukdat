@@ -10,6 +10,7 @@
 #include "array.h"
 #include "boolean.h"
 #include <math.h>
+#include "graph.h"
 
 address AlokasiLTambahBangunan (BangunanTot *B, IdxType Index);
 //Saat ingin Alokasi / Buat List Liniear
@@ -37,7 +38,11 @@ void CetakDaftarBangunan (BangunanTot T, Pemain Pe, int PEMAINKE);
 //Mencetak daftar bangunan dari pemain ke A atau B
 //I.S L adalah List1 YANG SUDAH TERDEFINISI dimana Info(L).Milik='A'
 
+void Attack(Graph G, BangunanTot *T, Pemain *Pe, int PEMAINKE, int no);
+
 address SearchPOINT (List L, POINT Po);
 
 
 #endif
+
+boolean 

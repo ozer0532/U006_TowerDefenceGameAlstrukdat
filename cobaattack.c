@@ -25,6 +25,7 @@ int main()
     PrintState(S);
     CetakDaftarBangunan(T,Pe,1);
 
+    
         PrintInfoL(Pe.L1);
     
     /*CopyBANGUNAN(MakeBANGUNAN(0,0,1,'C',MakePOINT(3,4)),&T.TI[1].B);
