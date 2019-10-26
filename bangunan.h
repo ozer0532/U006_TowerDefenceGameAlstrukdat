@@ -10,6 +10,7 @@
 #include "point.h"
 #include "queue.h"
 #include "matriks.h"
+#include "array.h"
 
 typedef struct {
 	int A; 
@@ -44,8 +45,8 @@ typedef struct {
     int hubungan[31];
 
     //btw kayanya ngga akan kepake
-    int A[5],M[5],U;
-    boolean P[5];  
+    // int A[5],M[5],U;
+    // boolean P[5];  
 }BANGUNAN;
 
 
@@ -55,7 +56,7 @@ typedef struct {
 } SKILL;
 
 typedef struct {
-    BANGUNAN listb[31];
+    BangunanTot listbtot;
     int JBang;
     int turn;
     SKILL S;
