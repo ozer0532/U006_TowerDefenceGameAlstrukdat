@@ -177,6 +177,13 @@ boolean JumlahPasukanValid (BANGUNAN B, int JPas)
     return ((JPas <= CariDariAcuan(A,B.Jenis,B.Level,'M')) && (JPas >=0));
 }
 
+
+boolean IsAdaPertahanan(BANGUNAN B)
+{
+    ACUAN A;
+    Inisialisasi(&A);
+    return (CariDariAcuan(A,B.Jenis,B.Level,'P')==1);
+}
 void ResetBANGUNAN(BANGUNAN *B, int  JPasNetto, int Milik)
 //Reset bangunan dilakukan saat bangunan diambil alih
 {

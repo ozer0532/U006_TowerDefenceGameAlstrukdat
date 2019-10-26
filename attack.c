@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include "boolean.h"
 #include "attack.h"
+#include <math.h>
 
 address AlokasiLTambahBangunan (BangunanTot *B, IdxType Index)
 //Saat ingin Alokasi / Buat List Liniear
@@ -10,7 +11,7 @@ address AlokasiLTambahBangunan (BangunanTot *B, IdxType Index)
 {
     address Pe;
     Pe=AlokasiL(Index);
-    (*B).P = Pe;
+    (*B).TI[Index].P = Pe;
     return (Pe);
 }
 
@@ -26,18 +27,18 @@ void AddToLPemain (Pemain *Pe, BangunanTot *B,  IdxType Idx, int PEMAINKE, int J
 
         if ((*B).TI[Idx].B.Milik=0)
         {
-            P=AlokasiLTambahBangunan((*B),Idx),;
-            ResetBangunan(Info(P),JPasNetto,PEMAINKE);
+            P=AlokasiLTambahBangunan((B),Idx);
+            ResetBANGUNAN(&(*B).TI[Idx].B,JPasNetto,PEMAINKE);
             InsertLastL(&La,P);
-            Del1Urut(B,P,JPasNetto,PEMAINKE);
+            Del1Urut(B,P,Idx,JPasNetto,PEMAINKE);
 
         }
         else
         {
             P=SearchL(Lb,Idx);
-            ResetBANGUNAN(B,JPasNetto,PEMAINKE);
+            ResetBANGUNAN(&(*B).TI[Idx].B,JPasNetto,PEMAINKE);
             InsertLastL(&La,P);
-            Del1Urut(B,P,JPasNetto,PEMAINKE);
+            Del1Urut(B,P,Idx,JPasNetto,PEMAINKE);
             DelPL(&Lb,Idx);
         }
     }
@@ -45,8 +46,8 @@ void AddToLPemain (Pemain *Pe, BangunanTot *B,  IdxType Idx, int PEMAINKE, int J
     if (PEMAINKE==2){
         if ((*B).TI[Idx].B.Milik=0)
         {
-            P=AlokasiLTambahBangunan((*B),Idx),;
-            ResetBangunan(Info(P),JPasNetto,PEMAINKE);
+            P=AlokasiLTambahBangunan((B),Idx);
+            ResetBANGUNAN(&(*B).TI[Idx].B,JPasNetto,PEMAINKE);
             InsertLastL(&Lb,P);
             Del1Urut(B,P,Idx,JPasNetto,PEMAINKE);
 
@@ -54,7 +55,7 @@ void AddToLPemain (Pemain *Pe, BangunanTot *B,  IdxType Idx, int PEMAINKE, int J
         else
         {
             P=SearchL(La,Idx);
-            ResetBANGUNAN(B,JPasNetto,PEMAINKE);
+            ResetBANGUNAN(&(*B).TI[Idx].B,JPasNetto,PEMAINKE);
             InsertLastL(&Lb,P);
             Del1Urut(B,P,Idx,JPasNetto,PEMAINKE);
             DelPL(&La,Idx);
@@ -63,6 +64,8 @@ void AddToLPemain (Pemain *Pe, BangunanTot *B,  IdxType Idx, int PEMAINKE, int J
 }
 
 void MakeBangunanPemain (Pemain *Pe, BangunanTot *B,  IdxType Idx, int PEMAINKE, int Jmlh)
+//INPUTAN Jmlh Awal harus Valid
+//Artinya Jmlh harus lebih dari 0 namun harus kurang dari sama dengan JPas Daftar Bangunan
 {
     address P;
     int JHDiserang;
@@ -70,67 +73,67 @@ void MakeBangunanPemain (Pemain *Pe, BangunanTot *B,  IdxType Idx, int PEMAINKE,
     Inisialisasi(&Ac);
     List La= (*Pe).L1;
     List Lb= (*Pe).L2;
-    if (PEMAINKE==1) 
+
+    //Saat Belum dikuasai siapa2. Maka Minimal yang harus diserang adalah Sebanyak U
+    JHDiserang=CariDariAcuan(Ac,(*B).TI[Idx].B.Jenis,(*B).TI[Idx].B.Level,'U');
+    //Jika Jumlahnya lebih dari diserang
+    if (IsAdaPertahanan((*B).TI[Idx].B))
     {
-        if ((*B).TI[Idx].B.Milik=0)
-        {
-            //Saat Belum dikuasai siapa2. Maka Minimal yang harus diserang adalah Sebanyak U
-            JHDiserang=CariDariAcuan(Ac,(*B).TI[Idx].B.Jenis,(*B).TI[Idx].B.Level,'U');
-            //Jika Jumlahnya lebih dari diserang
-            if (Jmlh>=JHDiserang)
+         
+            if ( (int)floor(3/4)*Jmlh>=JHDiserang)
             {
                 //Jika belom menyentuh nilai max
-                if (JumlahPasukanValid((*B).TI[Idx].B,Jmlh-JHDiserang))
+                if (JumlahPasukanValid((*B).TI[Idx].B, (int)floor(3/4*Jmlh)-JHDiserang))
                 {
-                    AddToLPemain(Pe,B,Idx,PEMAINKE,Jmlh-JHDiserang)
+                    AddToLPemain(Pe,B,Idx,PEMAINKE,3/4*Jmlh-JHDiserang);
                 }
                 
                 //Jika sudah menyentuh nilai max
                 else
                 {
-                    AddToLPemain(Pe,B,Idx,PEMAINKE,CariDariAcuan(Ac,(*B).TI[Idx].B.Jenis,(*B).TI[Idx].B.Level,'M'))
+                    AddToLPemain(Pe,B,Idx,PEMAINKE,CariDariAcuan(Ac,(*B).TI[Idx].B.Jenis,(*B).TI[Idx].B.Level,'M'));
                 }
-                
             }
-            //Jika jumlahnyaa kurang dari
+            //Jika jumlahnyaa kurang dari diserang
             else 
             {
-
+                printf("Bangunan gagal direbut.\n");
+                if ((*B).TI[Idx].B.Milik!=0)
+                {  
+                    (*B).TI[Idx].B.Jpas=JHDiserang- (int)floor(3/4*Jmlh);
+                }
+            }
+    }
+    else
+    {
+        if (Jmlh>=JHDiserang)
+        {
+            //Jika belom menyentuh nilai max
+            if (JumlahPasukanValid((*B).TI[Idx].B,Jmlh-JHDiserang))
+            {
+                AddToLPemain(Pe,B,Idx,PEMAINKE,Jmlh-JHDiserang);
+            }
+            
+            //Jika sudah menyentuh nilai max
+            else
+            {
+                AddToLPemain(Pe,B,Idx,PEMAINKE,CariDariAcuan(Ac,(*B).TI[Idx].B.Jenis,(*B).TI[Idx].B.Level,'M'));
             }
         }
-        else
+        //Jika jumlahnyaa kurang dari diserang
+        else 
         {
-
+            printf("Bangunan gagal direbut.\n");
+            if ((*B).TI[Idx].B.Milik!=0)
+            {  
+                (*B).TI[Idx].B.Jpas=JHDiserang-Jmlh;
+            }
         }
-    }
+    }    
 }
 
 
-
-
-
-
-address SearchPOINT (List L, POINT Po)
-{
-    address P;
-    boolean Found=false;
-    P=First(L);
-    while (Next(P)!= Nil && (!Found)) {
-        if (Info(P).Lok.X==Po.X  && Info(P).Lok.Y==Po.Y) {
-            Found = true;
-        }
-        else {
-            P=Next(P);
-        }
-    }
-    if (IsEmptyL(L)) {
-        return Nil;
-    }
-    else {
-        return P;
-    }
-}
-void CetakDaftarBangunan (Pemain Pe, int PEMAINKE)
+void CetakDaftarBangunan (BangunanTot T, Pemain Pe, int PEMAINKE)
 //Mencetak daftar bangunan dari pemain 1
 //I.S L adalah List1 YANG SUDAH TERDEFINISI dimana Info(L).Milik=1 
 {
@@ -166,19 +169,19 @@ void CetakDaftarBangunan (Pemain Pe, int PEMAINKE)
             printf("%d. ",no);
             
             //Cetak nama bangunannya
-            if ((Info(P).Jenis)=='C') {printf("Castle ");}
-            else if ((Info(P).Jenis)=='T') {printf("Tower ");}
-            else if ((Info(P).Jenis)=='V') {printf("Village ");}
-            else if ((Info(P).Jenis)=='F') {printf("Fort ");}
+            if (T.TI[Info(P)].B.Jenis =='C') {printf("Castle ");}
+            else if ((T.TI[Info(P)].B.Jenis )=='T') {printf("Tower ");}
+            else if ((T.TI[Info(P)].B.Jenis )=='V') {printf("Village ");}
+            else if ((T.TI[Info(P)].B.Jenis )=='F') {printf("Fort ");}
 
             //Cetak lokasinya
-            printf("(%d,%d) ", Info(P).Lok.X,Info(P).Lok.Y);
+            printf("(%d,%d) ",T.TI[Info(P)].B.Lok.X,T.TI[Info(P)].B.Lok.Y);
 
             //Cetak jumlah pasukannya
-            printf ("%d ",Info(P).Jpas);
+            printf ("%d ",T.TI[Info(P)].B.Jpas);
 
             //cetak level
-            printf("lv. %d\n", Info(P).Level);
+            printf("lv. %d\n", T.TI[Info(P)].B.Level);
 
             no++;
             P=Next(P);

@@ -10,7 +10,6 @@
 #include "point.h"
 #include "queue.h"
 #include "matriks.h"
-#include "array.h"
 
 typedef struct {
 	int A; 
@@ -56,7 +55,7 @@ typedef struct {
 } SKILL;
 
 typedef struct {
-    BangunanTot listbtot;
+    //BangunanTot listbtot;
     int JBang;
     int turn;
     SKILL S;
@@ -83,6 +82,8 @@ BANGUNAN MakeBANGUNAN (int Milik, int Jpas, int Level, char Jenis,  POINT Lok);
 
 boolean JumlahPasukanValid (BANGUNAN B, int JPas);
 //True jika jumlah pasukan  <=M
+
+boolean IsAdaPertahanan(BANGUNAN B);
 
 void ResetBANGUNAN(BANGUNAN *B, int  JPasNetto, int Milik);
 //Reset bangunan dilakukan saat bangunan diambil alih

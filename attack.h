@@ -9,6 +9,7 @@
 #include "listlinier.h"
 #include "array.h"
 #include "boolean.h"
+#include <math.h>
 
 address AlokasiLTambahBangunan (BangunanTot *B, IdxType Index);
 //Saat ingin Alokasi / Buat List Liniear
@@ -21,6 +22,10 @@ void AddToLPemain (Pemain *Pe, BangunanTot *B,  IdxType Idx, int PEMAINKE, int J
 
 
 void MakeBangunanPemain (Pemain *Pe, BangunanTot *B, IdxType Idx, int PEMAINKE, int Jmlh);
+//INPUTAN Jmlh Awal harus Valid
+//Artinya Jmlh harus lebih dari 0 namun harus kurang dari sama dengan JPas Daftar Bangunan
+
+
 //Mengambil alih bangunan menjadi milik player "PEMAINKE"
 //I.S Jmlh adalah JUMLAH PASUKAN Bruto
 //Pros Check dahulu dengan IsBangunanNon Jika True, Maka TIDAK ADA RESET KEPEMILIKAN, 
@@ -28,7 +33,7 @@ void MakeBangunanPemain (Pemain *Pe, BangunanTot *B, IdxType Idx, int PEMAINKE, 
 //F.S Jika jumlah pasukkan kurang (Pe.L1.JPas< Pe.L1.JenisBangunanTot[1].) maka Pe.L1.Jpas-Jmlh dan bangunan tidak diambil alih
 //    Jika jumlah pasukkan le
 
-void CetakDaftarBangunan (Pemain Pe, int PEMAINKE);
+void CetakDaftarBangunan (BangunanTot T, Pemain Pe, int PEMAINKE);
 //Mencetak daftar bangunan dari pemain ke A atau B
 //I.S L adalah List1 YANG SUDAH TERDEFINISI dimana Info(L).Milik='A'
 
