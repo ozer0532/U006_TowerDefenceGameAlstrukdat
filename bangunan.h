@@ -4,7 +4,9 @@
 #ifndef BANGUNAN_H
 #define BANGUNAN_H
 
+#include <stddef.h>
 #define Nil NULL
+
 
 #include "boolean.h"
 #include "point.h"

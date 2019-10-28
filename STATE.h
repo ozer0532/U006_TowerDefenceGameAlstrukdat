@@ -3,8 +3,6 @@
 
 #include "array.h"
 #include "bangunan.h"
-#include "mesinkar.h"
-#include "mesinkata.h"
 #include "graph.h"
 
 

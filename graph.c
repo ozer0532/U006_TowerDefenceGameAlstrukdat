@@ -23,7 +23,7 @@ Graph CreateEmptyGraph (vertex V[], edge E[]) {
 }
 
 /* Neff = 0 */
-boolean IsEmpty (Graph G) {
+boolean IsEmptyGR (Graph G) {
     return Neff(G) == 0;
 }
 

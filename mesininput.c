@@ -195,8 +195,8 @@ void LoadFile(STATE *s){
     }
 
           (*s).Hubungan.Neff = (*s).JBang;
-          for (i = 1; i <= (*s).Hubungan.Neff; i++) {
-              for (j = 1; j <= (*s).Hubungan.Neff; j++) {
+          for (int i = 1; i <= (*s).Hubungan.Neff; i++) {
+              for (int j = 1; j <= (*s).Hubungan.Neff; j++) {
                   (*s).Hubungan.Mem[i][j] = katatoint(CKata);
               }
           }
@@ -207,13 +207,13 @@ void SaveFile(STATE s){
   FILE *f;
   f = fopen("savedfile.txt","w");
   fprintf(f,"%d %d\n",s.peta.NBrsEff,s.peta.NKolEff);
-  writefile("%d\n",s.JBang);
+  writefile(("%d\n",s.JBang));
   for (int i = 1; i <= s.JBang; i ++){
-    writefile("%c %d %d %d %d\n",s.listbtot.TI[i].B.Jenis,s.listbtot.TI[i].B.Lok.X,s.listbtot.TI[i].B.Lok.Y,s.listbtot.TI[i].B.Level,s.listbtot.TI[i].B.Milik);
+    writefile(("%c %d %d %d %d %d\n",s.listbtot.TI[i].B.Jenis,s.listbtot.TI[i].B.Lok.X,s.listbtot.TI[i].B.Lok.Y,s.listbtot.TI[i].B.Level,s.listbtot.TI[i].B.Milik,s.listbtot.TI[i].B.Jpas));
   }
   for (int i = 1; i <= s.JBang; i ++){
     for (int j = 1; j <= s.JBang; j ++){
-      writefile("%d ",s.listbtot.TI[i].B.hubungan[j]);
+      writefile(("%d ",s.listbtot.TI[i].B.hubungan[j]));
     }
     writefile("\n");
   }
@@ -227,17 +227,22 @@ void LoadSafeFile(STATE *s){
     (*s).peta.NKolEff = katatoint(CKata);
     ADVKATA();
     (*s).JBang = katatoint(CKata);
+    char c;
+    int x,y,l,j,m;
     for (int i = 1; i <=(*s).JBang; i++){
         ADVKATA();
-        (*s).listbtot.TI[i].B.Jenis = CKata.TabKata[1];
+        c = CKata.TabKata[1];
         ADVKATA();
-        (*s).listbtot.TI[i].B.Lok.X = katatoint(CKata);
+        x= katatoint(CKata);
         ADVKATA();
-        (*s).listbtot.TI[i].B.Lok.Y = katatoint(CKata);
+        y = katatoint(CKata);
         ADVKATA();
-        (*s).listbtot.TI[i].B.Level = katatoint(CKata);
+        l = katatoint(CKata);
         ADVKATA();
-        (*s).listbtot.TI[i].B.Milik = katatoint(CKata);
+        m = katatoint(CKata);
+        ADVKATA();
+        j = katatoint(CKata);
+        (*s).listbtot.TI[i].B = MakeBANGUNAN(m,j,l,c,MakePOINT(x,y));
 
         // switch ((*s).listb[i].jenis){
         //     case 'C':
@@ -270,8 +275,8 @@ void LoadSafeFile(STATE *s){
     }
 
           (*s).Hubungan.Neff = (*s).JBang;
-          for (i = 1; i <= (*s).Hubungan.Neff; i++) {
-              for (j = 1; j <= (*s).Hubungan.Neff; j++) {
+          for (int i = 1; i <= (*s).Hubungan.Neff; i++) {
+              for (int j = 1; j <= (*s).Hubungan.Neff; j++) {
                   ADVKATA();
                   (*s).Hubungan.Mem[i][j] = katatoint(CKata);
               }

@@ -34,7 +34,7 @@ Graph CreateEmptyGraph (vertex V[], edge E[]);
 /* Graph berisi matriks adjacency hubungan antar V menurut E */
 /* Memori yang dipakai mulai dari indeks 1,1 */
 
-boolean IsEmpty (Graph G);
+boolean IsEmptyGR (Graph G);
 /* Neff = 0 */
 
 boolean Adjacent (Graph G, vertex v1, vertex v2);
