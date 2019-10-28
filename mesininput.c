@@ -2,9 +2,13 @@
 #include <stdio.h>
 #include "bangunan.h"
 #include "state.h"
+#include "graph.h"
 
 boolean EndKata;
 Kata CKata;
+
+#define writefile(a) fprintf(f,a)
+#define bs(s,j) s.listbtot.TI[i].B.j
 
 /* KONSTRUKTOR */
 void CreateKata(Kata *K, char *s){
@@ -190,13 +194,88 @@ void LoadFile(STATE *s){
         // }
     }
 
-    for (int j = 1; j <= (*s).peta.NBrsEff; j++){
-        for (int k =1; k <= (*s).peta.NKolEff; k ++){
-          ADVKATA();
-          (*s).listbtot.TI[j].B.hubungan[k] = katatoint(CKata);
-        }
+          (*s).Hubungan.Neff = (*s).JBang;
+          for (i = 1; i <= (*s).Hubungan.Neff; i++) {
+              for (j = 1; j <= (*s).Hubungan.Neff; j++) {
+                  (*s).Hubungan.Mem[i][j] = katatoint(CKata);
+              }
+          }
+
+}
+
+void SaveFile(STATE s){
+  FILE *f;
+  f = fopen("savedfile.txt","w");
+  fprintf(f,"%d %d\n",s.peta.NBrsEff,s.peta.NKolEff);
+  writefile("%d\n",s.JBang);
+  for (int i = 1; i <= s.JBang; i ++){
+    writefile("%c %d %d %d %d\n",s.listbtot.TI[i].B.Jenis,s.listbtot.TI[i].B.Lok.X,s.listbtot.TI[i].B.Lok.Y,s.listbtot.TI[i].B.Level,s.listbtot.TI[i].B.Milik);
+  }
+  for (int i = 1; i <= s.JBang; i ++){
+    for (int j = 1; j <= s.JBang; j ++){
+      writefile("%d ",s.listbtot.TI[i].B.hubungan[j]);
+    }
+    writefile("\n");
+  }
+  fclose(f);
+}
+
+void LoadSafeFile(STATE *s){
+  STARTKATA();
+    (*s).peta.NBrsEff = katatoint(CKata);
+    ADVKATA();
+    (*s).peta.NKolEff = katatoint(CKata);
+    ADVKATA();
+    (*s).JBang = katatoint(CKata);
+    for (int i = 1; i <=(*s).JBang; i++){
+        ADVKATA();
+        (*s).listbtot.TI[i].B.Jenis = CKata.TabKata[1];
+        ADVKATA();
+        (*s).listbtot.TI[i].B.Lok.X = katatoint(CKata);
+        ADVKATA();
+        (*s).listbtot.TI[i].B.Lok.Y = katatoint(CKata);
+        ADVKATA();
+        (*s).listbtot.TI[i].B.Level = katatoint(CKata);
+        ADVKATA();
+        (*s).listbtot.TI[i].B.Milik = katatoint(CKata);
+
+        // switch ((*s).listb[i].jenis){
+        //     case 'C':
+        //         (*(*s).listb).A[5] = {0,10,15,20,25};
+        //         (*(*s).listb).M = {0,40,60,80,100};
+        //         (*(*s).listb).P = {false,false,false,false,false};
+        //         (*(*s).listb).U = 40;
+        //         break;
+        //     case 'T':
+        //         (*(*s).listb).A = {0,5,10,20,30};
+        //         (*(*s).listb).M = {0,20,30,40,50};
+        //         (*(*s).listb).P = {true,true,true,true,true};
+        //         (*(*s).listb).U = 30;
+        //         break;                             //ga perlu karna gw udh ngerti acuan yang make JNS
+        //     case 'F':
+        //         (*(*s).listb).A = {0,10,20,30,40};
+        //         (*(*s).listb).M = {0,20,40,60,80};
+        //         (*(*s).listb).P = {false,false,false,true,true};
+        //         (*(*s).listb).U = 80;
+        //         break;
+        //     case 'V':
+        //         (*(*s).listb).A = {0,5,10,15,20};
+        //         (*(*s).listb).M = {0,20,30,40,50};
+        //         (*(*s).listb).P = {false,false,false,false,false};
+        //         (*(*s).listb).U = 20;
+        //         break;
+        //     default:
+        //       break;
+        // }
     }
 
+          (*s).Hubungan.Neff = (*s).JBang;
+          for (i = 1; i <= (*s).Hubungan.Neff; i++) {
+              for (j = 1; j <= (*s).Hubungan.Neff; j++) {
+                  ADVKATA();
+                  (*s).Hubungan.Mem[i][j] = katatoint(CKata);
+              }
+          }
 }
 
 

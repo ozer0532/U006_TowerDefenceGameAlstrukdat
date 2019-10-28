@@ -5,6 +5,7 @@
 #include "bangunan.h"
 #include "mesinkar.h"
 #include "mesinkata.h"
+#include "graph.h"
 
 
 typedef struct {
@@ -13,6 +14,7 @@ typedef struct {
     int turn;
     SKILL S;
     MATRIKS peta;
+    Graph Hubungan;
 }STATE;
 
 #endif
