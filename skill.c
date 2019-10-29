@@ -1,5 +1,6 @@
 #include "skill.h"
 #include <stdio.h>
+#include "attack.h"
 
 
 void InstantUpgrade (Pemain Pe, BangunanTot *Ba, int PemainKe)
@@ -24,18 +25,25 @@ void InstantUpgrade (Pemain Pe, BangunanTot *Ba, int PemainKe)
     }
 
 }
-void Shield (Pemain Pe, BangunanTot *Ba, int PemainKe) //Bonus
+void Shield (ACUAN *Semi, Pemain Pe, BangunanTot *Ba, int PemainKe) //Bonus
     /*Seluruh bangunan yang dimiliki pemain akan memiliki pertahanan selama 2 turn
         apabila pemain menggunakan skill ini 2 kali beturut-turut durasi tidak akan bertamabah, namun menjadi nilai maksimum    */
 {
     address P;
-    ACUAN A;
-    Inisialisasi(&A);
+    char jns;
+    int lvl;
     if(PemainKe == 1){
         P = First(Pe.L1);
         while(P != Nil){
         if(!IsAdaPertahanan((*Ba).TI[Info(P)].B)){
-            CariDariAcuan(A,(*Ba).TI[Info(P)].B.Jenis,(*Ba).TI[Info(P)].B.Level,'P')==1;
+            jns = (*Ba).TI[Info(P)].B.Jenis;
+            lvl = (*Ba).TI[Info(P)].B.Level;
+            if(jns = 'C'){ (*Semi).C[lvl].P = 1;}
+            if(jns = 'T'){(*Semi).T[lvl].P = 1;}
+            if(jns = 'F'){(*Semi).F[lvl].P = 1;}
+            if(jns = 'V'){(*Semi).F[lvl].P = 1;}
+
+            
         }else{
             // bangunana akan menjadi nilai maksimum
         }
@@ -45,7 +53,12 @@ void Shield (Pemain Pe, BangunanTot *Ba, int PemainKe) //Bonus
         P = First(Pe.L2);
         while(P != Nil){
         if(!IsAdaPertahanan((*Ba).TI[Info(P)].B)){
-            CariDariAcuan(A,(*Ba).TI[Info(P)].B.Jenis,(*Ba).TI[Info(P)].B.Level,'P')==1;
+            jns = (*Ba).TI[Info(P)].B.Jenis;
+            lvl = (*Ba).TI[Info(P)].B.Level;
+            if(jns = 'C'){ (*Semi).C[lvl].P = 1;}
+            if(jns = 'T'){(*Semi).T[lvl].P = 1;}
+            if(jns = 'F'){(*Semi).F[lvl].P = 1;}
+            if(jns = 'V'){(*Semi).F[lvl].P = 1;}
         }else{
             // bangunana akan menjadi nilai maksimum
         }
@@ -56,11 +69,11 @@ void Shield (Pemain Pe, BangunanTot *Ba, int PemainKe) //Bonus
 void ExtraTurn (){}
     /*setelah pengaktifan skill ini berakhir, pemain selanjutnya tetap pemain yang sama*/
 
-void AttackUp() //Bonus
+void AttackUp(ACUAN Ac, Pemain Pe, BangunanTot Ba, int PemainKe) //Bonus
  /*Jika pemain mengaktifkan skill ini, maka pertahanan lawan tidak akan mempengaruhi penyerangan.
     Syarat: Pemain baru saja melakukan penyerangan ke tower lawan dan tower pemain menjadi berjumlah 3 */
     {
-
+    
     }
 void CriticalHit (){} //Bonus
     /* Syarat: Musuh baru saja melakukan skill Extra Turn
@@ -103,3 +116,13 @@ void Barrage (Pemain Pe, BangunanTot *Ba, int PemainKe)
                 }
             }
         }
+void GetSkill(SKILL *S, Pemain Pe, int PemainKe){
+    address P;
+    if(PemainKe == 1){ //Kondisi dimanan pemain 1 sedang melakukan permainan
+    P = First( Pe.L1);
+    NbElmtL(Pe.L1);
+
+    }else if( PemainKe == 2){
+
+    }
+}

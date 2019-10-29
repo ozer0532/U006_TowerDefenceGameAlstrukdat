@@ -11,14 +11,14 @@ void InstantUpgrade (Pemain Pe, BangunanTot *Ba, int PemainKe);
         I.S Penain mungkin belom punya bangunan
         F.S Setiap banguna yang dimiliki pemain naik satu level*/
 
-void Shield (Pemain Pe, BangunanTot *Ba, int PemainKe); //Bonus
+void Shield (ACUAN *Semi, Pemain Pe, BangunanTot *Ba, int PemainKe); //Bonus
     /*Seluruh bangunan yang dimiliki pemain akan memiliki pertahanan selama 2 turn
         apabila pemain menggunakan skill ini 2 kali beturut-turut durasi tidak akan bertamabah, namun menjadi nilai maksimum    */
 
 void ExtraTurn ();
     /*setelah pengaktifan skill ini berakhir, pemain selanjutnya tetap pemain yang sama*/
 
-void AttackUp(); //Bonus
+void AttackUp(ACUAN Ac, Pemain Pe, BangunanTot Ba, int PemainKe); //Bonus
  /*Jika pemain mengaktifkan skill ini, maka pertahanan lawan tidak akan mempengaruhi penyerangan.
     Syarat: Pemain baru saja melakukan penyerangan ke tower lawan dan tower pemain menjadi berjumlah 3 */
 void CriticalHit (); //Bonus
@@ -30,5 +30,8 @@ void InstantReinforcement(Pemain Pe, BangunanTot *Ba, int PemainKe);
 void Barrage (Pemain Pe, BangunanTot *Ba, int PemainKe);
     /* Syarat: Jumalah bangunan lawan baru saja menjadi 10
         F.S: Jumlah pasukan pada setiap bangunan lawan berkurang 10 */
+void GetSkill(SKILL *S, Pemain Pe, int PemainKe);
+    /* Menegcek kondisi apakah pemain mendapatkan suatu skill. Jika Mendapakatkan skill
+        maka skill tersbut akan di addlast queue */
 
 #endif
