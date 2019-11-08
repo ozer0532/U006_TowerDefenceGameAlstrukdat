@@ -5,6 +5,7 @@
 #include "mesinkata.h"
 #include "bangunan.h"
 #include "listlinier.h"
+#include "state.h"
 
 int pemainKe(int x)
 /* Mengembalikan pemain yang gilirannya sedang berlangsung */
@@ -90,14 +91,17 @@ int main()
         char sav[] = "SAVE";
 
       /* Variabel */
-        boolean masihMain;
-        int menu;
-        STATE S;
-        char command[8];
-        SKILL QS;
-        Pemain Pe;
-        BangunanTot B;
-        /* infotype queue skill */ skillP1, skillP2;
+      // Variabel inti
+        boolean masihMain;              // True bila permainan sedang berlangsung
+        int menu;                       // Input pilihan menu
+        char command[8];                // Berisi command yang akan diinput pada game
+
+      // Variabel laju game
+        STATE S;                        // Berisi state saat ini
+        // TODO: Insert undo disini
+        SKILL QS;                       // Queue skill yang dimiliki tiap kedua pemain
+        Pemain Pe;                      // List bangunan yang dimiliki tiap kedua player
+        BangunanTot BT;                  // Array bangunan pada game
 
     // ALGORITMA
         printf("********** AVATAR WORLD WAR **********\n");
@@ -113,19 +117,21 @@ int main()
             /*  - Masukin data konfigurasi ke peta */
             /*  - Dll. */
             S.turn = 1;
-            CreateEmptyQ(&(QS.SA)); CreateEmptyQ(&(QS.SB));
-            CreateEmptyL(&(Pe.L1)); CreateEmptyL(&(Pe.L2));
-            MakeEmptyBangunanTot(&BT);
-            masihMain = true;
+            CreateEmptyQ(&(QS.SA), /* Maks gedung*/); CreateEmptyQ(&(QS.SB), /* Maks gedung*/);     // Init Queue Skill
+            CreateEmptyL(&(Pe.L1)); CreateEmptyL(&(Pe.L2));                                         // Init List Bangunan
+            MakeEmptyBangunanTot(&BT);                  // ? - Ini apaan?
+            masihMain = true;                          // Aktivasi permainan
 
+            // LOOP GAME INTI
             do
             {
-              /* Cetak peta ke layar */
+              /* TODO: Cetak peta ke layar */
 
               while (masihMain && S.turn % 2 == 1)
               {
                 printf("Player %d\n", pemainKe(S.turn));
-                /* Cetak bangunan yang dimiliki pemain */
+                /* TODO: Cetak bangunan yang dimiliki pemain */
+
                 printf("ENTER COMMAND: ");scanf("%s", command);
 
                 if (!strcmp(command, atk)) /* command == "ATTACK" */
