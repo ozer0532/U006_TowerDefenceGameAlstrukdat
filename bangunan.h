@@ -92,4 +92,12 @@ void ResetBANGUNAN(BANGUNAN *B, int  JPasNetto, int Milik);
 
 void CopyBANGUNAN(BANGUNAN Bin, BANGUNAN *Bout);
 
+int getA(BANGUNAN B, ACUAN a);
+
+int getM(BANGUNAN B, ACUAN a);
+
+int getP(BANGUNAN B, ACUAN a);
+
+int getU(BANGUNAN B, ACUAN a);
+
 #endif

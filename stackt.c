@@ -20,8 +20,23 @@ boolean IsFullST (Stack S){
 /* Mengirim true jika tabel penampung nilai elemen stack penuh */
 
 /* ************ Menambahkan sebuah elemen ke Stack ************ */
-void Push (Stack * S, STATE X){
+void PushSTATE(Stack * S, STATE X){
     if (IsEmptyST(*S) == true){
+        Top(*S) = 1;
+        InfoTop(*S) = X;
+    }
+    else{
+        Top(*S) += 1;
+        InfoTop(*S) = X;
+    }
+}
+
+void Action(STATE *s){
+    (*s).peta.NBrsEff += 5;
+}
+
+void Poosh(Stack *S,STATE X){
+    if (Top(*S) == NilST){
         Top(*S) = 1;
         InfoTop(*S) = X;
     }
@@ -44,5 +59,6 @@ void Pop (Stack * S, STATE* X){
 /* F.S. X adalah nilai elemen TOP yang lama, TOP berkurang 1 */
 
 void Undo(Stack *S,STATE *s){
-    Pop(S,s);
+    *s = InfoTop(*S);
+    Top(*S) -= 1;
 }

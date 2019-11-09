@@ -4,24 +4,27 @@
 #include <stdio.h>
 
 
-void Action(STATE *s){
-    (*s).peta.NBrsEff += 5;
-}
 
 
 int main(){
-    Stack states;
+    Stack sss;
+    // Stack *sa;
+    // sa = &states;
     STATE UNDO;
     STATE S;
     char c;
+    CreateEmpty(&sss);
     LoadFile(&S);
     PrintState(S);
-    Push(&states,S);
-    printf("action?");scanf("%c",&c);
+    // Top(sss) += 1;
+    // InfoTop(sss) = S;
+    Poosh(&sss,S);
+    PrintState(InfoTop(sss));
+    printf("action?");scanf(" %c",&c);
     Action(&S);
     PrintState(S);
-    printf("undo?");scanf("%c",&c);
-    Undo(&states,&UNDO);
+    printf("undo?");scanf(" %c",&c);
+    Undo(&sss,&S);
     PrintState(S); 
     return 0;
 }

@@ -5,7 +5,8 @@
 #include "mesinkata.h"
 #include "bangunan.h"
 #include "listlinier.h"
-#include "state.h"
+#include "STATE.h"
+#include "stackt.h"
 
 int pemainKe(int x)
 /* Mengembalikan pemain yang gilirannya sedang berlangsung */
@@ -97,7 +98,9 @@ int main()
         char command[8];                // Berisi command yang akan diinput pada game
 
       // Variabel laju game
-        STATE S;                        // Berisi state saat ini
+        STATE S;
+        Stack stackofstate;
+        CreateEmpty(&stackofstate);                        // Berisi state saat ini
         // TODO: Insert undo disini
         SKILL QS;                       // Queue skill yang dimiliki tiap kedua pemain
         Pemain Pe;                      // List bangunan yang dimiliki tiap kedua player
@@ -115,6 +118,7 @@ int main()
         {
             /* ALOKASI KONDISI AWAL PERMAINAN */
             /*  - Masukin data konfigurasi ke peta */
+            LoadFile(&S);
             /*  - Dll. */
             S.turn = 1;
             CreateEmptyQ(&(QS.SA), /* Maks gedung*/); CreateEmptyQ(&(QS.SB), /* Maks gedung*/);     // Init Queue Skill
@@ -129,6 +133,8 @@ int main()
 
               while (masihMain && S.turn % 2 == 1)
               {
+                Poosh(&stackofstate,S); //tiap awal giliran di push state permainan, jadi bisa undo kapan aja
+                //nanti juga tiap akhir suatu aksi, jadiin perubahan di STATE, dan entar state di push ke stack of states, ini bsia gw implementasiin habis gamenya udh fungsional
                 printf("Player %d\n", pemainKe(S.turn));
                 /* TODO: Cetak bangunan yang dimiliki pemain */
 
@@ -173,5 +179,9 @@ int main()
             while(masihMain);
 
             printf("Permainan telah berakhir.");
+        }
+        else{
+          LoadSafeFile(&S);
+          //load save file udh dibuat, perbedaannya dikit doang ama file 
         }
 }

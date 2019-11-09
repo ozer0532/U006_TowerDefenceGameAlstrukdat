@@ -207,3 +207,16 @@ void CopyBANGUNAN(BANGUNAN Bin, BANGUNAN *Bout)
     (*Bout).Lok.X=Bin.Lok.X;
     (*Bout).Lok.Y=Bin.Lok.Y;
 }
+
+int getA(BANGUNAN B, ACUAN a){
+    CariDariAcuan(a,B.Jenis,B.Level,'A');
+}
+int getM(BANGUNAN B, ACUAN a){
+    CariDariAcuan(a,B.Jenis,B.Level,'M');
+}
+int getP(BANGUNAN B, ACUAN a){
+    CariDariAcuan(a,B.Jenis,B.Level,'P');
+}
+int getU(BANGUNAN B, ACUAN a){
+    CariDariAcuan(a,B.Jenis,B.Level,'U');
+}
