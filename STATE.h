@@ -13,6 +13,7 @@ typedef struct {
     SKILL S;
     MATRIKS peta;
     Graph Hubungan;
+    char lastaction[];
 }STATE;
 
 #endif

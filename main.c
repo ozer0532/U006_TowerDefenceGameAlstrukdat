@@ -88,6 +88,7 @@ int main()
         char lup[] = "LEVEL_UP";
         char skl[] = "SKILL";
         char ext[] = "EXIT";
+        char undo[] = "UNDO";
         char end[] = "END_TURN";
         char sav[] = "SAVE";
 
@@ -118,6 +119,7 @@ int main()
         {
             /* ALOKASI KONDISI AWAL PERMAINAN */
             /*  - Masukin data konfigurasi ke peta */
+            makeemptypeta(&(S.peta));
             LoadFile(&S);
             /*  - Dll. */
             S.turn = 1;
@@ -130,13 +132,14 @@ int main()
             do
             {
               /* TODO: Cetak peta ke layar */
-
+              printpeta(S.peta);
               while (masihMain && S.turn % 2 == 1)
               {
                 Poosh(&stackofstate,S); //tiap awal giliran di push state permainan, jadi bisa undo kapan aja
                 //nanti juga tiap akhir suatu aksi, jadiin perubahan di STATE, dan entar state di push ke stack of states, ini bsia gw implementasiin habis gamenya udh fungsional
                 printf("Player %d\n", pemainKe(S.turn));
                 /* TODO: Cetak bangunan yang dimiliki pemain */
+
 
                 printf("ENTER COMMAND: ");scanf("%s", command);
 
@@ -164,12 +167,19 @@ int main()
                 {
                     S.turn++;
                     if (skillP1 == /* akronim extra turn */)
-                        S.turn ++;
+                        S.turn --;
                 }
 
                 if (!strcmp(command, sav)) /* command == "SAVE" */
                 {
-
+                  char namafile[20];
+                  printf("Save kedalam file bernama : ");scanf(" %s",&namafile);
+                  SaveFile(S,namafile);
+                }
+                
+                if (!strcmp(command, undo)){
+                  printf("Kamu mengundo aksi %s", S.lastaction);
+                  Undo(&stackofstate,&S); 
                 }
               }
 

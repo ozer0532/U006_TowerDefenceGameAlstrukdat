@@ -11,15 +11,17 @@
 #define KolMin 1
 #define KolMax 30
 
-
+typedef int indeks;
 typedef struct {
-    int Mem[BrsMax+1][KolMax+1];
+    char Mem[BrsMax+1][KolMax+1];
     int NBrsEff; /* banyaknya/ukuran baris yg terdefinisi */
     int NKolEff; /* banyaknya/ukuran kolom yg terdefinisi */
 } MATRIKS;
 /* NBrsEff <= 1 dan NKolEff <= 1 */
 /* Indeks matriks yang digunakan: [BrsMin..BrsMax][KolMin..KolMax] */
 /* Memori matriks yang dipakai selalu di "ujung kiri atas" */
+
+
 
 /* ********** DEFINISI PROTOTIPE PRIMITIF ********** */
 /* *** Konstruktor membentuk MATRIKS *** */
@@ -31,6 +33,7 @@ void MakeMATRIKS (int NB, int NK, MATRIKS * M);
 /* *** Selektor *** */
 #define NBrsEff(M) (M).NBrsEff
 #define NKolEff(M) (M).NKolEff
+#define Elm(M,i,j) (M).Mem[i][j]
 
 /* *** Selektor "DUNIA MATRIKS" *** */
 boolean IsIdxValidM (int i, int j);
@@ -47,7 +50,7 @@ int GetLastIdxKolM (MATRIKS M);
 /* Mengirimkan indeks kolom terbesar M */
 boolean IsIdxEffM (MATRIKS M, int i, int j);
 /* Mengirimkan true jika i, j adalah indeks efektif bagi M */
-int GetElmtDiagonalM (MATRIKS M, int i);
+char GetElmtDiagonalM (MATRIKS M, int i);
 /* Mengirimkan elemen M(i,i) */
 
 /* ********** Assignment  MATRIKS ********** */
@@ -131,5 +134,8 @@ void PInverse1 (MATRIKS * M);
 void Transpose (MATRIKS * M);
 /* I.S. M terdefinisi dan IsBujursangkar(M) */
 /* F.S. M "di-transpose", yaitu setiap elemen M(i,j) ditukar nilainya dengan elemen M(j,i) */
+void makeemptypeta(MATRIKS *p);
+
+void printpeta(MATRIKS p);
 
 #endif

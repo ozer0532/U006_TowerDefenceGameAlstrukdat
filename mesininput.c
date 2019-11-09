@@ -141,22 +141,36 @@ void SalinKata()
 }
 
 void LoadFile(STATE *s){
+  int X,Y;
+  char type;
     STARTKATA();
-    (*s).peta.NBrsEff = katatoint(CKata);
+    (*s).peta.NBrsEff = katatoint(CKata)+1;
     TulisKata(CKata);
     ADVKATA();
     TulisKata(CKata);
-    (*s).peta.NKolEff = katatoint(CKata);
+    (*s).peta.NKolEff = katatoint(CKata)+1;
+
+    for (int i = 0; i <= (*s).peta.NBrsEff;i ++){
+        for (int j = 0; j <= (*s).peta.NKolEff; j ++){
+            Elm((*s).peta,i,j) = 'e';
+        }
+    }
+
     ADVKATA();
     TulisKata(CKata);
     (*s).JBang = katatoint(CKata);
     for (int i = 1; i <=(*s).JBang; i++){
         ADVKATA();
         (*s).listbtot.TI[i].B.Jenis = CKata.TabKata[1];
+        type = CKata.TabKata[1];
         ADVKATA();
         (*s).listbtot.TI[i].B.Lok.X = katatoint(CKata);
+        X = katatoint(CKata);
         ADVKATA();
         (*s).listbtot.TI[i].B.Lok.Y = katatoint(CKata);
+        Y = katatoint(CKata);
+
+        (*s).peta.Mem[X][Y] = type;
         
         (*s).listbtot.TI[i].B.Level = 1;
         
@@ -203,9 +217,9 @@ void LoadFile(STATE *s){
 
 }
 
-void SaveFile(STATE s){
+void SaveFile(STATE s,char nama[]){
   FILE *f;
-  f = fopen("savedfile.txt","w");
+  f = fopen(nama,"w");
   fprintf(f,"%d %d\n",s.peta.NBrsEff,s.peta.NKolEff);
   writefile(("%d\n",s.JBang));
   for (int i = 1; i <= s.JBang; i ++){
@@ -285,7 +299,7 @@ void LoadSafeFile(STATE *s){
 
 
 void PrintState(STATE S){
-  printf("besar peta %d x %d\n",S.peta.NBrsEff,S.peta.NKolEff);
+  printf("besar peta %d x %d\n",S.peta.NBrsEff-2,S.peta.NKolEff-2);
   printf("ada %d bangunan : \n",S.JBang);
   for (int i = 1; i <=S.JBang;i++){
     printf("%d. %c di lokasi %d %d level %d milik %d\n",i,S.listbtot.TI[i].B.Jenis,S.listbtot.TI[i].B.Lok.X,S.listbtot.TI[i].B.Lok.Y,S.listbtot.TI[i].B.Level,S.listbtot.TI[i].B.Milik);
