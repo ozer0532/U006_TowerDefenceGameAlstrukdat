@@ -11,6 +11,7 @@ typedef struct
     Queue skillQueue;
     int shieldCooldown;
     boolean extraTurn;
+    int playerKe;
 } Player;
 
 

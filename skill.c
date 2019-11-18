@@ -1,8 +1,6 @@
 #include "skill.h"
 #include <stdio.h>
 #include "attack.h"
-#include "player.h"
-
 
 void InstantUpgrade (Player Pe, BangunanTot *Ba)
     /* Pemain mendapatkan skill ini pada skill awal
@@ -64,12 +62,12 @@ void InstantReinforcement(Player Pe, BangunanTot *Ba)
                 Next(P);
             }
         }
-void Barrage (Player Pe, BangunanTot *Ba)
+void Barrage (Player Pm, BangunanTot *Ba)
     /* Syarat: Jumalah bangunan lawan baru saja menjadi 10
         F.S: Jumlah pasukan pada setiap bangunan lawan berkurang 10 */
         {
             address P;
-            P = First(Pe.L2);
+            P = First(Pm.bangunanPlayer);
             while(P != Nil){
                 (*Ba).TI[Info(P)].B.Jpas -= 10;
                 Next(P);

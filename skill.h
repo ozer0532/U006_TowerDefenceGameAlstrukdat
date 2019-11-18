@@ -3,6 +3,7 @@
 #include "bangunan.h"
 #include "listlinier.h"
 #include "array.h"
+#include "player.h"
 
 
 void InstantUpgrade (Player Pe, BangunanTot *Ba);

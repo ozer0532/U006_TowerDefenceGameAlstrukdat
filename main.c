@@ -80,7 +80,7 @@ void levelUp(BangunanTot *T, Player *Pe)
       }
 }
 
-void Move(BangunanTot *T, Pemain *Pe, int PEMAINKE)
+void Move(BangunanTot *T, Player *Pe)
 // I.S. T dan Pe terdefinisi
 // F.S. Sejumlah pasukan pemain di bangunan A pindah ke
 //      bangunan B
@@ -88,15 +88,13 @@ void Move(BangunanTot *T, Pemain *Pe, int PEMAINKE)
     // KAMUS LOKAL
         int pilih;
         ACUAN Ac;
+        address P;
 
     // ALGORITMA
         Inisialisasi(&Ac);
-        if (PEMAINKE == 1)
-          P = First((*Pe).L1);
-        else if (PEMAINKE == 2)
-          P = First((*Pe).L2);
+        P = First((*Pe).bangunanPlayer);
 
-        CetakDaftarBangunan(*T, *Pe, PEMAINKE);
+        CetakDaftarBangunan(*T, *Pe);
         printf("Pilih bangunan:");scanf("%d", &pilih);
         
 }
@@ -129,6 +127,7 @@ int main()
         Player P2;
         BangunanTot BT;                  // Array bangunan pada game
         Player * currentPlayer;
+        Player * opposingPlayer;
 
     // ALGORITMA
         printf("********** AVATAR WORLD WAR **********\n");
@@ -147,11 +146,14 @@ int main()
             /*  - Dll. */
             S.turn = 1;
             CreateEmptyQ(&(P1.skillQueue), 30); CreateEmptyQ(&(P2.skillQueue), 30);     // Init Queue Skill
-            CreateEmptyL(&(P1.bangunanPlayer)); CreateEmptyL(&(P2.bangunanPlayer));                                         // Init List Bangunan
+            CreateEmptyL(&(P1.bangunanPlayer)); CreateEmptyL(&(P2.bangunanPlayer));    
+            P1.playerKe = 1; P2.playerKe = 2;
+            // Init List Bangunan
             MakeEmptyBangunanTot(&BT);                  // ? - Ini apaan?
             masihMain = true;                          // Aktivasi permainan
 
             currentPlayer = &P1;
+            opposingPlayer = &P2;
 
             // LOOP GAME INTI
             do
@@ -175,7 +177,7 @@ int main()
 
                 if (!strcmp(command, lup)) /* command == "LEVEL_UP" */
                 {
-                    levelUp(&BT, currentPlayer, pemainKe(S.turn));
+                    levelUp(&BT, currentPlayer);
                 }
 
                 if (!strcmp(command, skl)) /* command == "SKILL" */
@@ -194,8 +196,10 @@ int main()
                     if (!(*currentPlayer).extraTurn) {
                       if (currentPlayer == &P1) {
                         currentPlayer = &P2;
+                        opposingPlayer = &P1;
                       } else {
                         currentPlayer = &P1;
+                        opposingPlayer = &P2;
                       }
                     }
                 }
