@@ -50,12 +50,6 @@ typedef struct {
     // boolean P[5];  
 }BANGUNAN;
 
-
-typedef struct {
-    Queue SA;
-    Queue SB;
-} SKILL;
-
 // typedef struct {
 //     BangunanTot listbtot;
 //     int JBang;

@@ -19,12 +19,6 @@ typedef struct {
 	address First;
 } List;
 
-typedef struct {
-    List L1;
-	List L2;
-} Pemain; 
-
-
 /* Definisi list : */
 /* List kosong : First(L) = Nil */
 /* Setiap elemen dengan address P dapat diacu Info(P), Next(P) */

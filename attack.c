@@ -4,6 +4,7 @@
 #include "boolean.h"
 #include "attack.h"
 #include <math.h>
+#include "listlinier.h"
 
 address AlokasiLTambahBangunan (BangunanTot *B, IdxType Index)
 //Saat ingin Alokasi / Buat List Liniear

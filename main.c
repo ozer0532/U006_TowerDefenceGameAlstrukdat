@@ -7,6 +7,7 @@
 #include "listlinier.h"
 #include "STATE.h"
 #include "stackt.h"
+#include "player.h"
 
 int pemainKe(int x)
 /* Mengembalikan pemain yang gilirannya sedang berlangsung */
@@ -20,7 +21,7 @@ int pemainKe(int x)
             return 2;
 }
 
-void levelUp(BangunanTot *T, Pemain *Pe, int PEMAINKE)
+void levelUp(BangunanTot *T, Player *Pe)
 /* I. S. T dan Pe terdefinisi */
 /* F. S. Salah satu bangunan dari T yang dimiliki Pe */
 /*       levelnya bertambah 1 dan jumlah pasukkannya */
@@ -31,16 +32,14 @@ void levelUp(BangunanTot *T, Pemain *Pe, int PEMAINKE)
       int pilih, n, pas, lvl;
       ACUAN Ac;
       char jns;
+      int M;
 
     // ALGORITMA
       Inisialisasi(&Ac);
       n = 1;
-      if (PEMAINKE == 1)
-        P = First((*Pe).L1);
-      else if (PEMAINKE == 2)
-        P = First((*Pe).L2);
+      P = First((*Pe).bangunanPlayer);
 
-      CetakDaftarBangunan(*T, *Pe, PEMAINKE);
+      CetakDaftarBangunan(*T, *Pe);
       printf("Bangunan yang akan di level up:");scanf("%d", &pilih);
 
       while (n != pilih)
@@ -53,7 +52,8 @@ void levelUp(BangunanTot *T, Pemain *Pe, int PEMAINKE)
       jns = (*T).TI[Info(P)].B.Jenis;
       lvl = (*T).TI[Info(P)].B.Level;
 
-      if (pas >= CariDariAcuan(Ac, jns, lvl, 'M'))
+      M = CariDariAcuan(Ac, jns, lvl, 'M');
+      if (pas >= M)
       {
          (*T).TI[Info(P)].B.Level++;
          (*T).TI[Info(P)].B.Jpas -= M / 2;
@@ -103,9 +103,10 @@ int main()
         Stack stackofstate;
         CreateEmpty(&stackofstate);                        // Berisi state saat ini
         // TODO: Insert undo disini
-        SKILL QS;                       // Queue skill yang dimiliki tiap kedua pemain
-        Pemain Pe;                      // List bangunan yang dimiliki tiap kedua player
+        Player P1;
+        Player P2;
         BangunanTot BT;                  // Array bangunan pada game
+        Player * currentPlayer;
 
     // ALGORITMA
         printf("********** AVATAR WORLD WAR **********\n");
@@ -123,17 +124,19 @@ int main()
             LoadFile(&S);
             /*  - Dll. */
             S.turn = 1;
-            CreateEmptyQ(&(QS.SA), /* Maks gedung*/); CreateEmptyQ(&(QS.SB), /* Maks gedung*/);     // Init Queue Skill
-            CreateEmptyL(&(Pe.L1)); CreateEmptyL(&(Pe.L2));                                         // Init List Bangunan
+            CreateEmptyQ(&(P1.skillQueue), 30); CreateEmptyQ(&(P2.skillQueue), 30);     // Init Queue Skill
+            CreateEmptyL(&(P1.bangunanPlayer)); CreateEmptyL(&(P2.bangunanPlayer));                                         // Init List Bangunan
             MakeEmptyBangunanTot(&BT);                  // ? - Ini apaan?
             masihMain = true;                          // Aktivasi permainan
+
+            currentPlayer = &P1;
 
             // LOOP GAME INTI
             do
             {
               /* TODO: Cetak peta ke layar */
               printpeta(S.peta);
-              while (masihMain && S.turn % 2 == 1)
+              while (masihMain)
               {
                 Poosh(&stackofstate,S); //tiap awal giliran di push state permainan, jadi bisa undo kapan aja
                 //nanti juga tiap akhir suatu aksi, jadiin perubahan di STATE, dan entar state di push ke stack of states, ini bsia gw implementasiin habis gamenya udh fungsional
@@ -150,7 +153,7 @@ int main()
 
                 if (!strcmp(command, lup)) /* command == "LEVEL_UP" */
                 {
-                    levelUp(&BT, &Pe, pemainKe(S.turn));
+                    levelUp(&BT, currentPlayer, pemainKe(S.turn));
                 }
 
                 if (!strcmp(command, skl)) /* command == "SKILL" */
@@ -166,8 +169,13 @@ int main()
                 if (!strcmp(command, end)) /* command == "END_TURN" */
                 {
                     S.turn++;
-                    if (skillP1 == /* akronim extra turn */)
-                        S.turn --;
+                    if (!(*currentPlayer).extraTurn) {
+                      if (currentPlayer == &P1) {
+                        currentPlayer = &P2;
+                      } else {
+                        currentPlayer = &P1;
+                      }
+                    }
                 }
 
                 if (!strcmp(command, sav)) /* command == "SAVE" */
