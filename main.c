@@ -80,10 +80,31 @@ void levelUp(BangunanTot *T, Pemain *Pe, int PEMAINKE)
       }
 }
 
+void Move(BangunanTot *T, Pemain *Pe, int PEMAINKE)
+// I.S. T dan Pe terdefinisi
+// F.S. Sejumlah pasukan pemain di bangunan A pindah ke
+//      bangunan B
+{
+    // KAMUS LOKAL
+        int pilih;
+        ACUAN Ac;
+
+    // ALGORITMA
+        Inisialisasi(&Ac);
+        if (PEMAINKE == 1)
+          P = First((*Pe).L1);
+        else if (PEMAINKE == 2)
+          P = First((*Pe).L2);
+
+        CetakDaftarBangunan(*T, *Pe, PEMAINKE);
+        printf("Pilih bangunan:");scanf("%d", &pilih);
+        
+}
+
 int main()
 {
     // KAMUS
-      /* Konstanta*/
+      /* Konstanta */
         char atk[] = "ATTACK";
         char lup[] = "LEVEL_UP";
         char skl[] = "SKILL";
@@ -91,6 +112,7 @@ int main()
         char undo[] = "UNDO";
         char end[] = "END_TURN";
         char sav[] = "SAVE";
+        char mov[] = "MOVE";
 
       /* Variabel */
       // Variabel inti
@@ -165,9 +187,14 @@ int main()
 
                 if (!strcmp(command, end)) /* command == "END_TURN" */
                 {
-                    S.turn++;
+                    S.turn ++;
                     if (skillP1 == /* akronim extra turn */)
                         S.turn --;
+                }
+
+                if(!strcmp(command, mov)) /* command == "MOVE" */
+                {
+
                 }
 
                 if (!strcmp(command, sav)) /* command == "SAVE" */
@@ -176,10 +203,10 @@ int main()
                   printf("Save kedalam file bernama : ");scanf(" %s",&namafile);
                   SaveFile(S,namafile);
                 }
-                
+
                 if (!strcmp(command, undo)){
                   printf("Kamu mengundo aksi %s", S.lastaction);
-                  Undo(&stackofstate,&S); 
+                  Undo(&stackofstate,&S);
                 }
               }
 
@@ -190,8 +217,9 @@ int main()
 
             printf("Permainan telah berakhir.");
         }
-        else{
+        else
+        {
           LoadSafeFile(&S);
-          //load save file udh dibuat, perbedaannya dikit doang ama file 
+          //load save file udh dibuat, perbedaannya dikit doang ama file
         }
 }
