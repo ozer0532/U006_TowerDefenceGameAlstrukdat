@@ -10,7 +10,6 @@ typedef struct {
     BangunanTot listbtot;
     int JBang;
     int turn;
-    SKILL S;
     MATRIKS peta;
     Graph Hubungan;
     char lastaction[];
