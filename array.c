@@ -1,6 +1,7 @@
 
 #include "array.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create tabel kosong  */
@@ -8,11 +9,21 @@ void MakeEmptyBangunanTot (BangunanTot * T)
 /* I.S. T sembarang */
 /* F.S. Terbentuk tabel T kosong dengan kapasitas IdxMax-IdxMin+1 */
 {
-    (*T).TI[IdxMax-IdxMin+1];
-    for (int i=IdxMin;i<=IdxMax;i++) {
+    int i;
+    (*T).TI = (ElType*) malloc ((IdxMax+1)*sizeof(ElType));
+    //mulai dari 1
+    for (i=IdxMin;i<=IdxMax;i++)
+    {
         MakeBANGUNANEmpty(&((*T).TI[i].B));
         (*T).TI[i].P=0;
     }
+}
+
+void Dealokasi(BangunanTot *T)
+/* I.S. T terdefinisi; */
+/* F.S. TI(T) dikembalikan ke system, MaxEl(T)=0; Neff(T)=0 */
+{
+    free((*T).TI);
 }
 
 /* ********** SELEKTOR (TAMBAHAN) ********** */
