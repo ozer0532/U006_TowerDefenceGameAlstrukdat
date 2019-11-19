@@ -233,5 +233,5 @@ int main()
         {
           LoadSafeFile(&S);
           //load save file udh dibuat, perbedaannya dikit doang ama file
-        }
+   }
 }

@@ -22,7 +22,7 @@ typedef struct {
 /* Jenis Bangunan tidak ada kepemilikan*/
 typedef int IdxType;  /* type indeks */
 typedef struct { 
-  ElType *TI[IdxMax+1]; /* memori tempat penyimpan elemen (container) */
+  ElType *TI; /* memori tempat penyimpan elemen (container) */
 } BangunanTot;
 
 

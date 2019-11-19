@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "bangunan.h": "c",
+        "state.h": "c"
+    }
+}

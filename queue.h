@@ -11,6 +11,7 @@
 
 
 /* Contoh deklarasi variabel bertype Queue : */
+
 /* Versi I : tabel dinamik, Head dan Tail eksplisit, ukuran disimpan */
 typedef struct { int * T;   /* tabel penyimpan elemen */
                  int HEAD;  /* alamat penghapusan */
@@ -22,6 +23,7 @@ typedef struct { int * T;   /* tabel penyimpan elemen */
 
 /* ********* AKSES (Selektor) ********* */
 /* Jika Q adalah Queue, maka akses elemen : */
+
 #define Head(Q) (Q).HEAD
 #define Tail(Q) (Q).TAIL
 #define InfoHead(Q) (Q).T[(Q).HEAD]
