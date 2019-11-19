@@ -3,6 +3,10 @@
 #include "mesininput.h"
 #include <stdio.h>
 
+void Action(STATE *s);
+void Action(STATE *s){
+    (*s).peta.NBrsEff += 5;
+}
 
 
 
@@ -14,17 +18,16 @@ int main(){
     STATE S;
     char c;
     CreateEmpty(&sss);
-    LoadFile(&S);
+    LoadFile(&S);   //inisialissasi State pertama
     PrintState(S);
     // Top(sss) += 1;
     // InfoTop(sss) = S;
-    Poosh(&sss,S);
-    PrintState(InfoTop(sss));
-    printf("action?");scanf(" %c",&c);
+    Poosh(&sss,S); //state pertama di push sebelum aksi
+    printf("action?");scanf(" %c",&c); // aksi tes
     Action(&S);
-    PrintState(S);
+    PrintState(S); // print state setelah aksi
     printf("undo?");scanf(" %c",&c);
-    Undo(&sss,&S);
-    PrintState(S); 
-    return 0;
+    Undo(&sss,&S); //undo, state di pop ke curstate
+    PrintState(S);  
+    return 0;   
 }

@@ -11,7 +11,7 @@ void InstantUpgrade (Player Pe, BangunanTot *Ba)
     P = First(Pe.bangunanPlayer);
     while(P != Nil){
         (*Ba).TI[Info(P)].B.Level+=1;
-        Next(P);
+        P = Next(P);
     }
 }
 
@@ -36,7 +36,7 @@ void Shield (ACUAN *Semi, Player Pe, BangunanTot *Ba) //Bonus
         } else {
             // bangunana akan menjadi nilai maksimum
         }
-    Next(P);
+    P = Next(P);
     }
 }
 void ExtraTurn (){}
