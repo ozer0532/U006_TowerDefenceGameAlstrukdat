@@ -11,9 +11,14 @@
 #define KolMin 1
 #define KolMax 30
 
+
 typedef int indeks;
 typedef struct {
-    char Mem[BrsMax+1][KolMax+1];
+    char C;
+    int p;
+}petainfo;
+typedef struct {
+    petainfo Mem[BrsMax+1][KolMax+1];
     int NBrsEff; /* banyaknya/ukuran baris yg terdefinisi */
     int NKolEff; /* banyaknya/ukuran kolom yg terdefinisi */
 } MATRIKS;
@@ -134,8 +139,6 @@ void PInverse1 (MATRIKS * M);
 void Transpose (MATRIKS * M);
 /* I.S. M terdefinisi dan IsBujursangkar(M) */
 /* F.S. M "di-transpose", yaitu setiap elemen M(i,j) ditukar nilainya dengan elemen M(j,i) */
-void makeemptypeta(MATRIKS *p);
 
-void printpeta(MATRIKS p);
 
 #endif

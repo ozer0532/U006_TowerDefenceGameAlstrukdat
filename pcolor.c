@@ -10,7 +10,6 @@ Created at: 17/10/2019
 
 void print_red(char c) {
     printf("%s%c", RED, c);
-    printf("%s", NORMAL);
 }
 
 void print_green(char c) {
@@ -25,7 +24,6 @@ void print_yellow(char c) {
 
 void print_blue(char c) {
     printf("%s%c", BLUE, c);
-    printf("%s", NORMAL);
 }
 
 void print_magenta(char c) {

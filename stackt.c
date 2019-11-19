@@ -31,10 +31,6 @@ void PushSTATE(Stack * S, STATE X){
     }
 }
 
-void Action(STATE *s){
-    (*s).peta.NBrsEff += 5;
-}
-
 void Poosh(Stack *S,STATE X){
     if (Top(*S) == NilST){
         Top(*S) = 1;

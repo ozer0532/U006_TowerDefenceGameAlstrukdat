@@ -4,10 +4,11 @@
 #include "mesinkar.h"
 
 
+
 main(){
     STATE S;
     LoadFile(&S);
     PrintState(S);
-    printpeta(S.peta);
+    printpeta(S);
 
 }

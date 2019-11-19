@@ -121,8 +121,7 @@ int main()
       // Variabel laju game
         STATE S;
         Stack stackofstate;
-        CreateEmpty(&stackofstate);                        // Berisi state saat ini
-        // TODO: Insert undo disini
+        CreateEmpty(&stackofstate);
         Player P1;
         Player P2;
         BangunanTot BT;                  // Array bangunan pada game
@@ -173,6 +172,7 @@ int main()
                 if (!strcmp(command, atk)) /* command == "ATTACK" */
                 {
 
+                  strcpy(S.lastaction,"ATTACK");
                 }
 
                 if (!strcmp(command, lup)) /* command == "LEVEL_UP" */
@@ -220,6 +220,7 @@ int main()
                   printf("Kamu mengundo aksi %s", S.lastaction);
                   Undo(&stackofstate,&S);
                 }
+                Poosh(&stackofstate,S);
               }
 
               /* while pemain ke-2 */
