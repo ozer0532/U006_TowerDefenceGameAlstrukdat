@@ -214,7 +214,6 @@ int main()
 
                   if (IsKataSama(CKata, Endt)) /* command == "END_TURN" */
                   {
-                      printf("BOOYAH\n");
                       S.turn++;
                       if (!(*currentPlayer).extraTurn)
                       {

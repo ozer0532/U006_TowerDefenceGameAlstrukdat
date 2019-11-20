@@ -36,7 +36,7 @@ void BacaKata(Kata *K){
 
 void TulisKata (Kata K){
     for (int i = 1; i <= K.Length; i++){
-        printf("%d ",K.TabKata[i]);
+        printf("%c",K.TabKata[i]);
     }
     printf("\n");
 }
