@@ -166,7 +166,6 @@ int main()
             LoadFile(&S);
             /*  - Dll. */
             S.turn = 1;
-            printf("Hi!");
             CreateEmptyQ(&(P1.skillQueue), 30); CreateEmptyQ(&(P2.skillQueue), 30);     // Init Queue Skill
             CreateEmptyL(&(P1.bangunanPlayer)); CreateEmptyL(&(P2.bangunanPlayer));
             P1.playerKe = 1; P2.playerKe = 2;

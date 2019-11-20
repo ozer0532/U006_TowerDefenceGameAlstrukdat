@@ -202,11 +202,11 @@ void SaveFile(STATE s,char nama[]){
   FILE *f;
   f = fopen(nama,"w");
   fprintf(f,"%d %d\n",s.peta.NBrsEff,s.peta.NKolEff);
-  writefile(("%d\n",s.JBang));
+  fprintf(f, "%d\n",s.JBang);
   for (int i = 1; i <= s.JBang; i ++){
-    writefile(("%c %d %d %d %d %d\n",s.listbtot.TI[i].B.Jenis,s.listbtot.TI[i].B.Lok.X,s.listbtot.TI[i].B.Lok.Y,s.listbtot.TI[i].B.Level,s.listbtot.TI[i].B.Milik,s.listbtot.TI[i].B.Jpas));
+    fprintf(f, "%c %d %d %d %d %d\n",s.listbtot.TI[i].B.Jenis,s.listbtot.TI[i].B.Lok.X,s.listbtot.TI[i].B.Lok.Y,s.listbtot.TI[i].B.Level,s.listbtot.TI[i].B.Milik,s.listbtot.TI[i].B.Jpas);
   }
-  
+
   addrRow G;
   G = s.Hubungan.First;
   addrCol GN;
@@ -215,8 +215,10 @@ void SaveFile(STATE s,char nama[]){
      GN = G->branch;
      while (GN != Nil){
        fprintf(f,"%d ",GN->info);
+       GN = Next(GN);
      }
       fprintf(f,"!\n");
+      G = Next(G);
   }
  
   fclose(f);
@@ -265,7 +267,7 @@ void LoadSafeFile(STATE *s){
 void PrintState(STATE S){
   printf("besar peta %d x %d\n",S.peta.NBrsEff-2,S.peta.NKolEff-2);
   printf("ada %d bangunan : \n",S.JBang);
-  for (int i = 1; i <=S.JBang;i++){
+  for (int i = 1; i <=S.JBang; i++){
     printf("%d. %c di lokasi %d %d level %d milik %d\n",i,S.listbtot.TI[i].B.Jenis,S.listbtot.TI[i].B.Lok.X,S.listbtot.TI[i].B.Lok.Y,S.listbtot.TI[i].B.Level,S.listbtot.TI[i].B.Milik);
   }
 }
