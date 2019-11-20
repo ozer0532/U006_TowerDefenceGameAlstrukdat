@@ -234,15 +234,15 @@ void LoadSafeFile(STATE *s){
         j = katatoint(CKata);
         (*s).listbtot.TI[i].B = MakeBANGUNAN(m,j,l,c,MakePOINT(x,y));
     }
-    int i ,j;
+    int i ,je;
     ADVKATA();
-    while (not(EndKata)){
+    while (EndKata == false){
       i = katatoint(CKata);
       AddElmtG(&(*s).Hubungan,i);
       ADVKATA();
-      while(CKata.TabKata[1] != "!"){
-        j = katatoint(CKata);
-        AddRelation(&((*s).Hubungan),i,j);
+      while(CKata.TabKata[1] != '!'){
+        je = katatoint(CKata);
+        AddRelation(&((*s).Hubungan),i,je);
       }
     ADVKATA();
     }
