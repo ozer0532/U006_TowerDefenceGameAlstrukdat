@@ -188,10 +188,12 @@ int main()
                   if (IsKataSama(CKata, Attk)) /* command == "ATTACK" */
                   {
                       strcpy(S.lastaction,"ATTACK");
+                      Attack(S.Hubungan, &(S.listbtot), currentPlayer, opposingPlayer);
                   }
 
                   if (IsKataSama(CKata, Lvup)) /* command == "LEVEL_UP" */
                   {
+                      strcpy(S.lastaction,"LEVEL_UP");
                       levelUp(&(S.listbtot), currentPlayer);
                   }
 
