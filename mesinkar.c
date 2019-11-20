@@ -22,6 +22,11 @@ void START() {
     ADV();
 }
 
+void STARTSTD(){
+    pita = stdin;
+    ADV();
+}
+
 void ADV() {
 /* Pita dimajukan satu karakter.
    I.S. : Karakter pada jendela =

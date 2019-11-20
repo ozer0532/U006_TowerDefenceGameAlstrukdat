@@ -27,7 +27,13 @@ void printpeta(STATE s){
 				else 
 				{
 					if (Elm(p,i,j).p == 0) printf("%c",Elm(p,i,j).C);
+<<<<<<< HEAD
                     else if (Elm(p,i,j).p == 1) print_blue(("%c",Elm(p,i,j).C));
+=======
+                    // else if (Elm(p,i,j).p == 1) printf("\x1B[31m%c\x1B[0m",Elm(p,i,j).C);
+                    // else if (Elm(p,i,j).p == 2) printf("%c",Elm(p,i,j).C);
+					else if (Elm(p,i,j).p == 1) print_blue(("%c",Elm(p,i,j).C));
+>>>>>>> cac2320d8ff764b6509a03c85fec1841527ca878
                     else if (Elm(p,i,j).p == 2) print_red(("%c",Elm(p,i,j).C));
 				}
 			}

@@ -190,6 +190,7 @@ void CetakDaftarBangunan (BangunanTot T, Player Pe)
         while((P)!=Nil) {
             printf("%d. ",no);
             
+            printf("%c", T.TI[Info(P)].B.Jenis);
             //Cetak nama bangunannya
             if (T.TI[Info(P)].B.Jenis =='C') {printf("Castle ");}
             else if ((T.TI[Info(P)].B.Jenis )=='T') {printf("Tower ");}

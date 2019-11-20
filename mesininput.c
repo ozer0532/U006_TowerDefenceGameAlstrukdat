@@ -4,11 +4,11 @@
 #include "state.h"
 #include "graph.h"
 #include <string.h>
+#include "listlinier.h"
 
 boolean EndKata;
 Kata CKata;
 
-#define writefile(a) fprintf(f,a)
 #define bs(s,j) s.listbtot.TI[i].B.j
 
 /* KONSTRUKTOR */
@@ -20,6 +20,7 @@ void CreateKata(Kata *K, char *s){
     }
     (*K).Length = i;
 }
+
 void BacaKata(Kata *K){
     int pjg;
     char inp;
@@ -32,6 +33,7 @@ void BacaKata(Kata *K){
     }
     (*K).Length = pjg;
 }
+
 void TulisKata (Kata K){
     for (int i = 1; i <= K.Length; i++){
         printf("%c",K.TabKata[i]);
@@ -41,6 +43,17 @@ void TulisKata (Kata K){
 
 void IgnoreBlank(){
     while ((CC == '\n' || CC==BLANK) && CC!= MARK) ADV();
+}
+
+
+void STARTSTDKATA(){
+    STARTSTD();
+    if (CC == MARK) EndKata = true;
+    else
+    {
+      EndKata = false;
+      SalinKata();
+    }
 }
 
 void STARTKATA()
@@ -100,6 +113,7 @@ boolean IsKataSama (Kata K1, Kata K2)
     return (K1.Length==K2.Length);
   }
 }
+
 int katatoint(Kata K){
     int bil=0;
     for (int i=1; i<=K.Length;i++){
@@ -147,15 +161,14 @@ void LoadFile(STATE *s){
   Graph G;
     STARTKATA();
     (*s).peta.NBrsEff = katatoint(CKata)+1;
-    TulisKata(CKata);
     ADVKATA();
-    TulisKata(CKata);
     (*s).peta.NKolEff = katatoint(CKata)+1;
     makeemptypeta(s);
     MakeEmptyBangunanTot(&(*s).listbtot);
     ADVKATA();
-    TulisKata(CKata);
     (*s).JBang = katatoint(CKata);
+    CreateEmptyL(&(s->P1.bangunanPlayer));
+    CreateEmptyL(&(s->P2.bangunanPlayer));
     for (int i = 1; i <=(*s).JBang; i++){
         ADVKATA();
         s->listbtot.TI[i].B.Jenis = CKata.TabKata[1];
@@ -171,18 +184,23 @@ void LoadFile(STATE *s){
         
         (*s).listbtot.TI[i].B.Level = 1;
         
-        if (i == 1) {(*s).listbtot.TI[i].B.Milik = 1;}
-        else if (i == 2) {(*s).listbtot.TI[i].B.Milik = 2;}
+        if (i == 1) {
+          (*s).listbtot.TI[i].B.Milik = 1;
+          InsVLastL(&(s->P1.bangunanPlayer), i);
+        }
+        else if (i == 2) {
+          (*s).listbtot.TI[i].B.Milik = 2;
+          InsVLastL(&(s->P2.bangunanPlayer), i);
+        }
         else {(*s).listbtot.TI[i].B.Milik = 0;}
     }
-          CreateEmptyGraph(&G);
-          for (int i = 1; i <= (*s).JBang; i++) {
-              for (int j = 1; j <= (*s).JBang; j++) {
-                  ADVKATA();
-                  if(katatoint(CKata) == 1) AddRelation(&G,i,j);
-              }
-          }
-          (*s).Hubungan = G;
+    s -> Hubungan = CreateEmptyGraph();
+    for (int i = 1; i <= (*s).JBang; i++) {
+        for (int j = 1; j <= (*s).JBang; j++) {
+            ADVKATA();
+            if(katatoint(CKata) == 1) AddRelation(&(s->Hubungan),i,j);
+        }
+    }
     for(int j =0; j <= (*s).JBang; j++){
         Elm((*s).peta,(*s).listbtot.TI[j].B.Lok.X,(*s).listbtot.TI[j].B.Lok.Y).p = (*s).listbtot.TI[j].B.Milik;
     }
@@ -192,11 +210,11 @@ void SaveFile(STATE s,char nama[]){
   FILE *f;
   f = fopen(nama,"w");
   fprintf(f,"%d %d\n",s.peta.NBrsEff,s.peta.NKolEff);
-  writefile(("%d\n",s.JBang));
+  fprintf(f, "%d\n",s.JBang);
   for (int i = 1; i <= s.JBang; i ++){
-    writefile(("%c %d %d %d %d %d\n",s.listbtot.TI[i].B.Jenis,s.listbtot.TI[i].B.Lok.X,s.listbtot.TI[i].B.Lok.Y,s.listbtot.TI[i].B.Level,s.listbtot.TI[i].B.Milik,s.listbtot.TI[i].B.Jpas));
+    fprintf(f, "%c %d %d %d %d %d\n",s.listbtot.TI[i].B.Jenis,s.listbtot.TI[i].B.Lok.X,s.listbtot.TI[i].B.Lok.Y,s.listbtot.TI[i].B.Level,s.listbtot.TI[i].B.Milik,s.listbtot.TI[i].B.Jpas);
   }
-  
+
   addrRow G;
   G = s.Hubungan.First;
   addrCol GN;
@@ -205,8 +223,10 @@ void SaveFile(STATE s,char nama[]){
      GN = G->branch;
      while (GN != Nil){
        fprintf(f,"%d ",GN->info);
+       GN = Next(GN);
      }
       fprintf(f,"!\n");
+      G = Next(G);
   }
  
   fclose(f);
@@ -255,7 +275,7 @@ void LoadSafeFile(STATE *s){
 void PrintState(STATE S){
   printf("besar peta %d x %d\n",S.peta.NBrsEff-2,S.peta.NKolEff-2);
   printf("ada %d bangunan : \n",S.JBang);
-  for (int i = 1; i <=S.JBang;i++){
+  for (int i = 1; i <=S.JBang; i++){
     printf("%d. %c di lokasi %d %d level %d milik %d\n",i,S.listbtot.TI[i].B.Jenis,S.listbtot.TI[i].B.Lok.X,S.listbtot.TI[i].B.Lok.Y,S.listbtot.TI[i].B.Level,S.listbtot.TI[i].B.Milik);
   }
 }
