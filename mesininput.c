@@ -4,11 +4,11 @@
 #include "state.h"
 #include "graph.h"
 #include <string.h>
+#include "listlinier.h"
 
 boolean EndKata;
 Kata CKata;
 
-#define writefile(a) fprintf(f,a)
 #define bs(s,j) s.listbtot.TI[i].B.j
 
 /* KONSTRUKTOR */
@@ -167,6 +167,8 @@ void LoadFile(STATE *s){
     MakeEmptyBangunanTot(&(*s).listbtot);
     ADVKATA();
     (*s).JBang = katatoint(CKata);
+    CreateEmptyL(&(s->P1.bangunanPlayer));
+    CreateEmptyL(&(s->P2.bangunanPlayer));
     for (int i = 1; i <=(*s).JBang; i++){
         ADVKATA();
         s->listbtot.TI[i].B.Jenis = CKata.TabKata[1];
@@ -182,8 +184,14 @@ void LoadFile(STATE *s){
         
         (*s).listbtot.TI[i].B.Level = 1;
         
-        if (i == 1) {(*s).listbtot.TI[i].B.Milik = 1;}
-        else if (i == 2) {(*s).listbtot.TI[i].B.Milik = 2;}
+        if (i == 1) {
+          (*s).listbtot.TI[i].B.Milik = 1;
+          InsVLastL(&(s->P1.bangunanPlayer), i);
+        }
+        else if (i == 2) {
+          (*s).listbtot.TI[i].B.Milik = 2;
+          InsVLastL(&(s->P2.bangunanPlayer), i);
+        }
         else {(*s).listbtot.TI[i].B.Milik = 0;}
     }
     s -> Hubungan = CreateEmptyGraph();

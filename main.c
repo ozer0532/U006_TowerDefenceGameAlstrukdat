@@ -7,6 +7,7 @@
 #include "STATE.h"
 #include "stackt.h"
 #include "player.h"
+#include "attack.h"
 #include <string.h>
 
 int pemainKe(int x)
@@ -38,9 +39,9 @@ void levelUp(BangunanTot *T, Player *Pe)
       Inisialisasi(&Ac);
       n = 1;
       P = First((*Pe).bangunanPlayer);
-
+        PrintInfoL(Pe->bangunanPlayer);
       CetakDaftarBangunan(*T, *Pe);
-      printf("Bangunan yang akan di level up:");scanf("%d", &pilih);
+      printf("Bangunan yang akan di level up: ");scanf("%d", &pilih);
 
       while (n != pilih)
       {
@@ -145,8 +146,6 @@ int main()
         STATE S;
         Stack stackofstate;
         CreateEmpty(&stackofstate);
-        Player P1;
-        Player P2;
         BangunanTot BT;                  // Array bangunan pada game
         Player * currentPlayer;
         Player * opposingPlayer;
@@ -166,15 +165,14 @@ int main()
             LoadFile(&S);
             /*  - Dll. */
             S.turn = 1;
-            CreateEmptyQ(&(P1.skillQueue), 30); CreateEmptyQ(&(P2.skillQueue), 30);     // Init Queue Skill
-            CreateEmptyL(&(P1.bangunanPlayer)); CreateEmptyL(&(P2.bangunanPlayer));
-            P1.playerKe = 1; P2.playerKe = 2;
+            CreateEmptyQ(&(S.P1.skillQueue), 30); CreateEmptyQ(&(S.P2.skillQueue), 30);  
+            S.P1.playerKe = 1; S.P2.playerKe = 2;
             // Init List Bangunan
             MakeEmptyBangunanTot(&BT);                  // ? - Ini apaan?
             masihMain = true;                          // Aktivasi permainan
 
-            currentPlayer = &P1;
-            opposingPlayer = &P2;
+            currentPlayer = &S.P1;
+            opposingPlayer = &S.P2;
             // LOOP GAME INTI
             do
             {
@@ -215,15 +213,15 @@ int main()
                       S.turn++;
                       if (!(*currentPlayer).extraTurn)
                       {
-                          if (currentPlayer == &P1)
+                          if (currentPlayer == &S.P1)
                           {
-                              currentPlayer = &P2;
-                              opposingPlayer = &P1;
+                              currentPlayer = &S.P2;
+                              opposingPlayer = &S.P1;
                           }
                           else{
 
-                              currentPlayer = &P1;
-                              opposingPlayer = &P2;
+                              currentPlayer = &S.P1;
+                              opposingPlayer = &S.P2;
                           }
                       }
                   }
