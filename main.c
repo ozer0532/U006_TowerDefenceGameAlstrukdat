@@ -146,7 +146,6 @@ int main()
         STATE S;
         Stack stackofstate;
         CreateEmpty(&stackofstate);
-        BangunanTot BT;                  // Array bangunan pada game
         Player * currentPlayer;
         Player * opposingPlayer;
 
@@ -167,8 +166,6 @@ int main()
             S.turn = 1;
             CreateEmptyQ(&(S.P1.skillQueue), 30); CreateEmptyQ(&(S.P2.skillQueue), 30);  
             S.P1.playerKe = 1; S.P2.playerKe = 2;
-            // Init List Bangunan
-            MakeEmptyBangunanTot(&BT);                  // ? - Ini apaan?
             masihMain = true;                          // Aktivasi permainan
 
             currentPlayer = &S.P1;
@@ -195,7 +192,7 @@ int main()
 
                   if (IsKataSama(CKata, Lvup)) /* command == "LEVEL_UP" */
                   {
-                      levelUp(&BT, currentPlayer);
+                      levelUp(&(S.listbtot), currentPlayer);
                   }
 
                   if (IsKataSama(CKata, Skll)) /* command == "SKILL" */
