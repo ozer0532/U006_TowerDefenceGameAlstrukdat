@@ -36,7 +36,7 @@ void BacaKata(Kata *K){
 
 void TulisKata (Kata K){
     for (int i = 1; i <= K.Length; i++){
-        printf("%c",K.TabKata[i]);
+        printf("%d ",K.TabKata[i]);
     }
     printf("\n");
 }
@@ -186,14 +186,13 @@ void LoadFile(STATE *s){
         else if (i == 2) {(*s).listbtot.TI[i].B.Milik = 2;}
         else {(*s).listbtot.TI[i].B.Milik = 0;}
     }
-          CreateEmptyGraph(&G);
-          for (int i = 1; i <= (*s).JBang; i++) {
-              for (int j = 1; j <= (*s).JBang; j++) {
-                  ADVKATA();
-                  if(katatoint(CKata) == 1) AddRelation(&G,i,j);
-              }
-          }
-          (*s).Hubungan = G;
+    s -> Hubungan = CreateEmptyGraph();
+    for (int i = 1; i <= (*s).JBang; i++) {
+        for (int j = 1; j <= (*s).JBang; j++) {
+            ADVKATA();
+            if(katatoint(CKata) == 1) AddRelation(&(s->Hubungan),i,j);
+        }
+    }
     for(int j =0; j <= (*s).JBang; j++){
         Elm((*s).peta,(*s).listbtot.TI[j].B.Lok.X,(*s).listbtot.TI[j].B.Lok.Y).p = (*s).listbtot.TI[j].B.Milik;
     }
