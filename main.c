@@ -180,7 +180,7 @@ int main()
             do
             {
                 /* TODO: Cetak peta ke layar */
-              printpeta(S.peta);
+              printpeta(S);
               while (masihMain)
               {
                   Poosh(&stackofstate,S); //tiap awal giliran di push state permainan, jadi bisa undo kapan aja
@@ -221,8 +221,8 @@ int main()
                               currentPlayer = &P2;
                               opposingPlayer = &P1;
                           }
-                          {
-                              else
+                          else{
+                              
                               currentPlayer = &P1;
                               opposingPlayer = &P2;
                           }
