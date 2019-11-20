@@ -113,7 +113,7 @@ int main()
         Lvup.TabKata[5] = '_';  Endt.TabKata[5] = 'U';
         Lvup.TabKata[6] = 'U';  Endt.TabKata[6] = 'R';
         Lvup.TabKata[7] = 'P';  Endt.TabKata[7] = 'N';
-        Lvup.Length = 8;        Endt.Length = 8;
+        Lvup.Length = 8      ;  Endt.Length = 8;
 
         Attk.TabKata[0] = 'A';  Skll.TabKata[0] = 'S';
         Attk.TabKata[1] = 'T';  Skll.TabKata[1] = 'K';
@@ -121,19 +121,19 @@ int main()
         Attk.TabKata[3] = 'A';  Skll.TabKata[3] = 'L';
         Attk.TabKata[4] = 'C';  Skll.TabKata[4] = 'L';
         Attk.TabKata[5] = 'K';
-        Attk.Length = 6;        Skll.Length = 5;
+        Attk.Length = 6      ;  Skll.Length = 5;
 
         Exit.TabKata[0] = 'E';  Undo.TabKata[0] = 'U';
         Exit.TabKata[1] = 'X';  Undo.TabKata[1] = 'N';
         Exit.TabKata[2] = 'I';  Undo.TabKata[2] = 'D';
         Exit.TabKata[3] = 'T';  Undo.TabKata[3] = 'O';
-        Exit.Length = 4;        Undo.Length = 4;
+        Exit.Length = 4      ;  Undo.Length = 4;
 
         Save.TabKata[0] = 'S';  Move.TabKata[0] = 'M';
         Save.TabKata[1] = 'A';  Move.TabKata[1] = 'O';
         Save.TabKata[2] = 'V';  Move.TabKata[2] = 'V';
         Save.TabKata[3] = 'E';  Move.TabKata[3] = 'E';
-        Save.Length = 4;        Move.Length = 4;
+        Save.Length = 4      ;  Move.Length = 4;
 
       /* Variabel */
       // Variabel inti
@@ -223,7 +223,7 @@ int main()
                               opposingPlayer = &P1;
                           }
                           else{
-                              
+
                               currentPlayer = &P1;
                               opposingPlayer = &P2;
                           }
