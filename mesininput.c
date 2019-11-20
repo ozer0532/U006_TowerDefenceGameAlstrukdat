@@ -147,14 +147,11 @@ void LoadFile(STATE *s){
   Graph G;
     STARTKATA();
     (*s).peta.NBrsEff = katatoint(CKata)+1;
-    TulisKata(CKata);
     ADVKATA();
-    TulisKata(CKata);
     (*s).peta.NKolEff = katatoint(CKata)+1;
-
+    makeemptypeta(s);
     MakeEmptyBangunanTot(&(*s).listbtot);
     ADVKATA();
-    TulisKata(CKata);
     (*s).JBang = katatoint(CKata);
     for (int i = 1; i <=(*s).JBang; i++){
         ADVKATA();

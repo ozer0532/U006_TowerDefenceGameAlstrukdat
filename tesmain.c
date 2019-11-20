@@ -10,7 +10,10 @@ int main(){
 
     CreateEmpty(&sss);
     LoadFile(&S);
-    Poosh(&sss,S);
+    Push(&sss,S);
     PrintState(S);
+    Undo(&sss,&S);
+    PrintState(S);
+    
 
 }
