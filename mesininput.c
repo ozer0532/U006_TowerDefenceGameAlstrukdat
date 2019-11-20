@@ -151,7 +151,7 @@ void LoadFile(STATE *s){
     ADVKATA();
     TulisKata(CKata);
     (*s).peta.NKolEff = katatoint(CKata)+1;
-
+    makeemptypeta(s);
     MakeEmptyBangunanTot(&(*s).listbtot);
     ADVKATA();
     TulisKata(CKata);
