@@ -18,7 +18,7 @@ int main(){
     STATE S;
     char c;
     CreateEmpty(&sss);
-    LoadFile(&S);   //inisialissasi State pertama
+    LoadFile(&S);  //inisialissasi State pertama
     PrintState(S);
     // Top(sss) += 1;
     // InfoTop(sss) = S;
