@@ -150,8 +150,7 @@ void LoadFile(STATE *s){
     TulisKata(CKata);
     (*s).peta.NKolEff = katatoint(CKata)+1;
 
-    makeemptypeta(s);
-
+    MakeEmptyBangunanTot(&(*s).listbtot);
     ADVKATA();
     TulisKata(CKata);
     (*s).JBang = katatoint(CKata);
@@ -175,10 +174,10 @@ void LoadFile(STATE *s){
         else {(*s).listbtot.TI[i].B.Milik = 0;}
     }
 
-          (*s).Hubungan.Neff = (*s).JBang;
-          for (int i = 1; i <= (*s).Hubungan.Neff; i++) {
-              for (int j = 1; j <= (*s).Hubungan.Neff; j++) {
-                  (*s).Hubungan.Mem[i][j] = katatoint(CKata);
+          for (int i = 1; i <= (*s).JBang; i++) {
+              for (int j = 1; j <= (*s).JBang; j++) {
+                  ADVKATA();
+                  if(katatoint(CKata) == 1) AddRelation(&((*s).Hubungan),i,j);
               }
           }
     for(int j =0; j <= (*s).JBang; j++){
@@ -195,17 +194,24 @@ void SaveFile(STATE s,char nama[]){
   for (int i = 1; i <= s.JBang; i ++){
     writefile(("%c %d %d %d %d %d\n",s.listbtot.TI[i].B.Jenis,s.listbtot.TI[i].B.Lok.X,s.listbtot.TI[i].B.Lok.Y,s.listbtot.TI[i].B.Level,s.listbtot.TI[i].B.Milik,s.listbtot.TI[i].B.Jpas));
   }
-  for (int i = 1; i <= s.JBang; i ++){
-    for (int j = 1; j <= s.JBang; j ++){
-      writefile(("%d ",s.listbtot.TI[i].B.hubungan[j]));
-    }
-    writefile("\n");
+  
+  addrRow G;
+  G = s.Hubungan.First;
+  addrCol GN;
+  while(G!=Nil){
+     fprintf(f,"%d ",info(G));
+     GN = G->branch;
+     while (GN != Nil){
+       fprintf(f,"%d ",info(GN));
+     }
+      fprintf(f,"!\n");
   }
+ 
   fclose(f);
 }
 
 void LoadSafeFile(STATE *s){
-  STARTKATA();
+    STARTKATA();
     (*s).peta.NBrsEff = katatoint(CKata);
     ADVKATA();
     (*s).peta.NKolEff = katatoint(CKata);
@@ -228,14 +234,19 @@ void LoadSafeFile(STATE *s){
         j = katatoint(CKata);
         (*s).listbtot.TI[i].B = MakeBANGUNAN(m,j,l,c,MakePOINT(x,y));
     }
-
-          (*s).Hubungan.Neff = (*s).JBang;
-          for (int i = 1; i <= (*s).Hubungan.Neff; i++) {
-              for (int j = 1; j <= (*s).Hubungan.Neff; j++) {
-                  ADVKATA();
-                  (*s).Hubungan.Mem[i][j] = katatoint(CKata);
-              }
-          }
+    int i ,j;
+    ADVKATA();
+    while (not(EndKata)){
+      i = katatoint(CKata);
+      AddElmtG(&(*s).Hubungan,i);
+      ADVKATA();
+      while(CKata.TabKata[1] != "!"){
+        j = katatoint(CKata);
+        AddRelation(&((*s).Hubungan),i,j);
+      }
+    ADVKATA();
+    }
+    printf("file loaded");
 }
 
 
