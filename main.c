@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <string.h>
 #include "boolean.h"
 #include "queue.h"
 #include "mesinkata.h"
@@ -96,21 +95,23 @@ void Move(BangunanTot *T, Player *Pe)
 
         CetakDaftarBangunan(*T, *Pe);
         printf("Pilih bangunan:");scanf("%d", &pilih);
-        
+
+
 }
 
 int main()
 {
     // KAMUS
       /* Konstanta */
-        char atk[] = "ATTACK";
-        char lup[] = "LEVEL_UP";
-        char skl[] = "SKILL";
-        char ext[] = "EXIT";
-        char undo[] = "UNDO";
-        char end[] = "END_TURN";
-        char sav[] = "SAVE";
-        char mov[] = "MOVE";
+        Kata Attk, Lvup, Skll, Exit, Undo, Endt, Save, Move;
+        Lvup.TabKata = "LEVEL_UP"; Lvup.Length = 8;
+        Endt.TabKata = "END_TURN"; Endt.Length = 8;
+        Attk.TabKata = "ATTACK"; Attk.Length = 6;
+        Skll.TabKata = "SKILL"; Skll.Length = 5;
+        Exit.TabKata = "EXIT"; Exit.Length = 4;
+        Undo.TabKata = "UNDO"; Undo.Length = 4;
+        Save.TabKata = "SAVE"; Save.Length = 4;
+        Move.TabKata = "MOVE"; Move.Length = 4;
 
       /* Variabel */
       // Variabel inti
@@ -145,7 +146,7 @@ int main()
             /*  - Dll. */
             S.turn = 1;
             CreateEmptyQ(&(P1.skillQueue), 30); CreateEmptyQ(&(P2.skillQueue), 30);     // Init Queue Skill
-            CreateEmptyL(&(P1.bangunanPlayer)); CreateEmptyL(&(P2.bangunanPlayer));    
+            CreateEmptyL(&(P1.bangunanPlayer)); CreateEmptyL(&(P2.bangunanPlayer));
             P1.playerKe = 1; P2.playerKe = 2;
             // Init List Bangunan
             MakeEmptyBangunanTot(&BT);                  // ? - Ini apaan?
