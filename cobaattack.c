@@ -12,9 +12,10 @@ int main()
 {
     BangunanTot T;
     STATE S;
-    Pemain Pe;
-    CreateEmptyL(&(Pe.L1));
-    CreateEmptyL(&(Pe.L2));
+    Player Pe;
+    Player Pm;
+    CreateEmptyL(&(Pe.bangunanPlayer));
+    CreateEmptyL(&(Pe.bangunanPlayer));
     MakeEmptyBangunanTot(&T);
     // CopyBANGUNAN(MakeBANGUNAN(0,0,0,'C',MakePOINT(3,4)),&T.TI[1].B);
     // // CopyBANGUNAN(MakeBANGUNAN(0,0,0,'T',MakePOINT(4,4)),&T.TI[2].B);
@@ -23,10 +24,10 @@ int main()
     T = S.listbtot;
     LoadFile(&S,&T);
     PrintState(S);
-    CetakDaftarBangunan(T,Pe,1);
+    CetakDaftarBangunan(T,Pe);
 
     
-        PrintInfoL(Pe.L1);
+        PrintInfoL(Pe);
     
     /*CopyBANGUNAN(MakeBANGUNAN(0,0,1,'C',MakePOINT(3,4)),&T.TI[1].B);
     CopyBANGUNAN(MakeBANGUNAN(0,0,1,'T',MakePOINT(4,4)),&T.TI[2].B);

@@ -258,8 +258,8 @@ void Attack(Graph G, BangunanTot *T, Player *Pe, Player *Pm, int no)
         scanf("%d",&Pas);
 
         //Check apakah jumlah pasukan valid atau tidak
-        while ((*T).TI[Info(P)].B.Jpas < Pas || Pas<0 && ){
-            printf("Masukkan jumlah pasukan salah ~~\n");
+        while ((*T).TI[Info(P)].B.Jpas < Pas || Pas<0){
+            printf("Masukan jumlah pasukan salah ~~\n");
             printf("Jumlah pasukan: ");
             scanf("%d",&Pas);
         }

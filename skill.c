@@ -13,7 +13,6 @@ void InstantUpgrade (Player Pe, BangunanTot *Ba)
     while(P != Nil){
         (*Ba).TI[Info(P)].B.Level+=1;
         P = Next(P);
-
     }
   
 

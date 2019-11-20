@@ -150,11 +150,7 @@ void LoadFile(STATE *s){
     TulisKata(CKata);
     (*s).peta.NKolEff = katatoint(CKata)+1;
 
-    for (int i = 0; i <= (*s).peta.NBrsEff;i ++){
-        for (int j = 0; j <= (*s).peta.NKolEff; j ++){
-            Elm((*s).peta,i,j) = 'e';
-        }
-    }
+    makeemptypeta(s);
 
     ADVKATA();
     TulisKata(CKata);
@@ -170,42 +166,13 @@ void LoadFile(STATE *s){
         (*s).listbtot.TI[i].B.Lok.Y = katatoint(CKata);
         Y = katatoint(CKata);
 
-        (*s).peta.Mem[X][Y] = type;
+        (*s).peta.Mem[X][Y].C = type;
         
         (*s).listbtot.TI[i].B.Level = 1;
         
         if (i == 1) {(*s).listbtot.TI[i].B.Milik = 1;}
         else if (i == 2) {(*s).listbtot.TI[i].B.Milik = 2;}
         else {(*s).listbtot.TI[i].B.Milik = 0;}
-
-        // switch ((*s).listb[i].jenis){
-        //     case 'C':
-        //         (*(*s).listb).A[5] = {0,10,15,20,25};
-        //         (*(*s).listb).M = {0,40,60,80,100};
-        //         (*(*s).listb).P = {false,false,false,false,false};
-        //         (*(*s).listb).U = 40;
-        //         break;
-        //     case 'T':
-        //         (*(*s).listb).A = {0,5,10,20,30};
-        //         (*(*s).listb).M = {0,20,30,40,50};
-        //         (*(*s).listb).P = {true,true,true,true,true};
-        //         (*(*s).listb).U = 30;
-        //         break;                             //ga perlu karna gw udh ngerti acuan yang make JNS
-        //     case 'F':
-        //         (*(*s).listb).A = {0,10,20,30,40};
-        //         (*(*s).listb).M = {0,20,40,60,80};
-        //         (*(*s).listb).P = {false,false,false,true,true};
-        //         (*(*s).listb).U = 80;
-        //         break;
-        //     case 'V':
-        //         (*(*s).listb).A = {0,5,10,15,20};
-        //         (*(*s).listb).M = {0,20,30,40,50};
-        //         (*(*s).listb).P = {false,false,false,false,false};
-        //         (*(*s).listb).U = 20;
-        //         break;
-        //     default:
-        //       break;
-        // }
     }
 
           (*s).Hubungan.Neff = (*s).JBang;
@@ -214,7 +181,10 @@ void LoadFile(STATE *s){
                   (*s).Hubungan.Mem[i][j] = katatoint(CKata);
               }
           }
-
+    for(int j =0; j <= (*s).JBang; j++){
+        Elm((*s).peta,(*s).listbtot.TI[j].B.Lok.X,(*s).listbtot.TI[j].B.Lok.Y).p = (*s).listbtot.TI[j].B.Milik;
+    }
+    strcpy((*s).lastaction,"Load");
 }
 
 void SaveFile(STATE s,char nama[]){
@@ -257,35 +227,6 @@ void LoadSafeFile(STATE *s){
         ADVKATA();
         j = katatoint(CKata);
         (*s).listbtot.TI[i].B = MakeBANGUNAN(m,j,l,c,MakePOINT(x,y));
-
-        // switch ((*s).listb[i].jenis){
-        //     case 'C':
-        //         (*(*s).listb).A[5] = {0,10,15,20,25};
-        //         (*(*s).listb).M = {0,40,60,80,100};
-        //         (*(*s).listb).P = {false,false,false,false,false};
-        //         (*(*s).listb).U = 40;
-        //         break;
-        //     case 'T':
-        //         (*(*s).listb).A = {0,5,10,20,30};
-        //         (*(*s).listb).M = {0,20,30,40,50};
-        //         (*(*s).listb).P = {true,true,true,true,true};
-        //         (*(*s).listb).U = 30;
-        //         break;                             //ga perlu karna gw udh ngerti acuan yang make JNS
-        //     case 'F':
-        //         (*(*s).listb).A = {0,10,20,30,40};
-        //         (*(*s).listb).M = {0,20,40,60,80};
-        //         (*(*s).listb).P = {false,false,false,true,true};
-        //         (*(*s).listb).U = 80;
-        //         break;
-        //     case 'V':
-        //         (*(*s).listb).A = {0,5,10,15,20};
-        //         (*(*s).listb).M = {0,20,30,40,50};
-        //         (*(*s).listb).P = {false,false,false,false,false};
-        //         (*(*s).listb).U = 20;
-        //         break;
-        //     default:
-        //       break;
-        // }
     }
 
           (*s).Hubungan.Neff = (*s).JBang;
