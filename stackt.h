@@ -49,12 +49,10 @@ boolean IsFullST (Stack S);
 
 void Action(STATE *s);
 /* ************ Menambahkan sebuah elemen ke Stack ************ */
-void PushSTATE(Stack * S, STATE X);
+void Push(Stack * S, STATE X);
 /* Menambahkan X sebagai elemen Stack S. */
 /* I.S. S mungkin kosong, tabel penampung elemen stack TIDAK penuh */
 /* F.S. X menjadi TOP yang baru,TOP bertambah 1 */
-
-void testthewater(Stack *S, STATE X);
 
 /* ************ Menghapus sebuah elemen Stack ************ */
 void Pop (Stack * S, info* X);

@@ -49,7 +49,7 @@ void SalinKata();
 
 
 
-void SaveFile(STATE s);
+void SaveFile(STATE s, char nama[]);
 
 
 void LoadFile(STATE *s);
