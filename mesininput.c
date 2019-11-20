@@ -143,6 +143,7 @@ void SalinKata()
 void LoadFile(STATE *s){
   int X,Y;
   char type;
+  Graph G;
     STARTKATA();
     (*s).peta.NBrsEff = katatoint(CKata)+1;
     TulisKata(CKata);
@@ -156,7 +157,7 @@ void LoadFile(STATE *s){
     (*s).JBang = katatoint(CKata);
     for (int i = 1; i <=(*s).JBang; i++){
         ADVKATA();
-        (*s).listbtot.TI[i].B.Jenis = CKata.TabKata[1];
+        s->listbtot.TI[i].B.Jenis = CKata.TabKata[1];
         type = CKata.TabKata[1];
         ADVKATA();
         (*s).listbtot.TI[i].B.Lok.X = katatoint(CKata);
@@ -173,17 +174,17 @@ void LoadFile(STATE *s){
         else if (i == 2) {(*s).listbtot.TI[i].B.Milik = 2;}
         else {(*s).listbtot.TI[i].B.Milik = 0;}
     }
-
+          CreateEmptyGraph(&G);
           for (int i = 1; i <= (*s).JBang; i++) {
               for (int j = 1; j <= (*s).JBang; j++) {
                   ADVKATA();
-                  if(katatoint(CKata) == 1) AddRelation(&((*s).Hubungan),i,j);
+                  if(katatoint(CKata) == 1) AddRelation(&G,i,j);
               }
           }
+          (*s).Hubungan = G;
     for(int j =0; j <= (*s).JBang; j++){
         Elm((*s).peta,(*s).listbtot.TI[j].B.Lok.X,(*s).listbtot.TI[j].B.Lok.Y).p = (*s).listbtot.TI[j].B.Milik;
     }
-    strcpy((*s).lastaction,"Load");
 }
 
 void SaveFile(STATE s,char nama[]){
@@ -199,10 +200,10 @@ void SaveFile(STATE s,char nama[]){
   G = s.Hubungan.First;
   addrCol GN;
   while(G!=Nil){
-     fprintf(f,"%d ",info(G));
+     fprintf(f,"%d ",G->info);
      GN = G->branch;
      while (GN != Nil){
-       fprintf(f,"%d ",info(GN));
+       fprintf(f,"%d ",GN->info);
      }
       fprintf(f,"!\n");
   }
