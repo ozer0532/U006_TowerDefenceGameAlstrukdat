@@ -10,7 +10,7 @@ int main(){
 
     CreateEmpty(&sss);
     LoadFile(&S);
-    Poosh(&sss,S);
     PrintState(S);
+    printpeta(S);
 
 }

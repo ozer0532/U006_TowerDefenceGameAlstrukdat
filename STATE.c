@@ -27,8 +27,8 @@ void printpeta(STATE s){
 				else 
 				{
 					if (Elm(p,i,j).p == 0) printf("%c",Elm(p,i,j).C);
-                    else if (Elm(p,i,j).p == 1) print_blue("%c",Elm(p,i,j).C);
-                    else if (Elm(p,i,j).p == 2) print_red("%c",Elm(p,i,j).C);
+                    else if (Elm(p,i,j).p == 1) print_blue(("%c",Elm(p,i,j).C));
+                    else if (Elm(p,i,j).p == 2) print_red(("%c",Elm(p,i,j).C));
 				}
 			}
 			if (j == p.NKolEff) printf("\n");
