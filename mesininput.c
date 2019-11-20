@@ -20,6 +20,7 @@ void CreateKata(Kata *K, char *s){
     }
     (*K).Length = i;
 }
+
 void BacaKata(Kata *K){
     int pjg;
     char inp;
@@ -32,6 +33,7 @@ void BacaKata(Kata *K){
     }
     (*K).Length = pjg;
 }
+
 void TulisKata (Kata K){
     for (int i = 1; i <= K.Length; i++){
         printf("%c",K.TabKata[i]);
@@ -41,6 +43,17 @@ void TulisKata (Kata K){
 
 void IgnoreBlank(){
     while ((CC == '\n' || CC==BLANK) && CC!= MARK) ADV();
+}
+
+
+void STARTSTDKATA(){
+    STARTSTD();
+    if (CC == MARK) EndKata = true;
+    else
+    {
+      EndKata = false;
+      SalinKata();
+    }
 }
 
 void STARTKATA()
@@ -100,6 +113,7 @@ boolean IsKataSama (Kata K1, Kata K2)
     return (K1.Length==K2.Length);
   }
 }
+
 int katatoint(Kata K){
     int bil=0;
     for (int i=1; i<=K.Length;i++){
