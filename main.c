@@ -224,7 +224,7 @@ int main()
                               opposingPlayer = &P1;
                           }
                           else{
-                              
+
                               currentPlayer = &P1;
                               opposingPlayer = &P2;
                           }
