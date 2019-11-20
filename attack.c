@@ -189,8 +189,6 @@ void CetakDaftarBangunan (BangunanTot T, Player Pe)
     if(Empty==false) {
         while((P)!=Nil) {
             printf("%d. ",no);
-            
-            printf("Hello ");
             //Cetak nama bangunannya
             if (T.TI[Info(P)].B.Jenis =='C') {printf("Castle ");}
             else if ((T.TI[Info(P)].B.Jenis )=='T') {printf("Tower ");}
@@ -212,7 +210,7 @@ void CetakDaftarBangunan (BangunanTot T, Player Pe)
     }
 }
 
-void Attack(Graph G, BangunanTot *T, Player *Pe, Player *Pm, int no)
+void Attack(Graph G, BangunanTot *T, Player *Pe, Player *Pm)
 {
     int N,M,Pas;
     address P;
@@ -224,7 +222,7 @@ void Attack(Graph G, BangunanTot *T, Player *Pe, Player *Pm, int no)
     P=First((*Pe).bangunanPlayer);
     
     //Mencari no adalah Listnya index ke berapa
-    for(int i=1;i<no;i++) {
+    for(int i=1;i<N;i++) {
         P=Next(P);
     }
 
