@@ -191,7 +191,6 @@ int main()
 
                   printf("ENTER COMMAND: ");
                   STARTSTDKATA();
-                  printf("word u typed :");TulisKata(CKata);
                   if (IsKataSama(CKata, Attk)) /* command == "ATTACK" */
                   {
                       strcpy(S.lastaction,"ATTACK");
