@@ -26,6 +26,10 @@ void IgnoreBlank();
    I.S. : CC sembarang
    F.S. : CC ≠ BLANK atau CC = MARK */
 
+void BacaKata(Kata *K);
+
+void TulisKata(Kata K);
+
 void STARTKATA();
 /* I.S. : CC sembarang
    F.S. : EndKata = true, dan CC = MARK;
@@ -38,6 +42,8 @@ void ADVKATA();
           CC adalah karakter pertama dari kata berikutnya, mungkin MARK
           Jika CC = MARK, EndKata = true.
    Proses : Akuisisi kata menggunakan procedure SalinKata */
+
+boolean IsKataSama (Kata K1, Kata K2);
 
 void SalinKata();
 /* Mengakuisisi kata, menyimpan dalam CKata

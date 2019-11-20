@@ -7,6 +7,7 @@
 #include "STATE.h"
 #include "stackt.h"
 #include "player.h"
+#include <string.h>
 
 int pemainKe(int x)
 /* Mengembalikan pemain yang gilirannya sedang berlangsung */
@@ -180,10 +181,10 @@ int main()
             do
             {
                 /* TODO: Cetak peta ke layar */
-              printpeta(S.peta);
+              printpeta(S);
               while (masihMain)
               {
-                  Poosh(&stackofstate,S); //tiap awal giliran di push state permainan, jadi bisa undo kapan aja
+                  Push(&stackofstate,S); //tiap awal giliran di push state permainan, jadi bisa undo kapan aja
                   //nanti juga tiap akhir suatu aksi, jadiin perubahan di STATE, dan entar state di push ke stack of states, ini bsia gw implementasiin habis gamenya udh fungsional
                   printf("Player %d\n", pemainKe(S.turn));
                   /* TODO: Cetak bangunan yang dimiliki pemain */
@@ -221,8 +222,7 @@ int main()
                               currentPlayer = &P2;
                               opposingPlayer = &P1;
                           }
-                          {
-                              else
+                          else {
                               currentPlayer = &P1;
                               opposingPlayer = &P2;
                           }
