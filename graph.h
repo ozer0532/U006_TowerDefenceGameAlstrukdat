@@ -28,6 +28,11 @@ typedef struct {
     addrRow First;
 } Graph;
 
+typedef struct {
+    vertex TI[31];
+    int Neff;
+} ArrayVertex;
+
 #define Branch(P) (P)->branch
 
 /* *** Selektor *** */
@@ -69,8 +74,10 @@ boolean Adjacent (Graph G, vertex v1, vertex v2);
 boolean Incident (Graph G, vertex v, edge e);
 /* Mengetes bila v dan e berhubungan */
 
-addrCol Neighbors (Graph G, vertex v);
+addrCol NeighborsList (Graph G, vertex v);
 /* Mengoutput semua vertex yang merupakan relasi dari v */
+
+ArrayVertex Neighbors (Graph G, vertex v);
 
 /* Gak aku buat karena gak bakal dipake juga...
 void AddV (Graph * G, vertex v);

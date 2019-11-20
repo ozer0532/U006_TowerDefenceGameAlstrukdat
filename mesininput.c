@@ -1,8 +1,9 @@
-#include "mesinkata.h"
+#include "mesininput.h"
 #include <stdio.h>
 #include "bangunan.h"
 #include "state.h"
 #include "graph.h"
+#include <string.h>
 
 boolean EndKata;
 Kata CKata;

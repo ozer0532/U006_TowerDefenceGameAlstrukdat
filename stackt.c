@@ -20,19 +20,8 @@ boolean IsFullST (Stack S){
 /* Mengirim true jika tabel penampung nilai elemen stack penuh */
 
 /* ************ Menambahkan sebuah elemen ke Stack ************ */
-void PushSTATE(Stack * S, STATE X){
+void Push(Stack * S, STATE X){
     if (IsEmptyST(*S) == true){
-        Top(*S) = 1;
-        InfoTop(*S) = X;
-    }
-    else{
-        Top(*S) += 1;
-        InfoTop(*S) = X;
-    }
-}
-
-void Poosh(Stack *S,STATE X){
-    if (Top(*S) == NilST){
         Top(*S) = 1;
         InfoTop(*S) = X;
     }

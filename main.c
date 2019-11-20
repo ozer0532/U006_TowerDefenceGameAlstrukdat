@@ -2,7 +2,7 @@
 #include <string.h>
 #include "boolean.h"
 #include "queue.h"
-#include "mesinkata.h"
+#include "mesininput.h"
 #include "bangunan.h"
 #include "listlinier.h"
 #include "STATE.h"
@@ -140,7 +140,7 @@ int main()
         {
             /* ALOKASI KONDISI AWAL PERMAINAN */
             /*  - Masukin data konfigurasi ke peta */
-            makeemptypeta(&(S.peta));
+            makeemptypeta(&(S));
             LoadFile(&S);
             /*  - Dll. */
             S.turn = 1;
@@ -158,10 +158,10 @@ int main()
             do
             {
               /* TODO: Cetak peta ke layar */
-              printpeta(S.peta);
+              printpeta(S);
               while (masihMain)
               {
-                Poosh(&stackofstate,S); //tiap awal giliran di push state permainan, jadi bisa undo kapan aja
+                Push(&stackofstate,S); //tiap awal giliran di push state permainan, jadi bisa undo kapan aja
                 //nanti juga tiap akhir suatu aksi, jadiin perubahan di STATE, dan entar state di push ke stack of states, ini bsia gw implementasiin habis gamenya udh fungsional
                 printf("Player %d\n", pemainKe(S.turn));
                 /* TODO: Cetak bangunan yang dimiliki pemain */
@@ -220,7 +220,7 @@ int main()
                   printf("Kamu mengundo aksi %s", S.lastaction);
                   Undo(&stackofstate,&S);
                 }
-                Poosh(&stackofstate,S);
+                Push(&stackofstate,S);
               }
 
               /* while pemain ke-2 */
