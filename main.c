@@ -174,6 +174,10 @@ int main()
         boolean booleanAttackUp;
 
       // Variabel laju game
+        Status PrevCurPlayer;
+        Status AfterCurPlayer;
+        Status PrevOpsPlayer;
+        Status AfterOpsPlayer;
         STATE S;
         Stack stackofstate;
         CreateEmpty(&stackofstate);
@@ -218,9 +222,12 @@ int main()
             STARTSTDKATA();
             if (IsKataSama(CKata, Attk)) /* command == "ATTACK" */
             {
-                strcpy(S.lastaction,"ATTACK");
-                booleanAttackUp=false;
-                Attack(S.Hubungan, &(S), currentPlayer, opposingPlayer, booleanAttackUp);
+                  strcpy(S.lastaction,"ATTACK");
+                  Sesudah(*currentPlayer, *opposingPlayer, &PrevCurPlayer, &PrevOpsPlayer,S.listbtot);
+                  booleanAttackUp=false;
+                  Attack(S.Hubungan, &(S), currentPlayer, opposingPlayer, booleanAttackUp);
+                  Sesudah(*currentPlayer, *opposingPlayer, &AfterCurPlayer, &AfterOpsPlayer,S.listbtot);
+                  GetSkill(currentPlayer,opposingPlayer,S.listbtot);
 
             }
 
@@ -232,7 +239,10 @@ int main()
 
             if (IsKataSama(CKata, Skll)) /* command == "SKILL" */
             {
-
+                  int skl;
+                  ACUAN Semi;
+                  DelQ(&(*currentPlayer).skillQueue,&skl);
+                  IntToSkill(skl,*currentPlayer,&Semi,&S.listbtot);
             }
 
             if (IsKataSama(CKata, Exit)) /* command == "EXIT" */
