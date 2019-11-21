@@ -5,6 +5,11 @@ void move(STATE *s,Player *CP){
     address P;
     int no=1;
     int num,jum;
+
+    int curpla;
+    if (s->turn%2 == 1) curpla = 1;
+    else if (s->turn%2 == 0) curpla = 2;
+
     P = (*CP).bangunanPlayer.First;
     printf("Daftar bangunan anda :\n");
     while(P != Nil){
@@ -32,6 +37,7 @@ void move(STATE *s,Player *CP){
     printf("where to move?\n");
     no = 1;
     for (int k = 1; k <= target.Neff;k++){
+        if (s->listbtot.TI[target.TI[k]].B.Milik == curpla){
         printf("%d. ",no);
         //Cetak nama bangunannya
         if (s->listbtot.TI[target.TI[k]].B.Jenis =='C') printf("Castle ");
@@ -44,12 +50,15 @@ void move(STATE *s,Player *CP){
 
         //Cetak jumlah pasukannya
         printf ("Jumlah Pasukan : %d \n",s->listbtot.TI[target.TI[k]].B.Jpas);
-        no++;
+        no++;}
     }
     int moveto;
     scanf("%d",&moveto);
     addrCol add = NeighborsList(s->Hubungan,indeks); 
-    while(--moveto) add = next(add);
+    while(moveto){
+        if(s->listbtot.TI[Info(add)].B.Milik == curpla) moveto--;
+        if (moveto) add = next(add);
+    }
     int indeksmoveto = Info(add);
     printf("move how many>?\n");
     scanf("%d",&jum);
