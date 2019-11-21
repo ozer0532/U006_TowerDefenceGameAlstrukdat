@@ -280,6 +280,8 @@ void Attack(Graph G, STATE *T, Player *Pe, Player *Pm)
 
     
     CetakDaftarBangunan((*T).listbtot,*Pe,&bol);
+    
+    int no=1;
     if (bol==true) {
         printf("Bangunan yang digunakan untuk menyerang: ");
         if ((First((*Pe).bangunanPlayer))!=Nil) {
@@ -300,12 +302,11 @@ void Attack(Graph G, STATE *T, Player *Pe, Player *Pm)
         if (A.Neff == 0) {
             printf("Tidak ada bangunan yang dapat diserang\n");
         } else {
-            do {
                 //Masukin nilai Index hubung ke array
                 printf("Bangunan yang dapat diserang:\n");
                 for (int j=1;j<=A.Neff;j++) {
                     if (A.TI[j]!=0 && (*T).listbtot.TI[A.TI[j]].B.Milik!=(*Pe).playerKe) {
-                        printf("%d. ",j);
+                        printf("%d. ",no);
                             
                         //Cetak nama bangunannya
                         if ((*T).listbtot.TI[A.TI[j]].B.Jenis =='C') {printf("Castle ");}
@@ -323,15 +324,31 @@ void Attack(Graph G, STATE *T, Player *Pe, Player *Pm)
                         printf("lv. %d\n", (*T).listbtot.TI[A.TI[j]].B.Level);
 
                         printf("milik : %d\n",(*T).listbtot.TI[A.TI[j]].B.Milik);
-
+                        no++;
                     }
                 }
                     
-            } while (M > A.Neff);
+            } 
             
             
             printf("Bangunan yang diserang: ");
             scanf("%d",&M);
+
+            if (M<no) {
+            int j=1;
+            while(j<=A.Neff && M!=0) {
+                if (A.TI[j]!=0 && (*T).listbtot.TI[A.TI[j]].B.Milik!=(*Pe).playerKe) {
+                    M=M-1;
+                }
+                if (M!=0){
+                    j++;
+                }
+            }
+            }
+            else {
+                printf("Masukkan input salah\n");
+            }
+
             printf("Jumlah pasukan: ");
             scanf("%d",&Pas);
 
@@ -341,12 +358,10 @@ void Attack(Graph G, STATE *T, Player *Pe, Player *Pm)
                 printf("Jumlah pasukan: ");
                 scanf("%d",&Pas);
             }
-
             
-        MakeBangunanPemain(Pe,Pm,T,A.TI[M],Pas);
+        MakeBangunanPemain(Pe,Pm,T,A.TI[j],Pas);
         (*T).listbtot.TI[Info(P)].B.Jpas -= Pas;
         }
-    }
     else {
         //Do Nothing
     }
