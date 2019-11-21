@@ -5,6 +5,14 @@
 #include "array.h"
 #include "player.h"
 
+typedef struct {
+    int JumlahBangunan;
+    BangunanTot LevelBangunan;
+    int JumlahFort;
+    int JumlahTower;
+    boolean XtraTurn;
+} Status;
+
 
 void InstantUpgrade (Player Pe, BangunanTot *Ba);
 
@@ -12,11 +20,11 @@ void InstantUpgrade (Player Pe, BangunanTot *Ba);
         I.S Penain mungkin belom punya bangunan
         F.S Setiap banguna yang dimiliki pemain naik satu level*/
 
-void Shield (ACUAN *Semi, Player Pe, BangunanTot *Ba); //Bonus
+void Shield (Player *Pe); //Bonus
     /*Seluruh bangunan yang dimiliki pemain akan memiliki pertahanan selama 2 turn
         apabila pemain menggunakan skill ini 2 kali beturut-turut durasi tidak akan bertamabah, namun menjadi nilai maksimum    */
 
-void ExtraTurn ();
+void ExtraTurn (Player *Pe);
     /*setelah pengaktifan skill ini berakhir, pemain selanjutnya tetap pemain yang sama*/
 
 void AttackUp(ACUAN Ac, Player Pe, BangunanTot Ba); //Bonus
@@ -31,8 +39,16 @@ void InstantReinforcement(Player Pe, BangunanTot *Ba);
 void Barrage (Player Pe, BangunanTot *Ba);
     /* Syarat: Jumalah bangunan lawan baru saja menjadi 10
         F.S: Jumlah pasukan pada setiap bangunan lawan berkurang 10 */
-void GetSkill(Player Pe);
+void GetSkill(Player *Pe, BangunanTot Ba);
     /* Menegcek kondisi apakah pemain mendapatkan suatu skill. Jika Mendapakatkan skill
         maka skill tersbut akan di addlast queue */
+
+int SkillToInt(char Skill);
+
+void IntToSkill(int SkillKe, Player Pe, ACUAN *Semi,  BangunanTot *Ba);
+
+void Sebelum(Player Pe, Status *St, BangunanTot Ba);
+
+void Sesudah(Player Pe, Status *St, BangunanTot Ba);
 
 #endif

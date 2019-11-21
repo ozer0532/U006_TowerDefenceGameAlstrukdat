@@ -13,7 +13,7 @@ We only provide 8 colors. Feel free to modify/add colors if you want to.
 **/
 
 #define NORMAL "\x1B[0m"
-#define RED "\x1B[31m"
+#define RED "[31m"
 #define GREEN "\x1B[32m"
 #define YELLOW "\x1B[33m"
 #define BLUE "\x1B[34m"
