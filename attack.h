@@ -39,7 +39,7 @@ void CetakDaftarBangunan (BangunanTot T, Player Pe);
 //Mencetak daftar bangunan dari pemain ke A atau B
 //I.S L adalah List1 YANG SUDAH TERDEFINISI dimana Info(L).Milik='A'
 
-void Attack(Graph G, BangunanTot *T, Player *Pe, Player *Pm, int no);
+void Attack(Graph G, BangunanTot *T, Player *Pe, Player *Pm);
 
 
 #endif

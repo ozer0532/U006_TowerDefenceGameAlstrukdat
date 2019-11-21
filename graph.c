@@ -158,7 +158,7 @@ boolean Incident (Graph G, vertex v, edge e) {
 }
 
 /* Mengoutput semua vertex yang merupakan relasi dari v */
-addrCol Neighbors (Graph G, vertex v) {
+addrCol NeighborsList (Graph G, vertex v) {
     // KAMUS LOKAL
     addrRow R;
 
@@ -173,4 +173,19 @@ addrCol Neighbors (Graph G, vertex v) {
     } else {
         return Branch(R);
     }
+}
+
+ArrayVertex Neighbors (Graph G, vertex v) {
+    ArrayVertex N;
+    addrCol L;
+    L = NeighborsList(G, v);
+    N.Neff = 0;
+    
+    while (L != Nil) {
+        N.Neff++;
+        N.TI[N.Neff] = Info(L);
+        L = Next(L);
+    }
+
+    return N;
 }

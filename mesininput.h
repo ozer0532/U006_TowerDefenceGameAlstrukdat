@@ -20,11 +20,15 @@ typedef struct {
 /* State Mesin Kata */
 extern boolean EndKata;
 extern Kata CKata;
-
+STATE LoadFiles();
 void IgnoreBlank();
 /* Mengabaikan satu atau beberapa BLANK
    I.S. : CC sembarang
    F.S. : CC ≠ BLANK atau CC = MARK */
+
+void BacaKata(Kata *K);
+
+void TulisKata(Kata K);
 
 void STARTKATA();
 /* I.S. : CC sembarang
@@ -32,12 +36,16 @@ void STARTKATA();
           atau EndKata = false, CKata adalah kata yang sudah diakuisisi,
           CC karakter pertama sesudah karakter terakhir kata */
 
+void STARTSTDKATA();
+
 void ADVKATA();
 /* I.S. : CC adalah karakter pertama kata yang akan diakuisisi
    F.S. : CKata adalah kata terakhir yang sudah diakuisisi,
           CC adalah karakter pertama dari kata berikutnya, mungkin MARK
           Jika CC = MARK, EndKata = true.
    Proses : Akuisisi kata menggunakan procedure SalinKata */
+
+boolean IsKataSama (Kata K1, Kata K2);
 
 void SalinKata();
 /* Mengakuisisi kata, menyimpan dalam CKata
@@ -49,7 +57,7 @@ void SalinKata();
 
 
 
-void SaveFile(STATE s);
+void SaveFile(STATE s, char nama[]);
 
 
 void LoadFile(STATE *s);
