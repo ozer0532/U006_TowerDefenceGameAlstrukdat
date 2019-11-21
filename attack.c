@@ -339,7 +339,7 @@ void Attack(Graph G, STATE *T, Player *Pe, Player *Pm, boolean AttackUp)
             
             printf("Bangunan yang diserang: ");
             scanf("%d",&M);
-
+            int j;
             if (M<no) {
             j=1;
             while(j<=A.Neff && M!=0) {

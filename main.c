@@ -248,8 +248,8 @@ int main()
 
               if (IsKataSama(CKata, Undo))
               {
-                  printf("Kamu mengundo aksi %s", S.lastaction);
-                  Pop(&stackofstate,&S);
+                {printf("Kamu mengundo aksi %s", S.lastaction);
+                Pop(&stackofstate,&S);}
               }
 
               Push(&stackofstate,S);

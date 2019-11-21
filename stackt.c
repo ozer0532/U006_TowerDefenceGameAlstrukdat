@@ -42,8 +42,3 @@ void Pop (Stack * S, STATE* X){
 /* Menghapus X dari Stack S. */
 /* I.S. S  tidak mungkin kosong */
 /* F.S. X adalah nilai elemen TOP yang lama, TOP berkurang 1 */
-
-void Undo(Stack *S,STATE *s){
-    *s = InfoTop(*S);
-    Top(*S) -= 1;
-}
