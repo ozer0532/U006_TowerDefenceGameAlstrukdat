@@ -9,6 +9,7 @@
 #include "player.h"
 #include "attack.h"
 #include <string.h>
+#include "move.h"
 
 int pemainKe(int x)
 /* Mengembalikan pemain yang gilirannya sedang berlangsung */
@@ -256,7 +257,8 @@ int main()
 
               if(IsKataSama(CKata, Move)) /* command == "MOVE" */
               {
-
+                  strcpy(S.lastaction,"MOVE");
+                  move(&S, currentPlayer);
               }
 
               if (IsKataSama(CKata, Save)) /* command == "SAVE" */

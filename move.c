@@ -1,6 +1,5 @@
-#include "STATE.h"
-#include "attack.h"
 #include <stdio.h>
+#include "move.h"
 
 void move(STATE *s,Player *CP){
     address P;
@@ -22,20 +21,20 @@ void move(STATE *s,Player *CP){
         else if ((s->listbtot.TI[Info(P)].B.Jenis )=='F') printf("Fort ");
 
         //Cetak lokasinya
-        printf("Lokasi : (%d,%d) ",s->listbtot.TI[Info(P)].B.Lok.X,s->listbtot.TI[Info(P)].B.Lok.Y);
+        printf("(%d,%d) ",s->listbtot.TI[Info(P)].B.Lok.X,s->listbtot.TI[Info(P)].B.Lok.Y);
 
         //Cetak jumlah pasukannya
-        printf ("Jumlah Pasukan : %d \n",s->listbtot.TI[Info(P)].B.Jpas);
+        printf ("%d \n",s->listbtot.TI[Info(P)].B.Jpas);
         no++;
         P = Next(P);
     }
-    scanf("%d",num);
+    printf ("Pilih Bangunan: "); scanf("%d",&num);
     int indeks;
     address ch = (*CP).bangunanPlayer.First;
     while(--num) ch = Next(ch);
     indeks = Info(ch);
     ArrayVertex target = Neighbors(s->Hubungan,indeks);
-    printf("where to move?\n");
+    printf("Daftar bangunan terdekat:\n");
     no = 1;
     for (int k = 1; k <= target.Neff;k++){
         if (s->listbtot.TI[target.TI[k]].B.Milik == curpla){
@@ -47,10 +46,10 @@ void move(STATE *s,Player *CP){
         else if ((s->listbtot.TI[target.TI[k]].B.Jenis )=='F') printf("Fort ");
 
         //Cetak lokasinya
-        printf("Lokasi : (%d,%d) ",s->listbtot.TI[target.TI[k]].B.Lok.X,s->listbtot.TI[Info(P)].B.Lok.Y);
+        printf("(%d,%d) ",s->listbtot.TI[target.TI[k]].B.Lok.X,s->listbtot.TI[target.TI[k]].B.Lok.Y);
 
         //Cetak jumlah pasukannya
-        printf ("Jumlah Pasukan : %d \n",s->listbtot.TI[target.TI[k]].B.Jpas);
+        printf ("%d \n",s->listbtot.TI[target.TI[k]].B.Jpas);
         no++;}
     }
     int moveto;
@@ -61,7 +60,7 @@ void move(STATE *s,Player *CP){
         if (moveto) add = Next(add);
     }
     int indeksmoveto = Info(add);
-    printf("move how many>?\n");
+    printf("Jumlah pasukan: ");
     scanf("%d",&jum);
     s->listbtot.TI[indeks].B.Jpas -= jum;
     s->listbtot.TI[indeksmoveto].B.Jpas += jum;
