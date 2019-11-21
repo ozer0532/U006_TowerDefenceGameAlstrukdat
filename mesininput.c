@@ -222,7 +222,7 @@ void SaveFile(STATE s,char nama[]){
     fprintf(f, "%c %d %d %d %d %d\n",s.listbtot.TI[i].B.Jenis,s.listbtot.TI[i].B.Lok.X,s.listbtot.TI[i].B.Lok.Y,s.listbtot.TI[i].B.Level,s.listbtot.TI[i].B.Milik,s.listbtot.TI[i].B.Jpas);
   }
 
-  addrRow G;
+  addrRow G;  
   G = s.Hubungan.First;
   addrCol GN;
   while(G!=Nil){
@@ -248,22 +248,33 @@ void LoadSafeFile(STATE *s){
     (*s).JBang = katatoint(CKata);
     char c;
     int x,y,l,j,m;
+    MakeEmptyBangunanTot(&(s->listbtot));
     for (int i = 1; i <=(*s).JBang; i++){
         ADVKATA();
         c = CKata.TabKata[1];
+        s->listbtot.TI[i].B.Jenis = c;
         ADVKATA();
         x= katatoint(CKata);
+        s->listbtot.TI[i].B.Lok.X = x;
         ADVKATA();
         y = katatoint(CKata);
+        s->listbtot.TI[i].B.Lok.Y = y;
         ADVKATA();
         l = katatoint(CKata);
+        s->listbtot.TI[i].B.Level = l;
         ADVKATA();
         m = katatoint(CKata);
+        s->listbtot.TI[i].B.Milik = m;
         ADVKATA();
         j = katatoint(CKata);
-        (*s).listbtot.TI[i].B = MakeBANGUNAN(m,j,l,c,MakePOINT(x,y));
+        s->listbtot.TI[i].B.Jpas = j;
+        // (*s).listbtot.TI[i].B = MakeBANGUNAN(m,j,l,c,MakePOINT(x,y));
+        if (m == 1) InsVLastL(&(s->P1.bangunanPlayer),i);
+        else if (m == 2) InsVLastL(&(s->P2.bangunanPlayer),i);
     }
+    
     int i ,je;
+    s->Hubungan = CreateEmptyGraph();
     ADVKATA();
     while (EndKata == false){
       i = katatoint(CKata);
@@ -272,10 +283,10 @@ void LoadSafeFile(STATE *s){
       while(CKata.TabKata[1] != '!'){
         je = katatoint(CKata);
         AddRelation(&((*s).Hubungan),i,je);
+        ADVKATA();
       }
     ADVKATA();
     }
-    printf("file loaded");
 }
 
 
