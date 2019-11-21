@@ -17,7 +17,7 @@ void InstantUpgrade (Player Pe, BangunanTot *Ba)
   
 
 }
-void Shield (Player *Pe){
+void Shield (Player *Pe){ 
     (*Pe).shieldCooldown = 2;
 }
 void ShieldSkill (Player Pe, BangunanTot Ba, ACUAN *Semi) //Bonus
