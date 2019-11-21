@@ -157,6 +157,9 @@ void SalinKata()
 
 void LoadFile(STATE *s){
   int X,Y;
+  ACUAN Ac;
+  Inisialisasi(&Ac);
+
   char type;
   Graph G;
     STARTKATA();
@@ -183,6 +186,8 @@ void LoadFile(STATE *s){
         (*s).peta.Mem[X][Y].C = type;
         
         (*s).listbtot.TI[i].B.Level = 1;
+
+        (*s).listbtot.TI[i].B.Jpas = getU((*s).listbtot.TI[i].B,Ac);
         
         if (i == 1) {
           (*s).listbtot.TI[i].B.Milik = 1;

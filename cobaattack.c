@@ -4,7 +4,6 @@
 #include "array.c"
 #include "point.c"
 #include <Stdio.h>
-#include "mesinkata.h"
 #include "STATE.h"
 
 

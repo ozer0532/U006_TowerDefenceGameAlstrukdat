@@ -51,10 +51,6 @@ void MakeBangunanPemain (Player *Pe, Player *Pm, BangunanTot *T,  IdxType Idx, i
     List La= (*Pe).bangunanPlayer;
     List Lb= (*Pm).bangunanPlayer;
     
-    printf("%c\n",(*T).TI[Idx].B.Jenis);
-    printf("%d\n", (int)floor(3*Jmlh/4));
-    printf("%d\n",(*T).TI[Idx].B.Level);
-    printf("%d\n",CariDariAcuan(Ac,(*T).TI[Idx].B.Jenis,(*T).TI[Idx].B.Level,'U'));
     //Saat Belum dikuasai siapa2. Maka Minimal yang harus diserang adalah Sebanyak U
     //Jika Jumlahnya lebih dari diserang
     if (IsAdaPertahanan((*T).TI[Idx].B))
@@ -165,7 +161,27 @@ void MakeBangunanPemain (Player *Pe, Player *Pm, BangunanTot *T,  IdxType Idx, i
     }    
 }
 
-
+void UpdateStorageTakNol (Player *Pe, Player *Pm, BangunanTot) {
+    address P=(*Pe).bangunanPlayer.First;
+    address Prec;
+    boolean found=false;
+        if (Info(P)  ){
+            DelFirstL(L,&P);
+        }
+        else {
+            Prec=First(*L);
+            while()
+            while(Next(Prec)!=P)
+            {
+                Prec=Next(Prec);
+            }
+            Next(Prec)=Next(P);
+            Next(P)=Nil;
+            DealokasiL(&P);
+        }
+    }
+    }
+}
 void CetakDaftarBangunan (BangunanTot T, Player Pe)
 //Mencetak daftar bangunan dari pemain 1
 //I.S L adalah List1 YANG SUDAH TERDEFINISI dimana Info(L).Milik=1 
@@ -226,11 +242,12 @@ void Attack(Graph G, BangunanTot *T, Player *Pe, Player *Pm)
         P=Next(P);
     }
 
+    ArrayVertex Ne = Neighbors(G,Info(P));
     //Masukin nilai Index hubung ke array
     printf("Bangunan yang dapat diserang:\n");
     for (int j=1;j<=30;j++) {
-        A[j]=(Neighbors(G,Info(P))).TI[j];
-        if (A[j]!=0) {
+        A[j]=Ne.TI[j];
+        if (j<=Ne.Neff) {
             printf("%d. ",j);
                 
             //Cetak nama bangunannya
@@ -249,6 +266,8 @@ void Attack(Graph G, BangunanTot *T, Player *Pe, Player *Pm)
             printf("lv. %d\n", (*T).TI[A[j]].B.Level);
 
         }
+    }
+    
         
         printf("Bangunan yang diserang: ");
         scanf("%d",&M);
@@ -262,8 +281,9 @@ void Attack(Graph G, BangunanTot *T, Player *Pe, Player *Pm)
             printf("Jumlah pasukan: ");
             scanf("%d",&Pas);
         }
-        MakeBangunanPemain(Pe, Pm, T,Info(P),Pas);
-    }
+
+        
+    MakeBangunanPemain(Pe,Pm,T,M,Pas);
 }
 
 
