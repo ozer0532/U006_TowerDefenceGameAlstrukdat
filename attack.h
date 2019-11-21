@@ -41,5 +41,7 @@ void CetakDaftarBangunan (BangunanTot T, Player Pe);
 
 void Attack(Graph G, BangunanTot *T, Player *Pe, Player *Pm);
 
+void UpdateStorageTakNol (Player *Pe, Player *Pm, BangunanTot B);
+
 
 #endif

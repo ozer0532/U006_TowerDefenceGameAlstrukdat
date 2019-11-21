@@ -190,12 +190,8 @@ void LoadFile(STATE *s){
         (*s).peta.Mem[X][Y].C = type;
         
         (*s).listbtot.TI[i].B.Level = 1;
-<<<<<<< HEAD
-
         (*s).listbtot.TI[i].B.Jpas = getU((*s).listbtot.TI[i].B,Ac);
-=======
-        (*s).listbtot.TI[i].B.Jpas = CariDariAcuan(A, type, 0, 'U');
->>>>>>> 0297df49c901eaa7c4201936e76954d4c405579d
+        //(*s).listbtot.TI[i].B.Jpas = CariDariAcuan(A, type, 0, 'U');
         
         if (i == 1) {
           (*s).listbtot.TI[i].B.Milik = 1;

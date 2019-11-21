@@ -96,6 +96,8 @@ void InsertLastL (List *L, address P);
 /* I.S. Sembarang, P sudah dialokasi  */
 /* F.S. P ditambahkan sebagai elemen terakhir yang baru */
 
+
+void DelAfter (List *L, address *Pdel, address Prec);
 /*** PENGHAPUSAN SEBUAH ELEMEN ***/
 void DelFirstL (List *L, address *P);
 /* I.S. List tidak kosong */

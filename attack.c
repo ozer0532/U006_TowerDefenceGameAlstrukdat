@@ -35,7 +35,7 @@ void AddToLPemain (Player *Pe, Player *Pm, BangunanTot *T,  IdxType Idx, int JPa
         PP=SearchL((*Pm).bangunanPlayer,Idx);
         ResetBANGUNAN(&(*T).TI[Idx].B,JPasNetto,(*Pe).playerKe);
         InsVLastL(&(*Pe).bangunanPlayer,Idx);
-        Del1Urut(T,PP,Idx,JPasNetto,2);
+        Del1Urut(T,PP,Idx,JPasNetto,(*Pe).playerKe);
         DelPL(&(*Pm).bangunanPlayer,Idx);
     }
 }
@@ -53,6 +53,7 @@ void MakeBangunanPemain (Player *Pe, Player *Pm, BangunanTot *T,  IdxType Idx, i
     
     //Saat Belum dikuasai siapa2. Maka Minimal yang harus diserang adalah Sebanyak U
     //Jika Jumlahnya lebih dari diserang
+
     if (IsAdaPertahanan((*T).TI[Idx].B))
     {
         
@@ -66,12 +67,14 @@ void MakeBangunanPemain (Player *Pe, Player *Pm, BangunanTot *T,  IdxType Idx, i
                 if (JumlahPasukanValid((*T).TI[Idx].B, (int)floor(3*Jmlh/4)-JHDiserang))
                 {
                     AddToLPemain(Pe, Pm,T,Idx,(int)floor(3*Jmlh/4)-JHDiserang);
+                    printf("Bangunan menjadi milikmu. \n");
                 }
                 
                 //Jika sudah menyentuh nilai max
                 else
                 {
                     AddToLPemain(Pe, Pm,T,Idx,CariDariAcuan(Ac,(*T).TI[Idx].B.Jenis,(*T).TI[Idx].B.Level,'M'));
+                    printf("Bangunan menjadi milikmu. \n");
                 }
             }
             //Jika jumlahnyaa kurang dari diserang
@@ -91,12 +94,15 @@ void MakeBangunanPemain (Player *Pe, Player *Pm, BangunanTot *T,  IdxType Idx, i
                 if (JumlahPasukanValid((*T).TI[Idx].B, (int)floor(3*Jmlh/4)-JHDiserang))
                 {
                     AddToLPemain(Pe,Pm,T,Idx,(int)floor(3*Jmlh/4)-JHDiserang);
+                    
+                    printf("Bangunan lawan menjadi milikmu. \n");
                 }
                 
                 //Jika sudah menyentuh nilai max
                 else
                 {
                     AddToLPemain(Pe,Pm,T,Idx,CariDariAcuan(Ac,(*T).TI[Idx].B.Jenis,(*T).TI[Idx].B.Level,'M'));
+                    printf("Bangunan lawan menjadi milikmu. \n");
                 }
             }
             else
@@ -119,12 +125,14 @@ void MakeBangunanPemain (Player *Pe, Player *Pm, BangunanTot *T,  IdxType Idx, i
                 if (JumlahPasukanValid((*T).TI[Idx].B,Jmlh-JHDiserang))
                 {
                     AddToLPemain(Pe,Pm,T,Idx,Jmlh-JHDiserang);
+                    printf("Bangunan menjadi milikmu. \n");
                 }
                 
                 //Jika sudah menyentuh nilai max
                 else
                 {
                     AddToLPemain(Pe,Pm,T,Idx,CariDariAcuan(Ac,(*T).TI[Idx].B.Jenis,(*T).TI[Idx].B.Level,'M'));
+                    printf("Bangunan menjadi milikmu. \n");
                 }
             }
             //Jika jumlahnyaa kurang dari diserang
@@ -143,6 +151,7 @@ void MakeBangunanPemain (Player *Pe, Player *Pm, BangunanTot *T,  IdxType Idx, i
                 if (JumlahPasukanValid((*T).TI[Idx].B, Jmlh-JHDiserang))
                 {
                     AddToLPemain(Pe,Pm,T,Idx,Jmlh-JHDiserang);
+                    printf("Bangunan lawan menjadi milikmu. \n");
                 }
                 
                 //Jika sudah menyentuh nilai max
@@ -158,30 +167,43 @@ void MakeBangunanPemain (Player *Pe, Player *Pm, BangunanTot *T,  IdxType Idx, i
                 
             }
          }
-    }    
+    }   
 }
 
-void UpdateStorageTakNol (Player *Pe, Player *Pm, BangunanTot) {
+void UpdateStorageTakNol (Player *Pe, Player *Pm, BangunanTot B) {
+    address X;
     address P=(*Pe).bangunanPlayer.First;
-    address Prec;
-    boolean found=false;
-        if (Info(P)  ){
-            DelFirstL(L,&P);
+        if (B.TI[(Info(P))].B.Jpas==0){
+            DelFirstL(&(*Pe).bangunanPlayer,&X);
         }
         else {
-            Prec=First(*L);
-            while()
-            while(Next(Prec)!=P)
-            {
-                Prec=Next(Prec);
+            P=Next(P);
+            while(P!=Nil) {
+                while((B.TI[(Info(Next(P)))].B.Jpas!=0)&&(P!=Nil))
+                {
+                    P=Next(P);
+                }
+                DelAfterL(&(*Pe).bangunanPlayer,&X,P);
+                P=Next(P);
             }
-            Next(Prec)=Next(P);
-            Next(P)=Nil;
-            DealokasiL(&P);
         }
-    }
-    }
-}
+    address P0=(*Pm).bangunanPlayer.First;
+        if (B.TI[(Info(P0))].B.Jpas==0){
+            DelFirstL(&(*Pm).bangunanPlayer,&X);
+        }
+        else {
+            P0=Next(P0);
+            while(P0!=Nil) {
+                while((B.TI[(Info(Next(P0)))].B.Jpas!=0)&&(P0!=Nil))
+                {
+                    P0=Next(P0);
+                }
+                DelAfterL(&(*Pe).bangunanPlayer,&X,P0);
+                P0=Next(P0);
+            }
+        }
+ }
+
 void CetakDaftarBangunan (BangunanTot T, Player Pe)
 //Mencetak daftar bangunan dari pemain 1
 //I.S L adalah List1 YANG SUDAH TERDEFINISI dimana Info(L).Milik=1 
@@ -233,10 +255,11 @@ void Attack(Graph G, BangunanTot *T, Player *Pe, Player *Pm)
     ArrayVertex A;
 
     
-    do {
         CetakDaftarBangunan((*T),*Pe);
         printf("Bangunan yang digunakan untuk menyerang: ");
-        scanf("%d",&N);
+        if ((First((*Pe).bangunanPlayer))!=Nil) {
+            scanf("%d",&N);
+
         P=First((*Pe).bangunanPlayer);
         int i = 1;
         while (i < N && P != Nil) {
@@ -246,9 +269,7 @@ void Attack(Graph G, BangunanTot *T, Player *Pe, Player *Pm)
         if (P == Nil) {
             printf("Bangunan tidak ada ~~\n");
         }
-        printf("\n");
-    } while (P == Nil);
-    
+        }
     A = (Neighbors(G,Info(P)));
     if (A.Neff == 0) {
         printf("Tidak ada bangunan yang dapat diserang\n");
@@ -257,7 +278,7 @@ void Attack(Graph G, BangunanTot *T, Player *Pe, Player *Pm)
             //Masukin nilai Index hubung ke array
             printf("Bangunan yang dapat diserang:\n");
             for (int j=1;j<=A.Neff;j++) {
-                if (A.TI[j]!=0) {
+                if (A.TI[j]!=0 && (*T).TI[A.TI[j]].B.Milik!=(*Pe).playerKe) {
                     printf("%d. ",j);
                         
                     //Cetak nama bangunannya
@@ -266,24 +287,8 @@ void Attack(Graph G, BangunanTot *T, Player *Pe, Player *Pm)
                     else if (((*T).TI[A.TI[j]].B.Jenis )=='V') {printf("Village ");}
                     else if (((*T).TI[A.TI[j]].B.Jenis )=='F') {printf("Fort ");}
 
-<<<<<<< HEAD
-    ArrayVertex Ne = Neighbors(G,Info(P));
-    //Masukin nilai Index hubung ke array
-    printf("Bangunan yang dapat diserang:\n");
-    for (int j=1;j<=30;j++) {
-        A[j]=Ne.TI[j];
-        if (j<=Ne.Neff) {
-            printf("%d. ",j);
-                
-            //Cetak nama bangunannya
-            if ((*T).TI[A[j]].B.Jenis =='C') {printf("Castle ");}
-            else if (((*T).TI[A[j]].B.Jenis )=='T') {printf("Tower ");}
-            else if (((*T).TI[A[j]].B.Jenis )=='V') {printf("Village ");}
-            else if (((*T).TI[A[j]].B.Jenis )=='F') {printf("Fort ");}
-=======
                     //Cetak lokasinya
                     printf("(%d,%d) ",(*T).TI[A.TI[j]].B.Lok.X,(*T).TI[Info(P)].B.Lok.Y);
->>>>>>> 0297df49c901eaa7c4201936e76954d4c405579d
 
                     //Cetak jumlah pasukannya
                     printf ("%d ",(*T).TI[A.TI[j]].B.Jpas);
@@ -294,24 +299,11 @@ void Attack(Graph G, BangunanTot *T, Player *Pe, Player *Pm)
                 }
             }
                 
-            printf("Bangunan yang diserang: ");
-            scanf("%d",&M);
-
-<<<<<<< HEAD
-        }
-    }
-    
+        } while (M > A.Neff);
+        
         
         printf("Bangunan yang diserang: ");
         scanf("%d",&M);
-=======
-            if (M > A.Neff) {
-                printf("Bangunan tidak ada ~~\n");
-            }
-            printf("\n");
-        } while (M > A.Neff);
->>>>>>> 0297df49c901eaa7c4201936e76954d4c405579d
-        
         printf("Jumlah pasukan: ");
         scanf("%d",&Pas);
 
@@ -324,6 +316,7 @@ void Attack(Graph G, BangunanTot *T, Player *Pe, Player *Pm)
 
         
     MakeBangunanPemain(Pe,Pm,T,M,Pas);
+}
 }
 
 

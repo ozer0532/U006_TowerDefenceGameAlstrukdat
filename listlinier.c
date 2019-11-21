@@ -306,6 +306,22 @@ infotype MaxL (List L)
     return maxi;
 }
 
+void DelAfter (List *L, address *Pdel, address Prec)
+/* I.S. List tidak kosong. Prec adalah anggota list  */
+/* F.S. Menghapus Next(Prec): */
+/*      Pdel adalah alamat elemen list yang dihapus  */
+{
+    if ((Prec)==Nil) {
+        (*Pdel)=First(*L);
+        First(*L)=Nil;
+    }
+    else {
+        (*Pdel)=Next(Prec);
+        Next(Prec)=Next(Next(Prec));
+        Next(*Pdel)=Nil;
+    }
+}
+
 /****************** PROSES TERHADAP LIST ******************/
 void Konkat1L (List *L1, List *L2, List *L3)
 /* I.S. L1 dan L2 sembarang */
