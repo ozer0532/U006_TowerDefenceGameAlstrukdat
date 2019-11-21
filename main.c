@@ -143,6 +143,7 @@ int main()
         boolean masihMain;              // True bila permainan sedang berlangsung
         int menu;                       // Input pilihan menu
         Kata command;
+        boolean booleanAttackUp;
 
       // Variabel laju game
         STATE S;
@@ -194,7 +195,9 @@ int main()
               if (IsKataSama(CKata, Attk)) /* command == "ATTACK" */
               {
                   strcpy(S.lastaction,"ATTACK");
-                  Attack(S.Hubungan, &(S), currentPlayer, opposingPlayer);
+                  booleanAttackUp=false;
+                  Attack(S.Hubungan, &(S), currentPlayer, opposingPlayer, booleanAttackUp);
+
               }
 
               if (IsKataSama(CKata, Lvup)) /* command == "LEVEL_UP" */

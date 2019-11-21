@@ -61,7 +61,65 @@ void Inisialisasi(ACUAN *Ac)
     (*Ac).V[4].P=0;
 }
 
+void InisialisasiShieldNo(ACUAN *Ac)
+{
+    //ACUAN Referensi
+    (*Ac).C[1].A=10;
+    (*Ac).C[1].M=40;
+    (*Ac).C[1].P=0;
+    (*Ac).C[1].U=40;
+    (*Ac).C[2].A=15;
+    (*Ac).C[2].M=60;
+    (*Ac).C[2].P=0;
+    (*Ac).C[3].A=20;
+    (*Ac).C[3].M=80;
+    (*Ac).C[3].P=0;
+    (*Ac).C[4].A=25;
+    (*Ac).C[4].M=100;
+    (*Ac).C[4].P=0;
 
+    (*Ac).T[1].A=5;
+    (*Ac).T[1].M=20;
+    (*Ac).T[1].P=0;
+    (*Ac).T[1].U=30;
+    (*Ac).T[2].A=10;
+    (*Ac).T[2].M=30;
+    (*Ac).T[2].P=0;
+    (*Ac).T[3].A=20;
+    (*Ac).T[3].M=40;
+    (*Ac).T[3].P=0;
+    (*Ac).T[4].A=30;
+    (*Ac).T[4].M=50;
+    (*Ac).T[4].P=0;
+
+    (*Ac).F[1].A=10;
+    (*Ac).F[1].M=20;
+    (*Ac).F[1].P=0;
+    (*Ac).F[1].U=80;
+    (*Ac).F[2].A=20;
+    (*Ac).F[2].M=40;
+    (*Ac).F[2].P=0;
+    (*Ac).F[3].A=30;
+    (*Ac).F[3].M=60;
+    (*Ac).F[3].P=0;
+    (*Ac).F[4].A=40;
+    (*Ac).F[4].M=80;
+    (*Ac).F[4].P=0;
+
+    (*Ac).V[1].A=5;
+    (*Ac).V[1].M=20;
+    (*Ac).V[1].P=0;
+    (*Ac).V[1].U=20;
+    (*Ac).V[2].A=10;
+    (*Ac).V[2].M=30;
+    (*Ac).V[2].P=0;
+    (*Ac).V[3].A=15;
+    (*Ac).V[3].M=40;
+    (*Ac).V[3].P=0;
+    (*Ac).V[4].A=30;
+    (*Ac).V[4].M=50;
+    (*Ac).V[4].P=0;
+}
 int CariDariAcuan (ACUAN Ac, char Jenis, int Lvl, char AMPU)
 //I.S Acuan harus sudah di INISIALISASIKAN
 //F.S Keluaran berupa integer

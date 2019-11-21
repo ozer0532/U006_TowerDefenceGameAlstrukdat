@@ -24,7 +24,7 @@ void AddToLPemain (Player *Pe, Player *Pm, STATE *T,  IdxType Idx, int JPasNetto
 //F.S Bangunan sudah beralih milik dan sudah di RESETBANGUNAN
 
 
-void MakeBangunanPemain (Player *Pe, Player *Pm, STATE *T, IdxType Idx, int Jmlh);
+void MakeBangunanPemain (Player *Pe, Player *Pm, STATE *T, IdxType Idx, int Jmlh, boolean AttackUp);
 //INPUTAN Jmlh Awal harus Valid
 //Artinya Jmlh harus lebih dari 0 namun harus kurang dari sama dengan JPas Daftar Bangunan
 
@@ -40,7 +40,7 @@ void CetakDaftarBangunan (BangunanTot T, Player Pe, boolean *bol);
 //Mencetak daftar bangunan dari pemain ke A atau B
 //I.S L adalah List1 YANG SUDAH TERDEFINISI dimana Info(L).Milik='A'
 
-void Attack(Graph G, STATE *T, Player *Pe, Player *Pm);
+void Attack(Graph G, STATE *T, Player *Pe, Player *Pm, boolean AttackUp);
 
 void UpdateStorageTakNol (Player *Pe, Player *Pm, BangunanTot B);
 

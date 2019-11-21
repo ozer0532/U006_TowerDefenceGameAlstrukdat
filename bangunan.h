@@ -63,6 +63,7 @@ typedef struct {
 void Inisialisasi(ACUAN *Ac);
 //Jika ingin menggunakan acuan harus diinisialisasikan dulu
 
+void InisialisasiShieldNo(ACUAN *Ac);
 //Cari acuan
 int CariDariAcuan (ACUAN Ac, char Jenis, int Lvl, char AMPU);
 //I.S Acuan harus sudah di INISIALISASIKAN

@@ -47,14 +47,21 @@ void AddToLPemain (Player *Pe, Player *Pm, STATE *T,  IdxType Idx, int JPasNetto
     }
 }
 
-void MakeBangunanPemain (Player *Pe, Player *Pm, STATE *T,  IdxType Idx, int Jmlh)
+void MakeBangunanPemain (Player *Pe, Player *Pm, STATE *T,  IdxType Idx, int Jmlh, boolean AttackUp)
 //INPUTAN Jmlh Awal harus Valid
 //Artinya Jmlh harus lebih dari 0 namun harus kurang dari sama dengan JPas Daftar Bangunan
 {
+
     address P;
     int JHDiserang;
     ACUAN Ac;
-    Inisialisasi(&Ac);
+
+    if (AttackUp) {
+        Inisialisasi(&Ac);
+    }
+    else {
+        InisialisasiShieldNo(&Ac);
+    }
     List La= (*Pe).bangunanPlayer;
     List Lb= (*Pm).bangunanPlayer;
     
@@ -271,12 +278,13 @@ void CetakDaftarBangunan (BangunanTot T, Player Pe, boolean *bol)
     }
 }
 
-void Attack(Graph G, STATE *T, Player *Pe, Player *Pm)
+void Attack(Graph G, STATE *T, Player *Pe, Player *Pm, boolean AttackUp)
 {
     int N,M,Pas;
     address P;
     ArrayVertex A;
     boolean bol;
+    int j;
 
     
     CetakDaftarBangunan((*T).listbtot,*Pe,&bol);
@@ -322,8 +330,6 @@ void Attack(Graph G, STATE *T, Player *Pe, Player *Pm)
 
                         //cetak level
                         printf("lv. %d\n", (*T).listbtot.TI[A.TI[j]].B.Level);
-
-                        printf("milik : %d\n",(*T).listbtot.TI[A.TI[j]].B.Milik);
                         no++;
                     }
                 }
@@ -335,7 +341,7 @@ void Attack(Graph G, STATE *T, Player *Pe, Player *Pm)
             scanf("%d",&M);
 
             if (M<no) {
-            int j=1;
+            j=1;
             while(j<=A.Neff && M!=0) {
                 if (A.TI[j]!=0 && (*T).listbtot.TI[A.TI[j]].B.Milik!=(*Pe).playerKe) {
                     M=M-1;
@@ -359,7 +365,7 @@ void Attack(Graph G, STATE *T, Player *Pe, Player *Pm)
                 scanf("%d",&Pas);
             }
             
-        MakeBangunanPemain(Pe,Pm,T,A.TI[j],Pas);
+        MakeBangunanPemain(Pe,Pm,T,A.TI[j],Pas,AttackUp);
         (*T).listbtot.TI[Info(P)].B.Jpas -= Pas;
         }
     else {
