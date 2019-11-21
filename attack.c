@@ -4,6 +4,7 @@
 #include "boolean.h"
 #include "attack.h"
 #include <math.h>
+#include "STATE.h"
 
 address AlokasiLTambahBangunan (BangunanTot *B, IdxType Index)
 //Saat ingin Alokasi / Buat List Liniear
@@ -16,31 +17,37 @@ address AlokasiLTambahBangunan (BangunanTot *B, IdxType Index)
 }
 
 
-void AddToLPemain (Player *Pe, Player *Pm, BangunanTot *T,  IdxType Idx, int JPasNetto)
+void AddToLPemain (Player *Pe, Player *Pm, STATE *T,  IdxType Idx, int JPasNetto)
 //Membuat Bangunan menjadi berubah kepemilikan
 //Proses: Misal Bangunan milik P1 baru dikuasai maka LIST L1 berkurang 1  LIST L2 bertambah, Bangunan TOtal tetap
 {
     address PP;
-    if ((*T).TI[Idx].B.Milik==0)
+    if ((*T).listbtot.TI[Idx].B.Milik==0)
     {
         PP=AlokasiL(Idx);
-        (*T).TI[Idx].P = PP;
-        ResetBANGUNAN(&((*T).TI[Idx].B),JPasNetto,(*Pe).playerKe);
+        (*T).listbtot.TI[Idx].P = PP;
+        ResetBANGUNAN(&((*T).listbtot.TI[Idx].B),JPasNetto,(*Pe).playerKe);
+        
+
         //InsertLastL(&La,PP);
         InsVLastL(&(*Pe).bangunanPlayer,Idx);
 
     }
     else
     {
+        
+        printf("mil : %d\n",(*T).listbtot.TI[Idx].B.Milik);
         PP=SearchL((*Pm).bangunanPlayer,Idx);
-        ResetBANGUNAN(&(*T).TI[Idx].B,JPasNetto,(*Pe).playerKe);
+        ResetBANGUNAN(&(*T).listbtot.TI[Idx].B,JPasNetto,(*Pe).playerKe);
         InsVLastL(&(*Pe).bangunanPlayer,Idx);
-        Del1Urut(T,PP,Idx,JPasNetto,(*Pe).playerKe);
+        Del1Urut(&(*T).listbtot,PP,Idx,JPasNetto,(*Pe).playerKe);
         DelPL(&(*Pm).bangunanPlayer,Idx);
+        
+        printf("mil : %d\n",(*T).listbtot.TI[Idx].B.Milik);
     }
 }
 
-void MakeBangunanPemain (Player *Pe, Player *Pm, BangunanTot *T,  IdxType Idx, int Jmlh)
+void MakeBangunanPemain (Player *Pe, Player *Pm, STATE *T,  IdxType Idx, int Jmlh)
 //INPUTAN Jmlh Awal harus Valid
 //Artinya Jmlh harus lebih dari 0 namun harus kurang dari sama dengan JPas Daftar Bangunan
 {
@@ -54,17 +61,17 @@ void MakeBangunanPemain (Player *Pe, Player *Pm, BangunanTot *T,  IdxType Idx, i
     //Saat Belum dikuasai siapa2. Maka Minimal yang harus diserang adalah Sebanyak U
     //Jika Jumlahnya lebih dari diserang
 
-    if (IsAdaPertahanan((*T).TI[Idx].B))
+    if (IsAdaPertahanan((*T).listbtot.TI[Idx].B))
     {
         
-        if ((*T).TI[Idx].B.Milik==0) //Kalau Bangunannya belom dikuasai siapa2
+        if ((*T).listbtot.TI[Idx].B.Milik==0) //Kalau Bangunannya belom dikuasai siapa2
         {
-            JHDiserang=CariDariAcuan(Ac,(*T).TI[Idx].B.Jenis,(*T).TI[Idx].B.Level,'U');
+            JHDiserang=CariDariAcuan(Ac,(*T).listbtot.TI[Idx].B.Jenis,(*T).listbtot.TI[Idx].B.Level,'U');
             if ( (int)floor((3*Jmlh/4))>=JHDiserang)
             {
                 
                 //Jika belom menyentuh nilai max
-                if (JumlahPasukanValid((*T).TI[Idx].B, (int)floor(3*Jmlh/4)-JHDiserang))
+                if (JumlahPasukanValid((*T).listbtot.TI[Idx].B, (int)floor(3*Jmlh/4)-JHDiserang))
                 {
                     AddToLPemain(Pe, Pm,T,Idx,(int)floor(3*Jmlh/4)-JHDiserang);
                     printf("Bangunan menjadi milikmu. \n");
@@ -73,7 +80,7 @@ void MakeBangunanPemain (Player *Pe, Player *Pm, BangunanTot *T,  IdxType Idx, i
                 //Jika sudah menyentuh nilai max
                 else
                 {
-                    AddToLPemain(Pe, Pm,T,Idx,CariDariAcuan(Ac,(*T).TI[Idx].B.Jenis,(*T).TI[Idx].B.Level,'M'));
+                    AddToLPemain(Pe, Pm,T,Idx,CariDariAcuan(Ac,(*T).listbtot.TI[Idx].B.Jenis,(*T).listbtot.TI[Idx].B.Level,'M'));
                     printf("Bangunan menjadi milikmu. \n");
                 }
             }
@@ -87,11 +94,11 @@ void MakeBangunanPemain (Player *Pe, Player *Pm, BangunanTot *T,  IdxType Idx, i
          else
          {
              
-            JHDiserang=(*T).TI[Idx].B.Jpas;
+            JHDiserang=(*T).listbtot.TI[Idx].B.Jpas;
             if ( (int)floor(3/4)*Jmlh>=JHDiserang)
             {
                  //Jika belom menyentuh nilai max
-                if (JumlahPasukanValid((*T).TI[Idx].B, (int)floor(3*Jmlh/4)-JHDiserang))
+                if (JumlahPasukanValid((*T).listbtot.TI[Idx].B, (int)floor(3*Jmlh/4)-JHDiserang))
                 {
                     AddToLPemain(Pe,Pm,T,Idx,(int)floor(3*Jmlh/4)-JHDiserang);
                     
@@ -101,14 +108,14 @@ void MakeBangunanPemain (Player *Pe, Player *Pm, BangunanTot *T,  IdxType Idx, i
                 //Jika sudah menyentuh nilai max
                 else
                 {
-                    AddToLPemain(Pe,Pm,T,Idx,CariDariAcuan(Ac,(*T).TI[Idx].B.Jenis,(*T).TI[Idx].B.Level,'M'));
+                    AddToLPemain(Pe,Pm,T,Idx,CariDariAcuan(Ac,(*T).listbtot.TI[Idx].B.Jenis,(*T).listbtot.TI[Idx].B.Level,'M'));
                     printf("Bangunan lawan menjadi milikmu. \n");
                 }
             }
             else
             {
                 printf("Bangunan gagal direbut.\n");
-                    (*T).TI[Idx].B.Jpas=JHDiserang- (int)floor(3*Jmlh/4);
+                    (*T).listbtot.TI[Idx].B.Jpas=JHDiserang- (int)floor(3*Jmlh/4);
                 
             }
          }
@@ -116,13 +123,13 @@ void MakeBangunanPemain (Player *Pe, Player *Pm, BangunanTot *T,  IdxType Idx, i
     }
     else
     {
-        if ((*T).TI[Idx].B.Milik==0) //Kalau Bangunannya belom dikuasai siapa2
+        if ((*T).listbtot.TI[Idx].B.Milik==0) //Kalau Bangunannya belom dikuasai siapa2
         {
-            JHDiserang=CariDariAcuan(Ac,(*T).TI[Idx].B.Jenis,(*T).TI[Idx].B.Level,'U');
+            JHDiserang=CariDariAcuan(Ac,(*T).listbtot.TI[Idx].B.Jenis,(*T).listbtot.TI[Idx].B.Level,'U');
             if ( Jmlh>=JHDiserang)
             {
                 //Jika belom menyentuh nilai max
-                if (JumlahPasukanValid((*T).TI[Idx].B,Jmlh-JHDiserang))
+                if (JumlahPasukanValid((*T).listbtot.TI[Idx].B,Jmlh-JHDiserang))
                 {
                     AddToLPemain(Pe,Pm,T,Idx,Jmlh-JHDiserang);
                     printf("Bangunan menjadi milikmu. \n");
@@ -131,7 +138,7 @@ void MakeBangunanPemain (Player *Pe, Player *Pm, BangunanTot *T,  IdxType Idx, i
                 //Jika sudah menyentuh nilai max
                 else
                 {
-                    AddToLPemain(Pe,Pm,T,Idx,CariDariAcuan(Ac,(*T).TI[Idx].B.Jenis,(*T).TI[Idx].B.Level,'M'));
+                    AddToLPemain(Pe,Pm,T,Idx,CariDariAcuan(Ac,(*T).listbtot.TI[Idx].B.Jenis,(*T).listbtot.TI[Idx].B.Level,'M'));
                     printf("Bangunan menjadi milikmu. \n");
                 }
             }
@@ -139,16 +146,17 @@ void MakeBangunanPemain (Player *Pe, Player *Pm, BangunanTot *T,  IdxType Idx, i
             else 
             {
                 printf("Bangunan gagal direbut.\n");
+                (*T).listbtot.TI[Idx].B.Jpas=JHDiserang- Jmlh;
             }
          }
          //Saat bangunan sudah dikuasasi Pemain yang laain
          else
          {
-            JHDiserang=(*T).TI[Idx].B.Jpas;
+            JHDiserang=(*T).listbtot.TI[Idx].B.Jpas;
             if ( Jmlh>=JHDiserang)
             {
                  //Jika belom menyentuh nilai max
-                if (JumlahPasukanValid((*T).TI[Idx].B, Jmlh-JHDiserang))
+                if (JumlahPasukanValid((*T).listbtot.TI[Idx].B, Jmlh-JHDiserang))
                 {
                     AddToLPemain(Pe,Pm,T,Idx,Jmlh-JHDiserang);
                     printf("Bangunan lawan menjadi milikmu. \n");
@@ -157,13 +165,13 @@ void MakeBangunanPemain (Player *Pe, Player *Pm, BangunanTot *T,  IdxType Idx, i
                 //Jika sudah menyentuh nilai max
                 else
                 {
-                    AddToLPemain(Pe,Pm,T,Idx,CariDariAcuan(Ac,(*T).TI[Idx].B.Jenis,(*T).TI[Idx].B.Level,'M'));
+                    AddToLPemain(Pe,Pm,T,Idx,CariDariAcuan(Ac,(*T).listbtot.TI[Idx].B.Jenis,(*T).listbtot.TI[Idx].B.Level,'M'));
                 }
             }
             else
             {
                 printf("Bangunan gagal direbut.\n");
-                    (*T).TI[Idx].B.Jpas=JHDiserang- Jmlh;
+                (*T).listbtot.TI[Idx].B.Jpas=JHDiserang- Jmlh;
                 
             }
          }
@@ -204,13 +212,13 @@ void UpdateStorageTakNol (Player *Pe, Player *Pm, BangunanTot B) {
         }
  }
 
-void CetakDaftarBangunan (BangunanTot T, Player Pe)
+void CetakDaftarBangunan (BangunanTot T, Player Pe, boolean *bol)
 //Mencetak daftar bangunan dari pemain 1
 //I.S L adalah List1 YANG SUDAH TERDEFINISI dimana Info(L).Milik=1 
 {
     int N;
     address P;
-    int no=1;
+    int no=1; int n=0;
     boolean Empty=true;
     
     printf("Daftar bangunan:\n");
@@ -225,7 +233,8 @@ void CetakDaftarBangunan (BangunanTot T, Player Pe)
 
 
     if(Empty==false) {
-        while((P)!=Nil) {
+        while((P)!=Nil){
+ 
             printf("%d. ",no);
             //Cetak nama bangunannya
             if (T.TI[Info(P)].B.Jenis =='C') {printf("Castle ");}
@@ -239,84 +248,108 @@ void CetakDaftarBangunan (BangunanTot T, Player Pe)
             //Cetak jumlah pasukannya
             printf ("%d ",T.TI[Info(P)].B.Jpas);
 
+            if (T.TI[Info(P)].B.Jpas==0) {
+                n=n+1;
+            }
+
             //cetak level
             printf("lv. %d\n", T.TI[Info(P)].B.Level);
 
             no++;
             P=Next(P);
         }
+
+        if (n==no-1)
+        {
+            printf("Kamu tidak punya bangunan yang dapat digunakan untuk menyerang!\n");
+            *bol=false;
+
+        }
+        else {
+            *bol=true;
+        }
     }
 }
 
-void Attack(Graph G, BangunanTot *T, Player *Pe, Player *Pm)
+void Attack(Graph G, STATE *T, Player *Pe, Player *Pm)
 {
     int N,M,Pas;
     address P;
     ArrayVertex A;
+    boolean bol;
 
     
-        CetakDaftarBangunan((*T),*Pe);
+    CetakDaftarBangunan((*T).listbtot,*Pe,&bol);
+    if (bol==true) {
         printf("Bangunan yang digunakan untuk menyerang: ");
         if ((First((*Pe).bangunanPlayer))!=Nil) {
             scanf("%d",&N);
 
-        P=First((*Pe).bangunanPlayer);
+        P = First((*Pe).bangunanPlayer);
         int i = 1;
         while (i < N && P != Nil) {
             P = Next(P);
             i++;
+            }
         }
-        if (P == Nil) {
+        else {
             printf("Bangunan tidak ada ~~\n");
         }
-        }
-    A = (Neighbors(G,Info(P)));
-    if (A.Neff == 0) {
-        printf("Tidak ada bangunan yang dapat diserang\n");
-    } else {
-        do {
-            //Masukin nilai Index hubung ke array
-            printf("Bangunan yang dapat diserang:\n");
-            for (int j=1;j<=A.Neff;j++) {
-                if (A.TI[j]!=0 && (*T).TI[A.TI[j]].B.Milik!=(*Pe).playerKe) {
-                    printf("%d. ",j);
-                        
-                    //Cetak nama bangunannya
-                    if ((*T).TI[A.TI[j]].B.Jenis =='C') {printf("Castle ");}
-                    else if (((*T).TI[A.TI[j]].B.Jenis )=='T') {printf("Tower ");}
-                    else if (((*T).TI[A.TI[j]].B.Jenis )=='V') {printf("Village ");}
-                    else if (((*T).TI[A.TI[j]].B.Jenis )=='F') {printf("Fort ");}
 
-                    //Cetak lokasinya
-                    printf("(%d,%d) ",(*T).TI[A.TI[j]].B.Lok.X,(*T).TI[Info(P)].B.Lok.Y);
+        A = (Neighbors(G,Info(P)));
+        if (A.Neff == 0) {
+            printf("Tidak ada bangunan yang dapat diserang\n");
+        } else {
+            do {
+                //Masukin nilai Index hubung ke array
+                printf("Bangunan yang dapat diserang:\n");
+                for (int j=1;j<=A.Neff;j++) {
+                    if (A.TI[j]!=0 && (*T).listbtot.TI[A.TI[j]].B.Milik!=(*Pe).playerKe) {
+                        printf("%d. ",j);
+                            
+                        //Cetak nama bangunannya
+                        if ((*T).listbtot.TI[A.TI[j]].B.Jenis =='C') {printf("Castle ");}
+                        else if (((*T).listbtot.TI[A.TI[j]].B.Jenis )=='T') {printf("Tower ");}
+                        else if (((*T).listbtot.TI[A.TI[j]].B.Jenis )=='V') {printf("Village ");}
+                        else if (((*T).listbtot.TI[A.TI[j]].B.Jenis )=='F') {printf("Fort ");}
 
-                    //Cetak jumlah pasukannya
-                    printf ("%d ",(*T).TI[A.TI[j]].B.Jpas);
+                        //Cetak lokasinya
+                        printf("(%d,%d) ",(*T).listbtot.TI[A.TI[j]].B.Lok.X,(*T).listbtot.TI[Info(P)].B.Lok.Y);
 
-                    //cetak level
-                    printf("lv. %d\n", (*T).TI[A.TI[j]].B.Level);
+                        //Cetak jumlah pasukannya
+                        printf ("%d ",(*T).listbtot.TI[A.TI[j]].B.Jpas);
 
+                        //cetak level
+                        printf("lv. %d\n", (*T).listbtot.TI[A.TI[j]].B.Level);
+
+                        printf("milik : %d\n",(*T).listbtot.TI[A.TI[j]].B.Milik);
+
+                    }
                 }
-            }
-                
-        } while (M > A.Neff);
-        
-        
-        printf("Bangunan yang diserang: ");
-        scanf("%d",&M);
-        printf("Jumlah pasukan: ");
-        scanf("%d",&Pas);
-
-        //Check apakah jumlah pasukan valid atau tidak
-        while ((*T).TI[Info(P)].B.Jpas < Pas || Pas<0){
-            printf("Masukan jumlah pasukan salah ~~\n");
+                    
+            } while (M > A.Neff);
+            
+            
+            printf("Bangunan yang diserang: ");
+            scanf("%d",&M);
             printf("Jumlah pasukan: ");
             scanf("%d",&Pas);
-        }
 
-        
-    MakeBangunanPemain(Pe,Pm,T,M,Pas);
-}
+            //Check apakah jumlah pasukan valid atau tidak
+            while ((*T).listbtot.TI[Info(P)].B.Jpas < Pas || Pas<0){
+                printf("Masukan jumlah pasukan salah ~~\n");
+                printf("Jumlah pasukan: ");
+                scanf("%d",&Pas);
+            }
+
+            
+        MakeBangunanPemain(Pe,Pm,T,A.TI[M],Pas);
+        (*T).listbtot.TI[Info(P)].B.Jpas -= Pas;
+        }
+    }
+    else {
+        //Do Nothing
+    }
 }
 
 

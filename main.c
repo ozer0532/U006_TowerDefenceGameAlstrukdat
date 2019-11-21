@@ -34,13 +34,14 @@ void levelUp(BangunanTot *T, Player *Pe)
       ACUAN Ac;
       char jns;
       int M;
+      boolean bol;
 
     // ALGORITMA
       Inisialisasi(&Ac);
       n = 1;
       P = First((*Pe).bangunanPlayer);
         PrintInfoL(Pe->bangunanPlayer);
-      CetakDaftarBangunan(*T, *Pe);
+      CetakDaftarBangunan(*T, *Pe,&bol);
       printf("Bangunan yang akan di level up: ");scanf("%d", &pilih);
 
       while (n != pilih)
@@ -90,12 +91,13 @@ void MovePas(BangunanTot *T, Player *Pe)
         int pilih;
         ACUAN Ac;
         address P;
+        boolean bol;
 
     // ALGORITMA
         Inisialisasi(&Ac);
         P = First((*Pe).bangunanPlayer);
 
-        CetakDaftarBangunan(*T, *Pe);
+        CetakDaftarBangunan(*T, *Pe,&bol);
         printf("Pilih bangunan:");scanf("%d", &pilih);
 
 
@@ -192,7 +194,7 @@ int main()
               if (IsKataSama(CKata, Attk)) /* command == "ATTACK" */
               {
                   strcpy(S.lastaction,"ATTACK");
-                  Attack(S.Hubungan, &(S.listbtot), currentPlayer, opposingPlayer);
+                  Attack(S.Hubungan, &(S), currentPlayer, opposingPlayer);
               }
 
               if (IsKataSama(CKata, Lvup)) /* command == "LEVEL_UP" */
