@@ -159,6 +159,10 @@ void LoadFile(STATE *s){
   int X,Y;
   char type;
   Graph G;
+  ACUAN A;
+
+  Inisialisasi(&A);
+  
     STARTKATA();
     (*s).peta.NBrsEff = katatoint(CKata)+1;
     ADVKATA();
@@ -183,6 +187,7 @@ void LoadFile(STATE *s){
         (*s).peta.Mem[X][Y].C = type;
         
         (*s).listbtot.TI[i].B.Level = 1;
+        (*s).listbtot.TI[i].B.Jpas = CariDariAcuan(A, type, 0, 'U');
         
         if (i == 1) {
           (*s).listbtot.TI[i].B.Milik = 1;

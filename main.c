@@ -157,107 +157,103 @@ int main()
         printf("2. Muat Permainan yang Tersimpan\n");
         scanf("%d", &menu);
 
-        if (menu == 1)
-        {
-            /* ALOKASI KONDISI AWAL PERMAINAN */
-            /*  - Masukin data konfigurasi ke peta */
+        if (menu == 2){
+            char namafile[20];
+            printf("Load dari file bernama : ");scanf(" %s",&namafile);
+            LoadSafeFile(&S);
+        } else {
             LoadFile(&S);
-            /*  - Dll. */
-            S.turn = 1;
-            CreateEmptyQ(&(S.P1.skillQueue), 30); CreateEmptyQ(&(S.P2.skillQueue), 30);  
-            S.P1.playerKe = 1; S.P2.playerKe = 2;
-            masihMain = true;                          // Aktivasi permainan
+        }
+        /* ALOKASI KONDISI AWAL PERMAINAN */
+        /*  - Masukin data konfigurasi ke peta */
+        /*  - Dll. */
+        S.turn = 1;
+        CreateEmptyQ(&(S.P1.skillQueue), 30); CreateEmptyQ(&(S.P2.skillQueue), 30);  
+        S.P1.playerKe = 1; S.P2.playerKe = 2;
+        masihMain = true;                          // Aktivasi permainan
 
-            currentPlayer = &S.P1;
-            opposingPlayer = &S.P2;
-            // LOOP GAME INTI
-            do
-            {
-                /* TODO: Cetak peta ke layar */
-              printpeta(S);
-              while (masihMain)
+        currentPlayer = &S.P1;
+        opposingPlayer = &S.P2;
+        // LOOP GAME INTI
+        do
+        {
+            /* TODO: Cetak peta ke layar */
+          printpeta(S);
+          while (masihMain)
+          {
+              Push(&stackofstate,S); //tiap awal giliran di push state permainan, jadi bisa undo kapan aja
+              //nanti juga tiap akhir suatu aksi, jadiin perubahan di STATE, dan entar state di push ke stack of states, ini bsia gw implementasiin habis gamenya udh fungsional
+              printf("Player %d\n", pemainKe(S.turn));
+              /* TODO: Cetak bangunan yang dimiliki pemain */
+
+
+              printf("ENTER COMMAND: ");
+              STARTSTDKATA();
+              if (IsKataSama(CKata, Attk)) /* command == "ATTACK" */
               {
-                  Push(&stackofstate,S); //tiap awal giliran di push state permainan, jadi bisa undo kapan aja
-                  //nanti juga tiap akhir suatu aksi, jadiin perubahan di STATE, dan entar state di push ke stack of states, ini bsia gw implementasiin habis gamenya udh fungsional
-                  printf("Player %d\n", pemainKe(S.turn));
-                  /* TODO: Cetak bangunan yang dimiliki pemain */
-
-
-                  printf("ENTER COMMAND: ");
-                  STARTSTDKATA();
-                  if (IsKataSama(CKata, Attk)) /* command == "ATTACK" */
-                  {
-                      strcpy(S.lastaction,"ATTACK");
-                      Attack(S.Hubungan, &(S.listbtot), currentPlayer, opposingPlayer);
-                  }
-
-                  if (IsKataSama(CKata, Lvup)) /* command == "LEVEL_UP" */
-                  {
-                      strcpy(S.lastaction,"LEVEL_UP");
-                      levelUp(&(S.listbtot), currentPlayer);
-                  }
-
-                  if (IsKataSama(CKata, Skll)) /* command == "SKILL" */
-                  {
-
-                  }
-
-                  if (IsKataSama(CKata, Exit)) /* command == "EXIT" */
-                  {
-                      masihMain = false;
-                  }
-
-                  if (IsKataSama(CKata, Endt)) /* command == "END_TURN" */
-                  {
-                      S.turn++;
-                      if (!(*currentPlayer).extraTurn)
-                      {
-                          if (currentPlayer == &S.P1)
-                          {
-                              currentPlayer = &S.P2;
-                              opposingPlayer = &S.P1;
-                          }
-                          else{
-
-                              currentPlayer = &S.P1;
-                              opposingPlayer = &S.P2;
-                          }
-                      }
-                  }
-
-                  if(IsKataSama(CKata, Move)) /* command == "MOVE" */
-                  {
-
-                  }
-
-                  if (IsKataSama(CKata, Save)) /* command == "SAVE" */
-                  {
-                      char namafile[20];
-                      printf("Save kedalam file bernama : ");scanf(" %s",&namafile);
-                      SaveFile(S,namafile);
-                  }
-
-                  if (IsKataSama(CKata, Undo))
-                  {
-                      printf("Kamu mengundo aksi %s", S.lastaction);
-                      Pop(&stackofstate,&S);
-                  }
-
-                  Push(&stackofstate,S);
+                  strcpy(S.lastaction,"ATTACK");
+                  Attack(S.Hubungan, &(S.listbtot), currentPlayer, opposingPlayer);
               }
 
-              /* while pemain ke-2 */
-              /* Tinggal copas + edit sedikit yang atas kalau udah jadi */
-            }
-            while(masihMain);
+              if (IsKataSama(CKata, Lvup)) /* command == "LEVEL_UP" */
+              {
+                  strcpy(S.lastaction,"LEVEL_UP");
+                  levelUp(&(S.listbtot), currentPlayer);
+              }
 
-            printf("Permainan telah berakhir.");
+              if (IsKataSama(CKata, Skll)) /* command == "SKILL" */
+              {
+
+              }
+
+              if (IsKataSama(CKata, Exit)) /* command == "EXIT" */
+              {
+                  masihMain = false;
+              }
+
+              if (IsKataSama(CKata, Endt)) /* command == "END_TURN" */
+              {
+                  S.turn++;
+                  if (!(*currentPlayer).extraTurn)
+                  {
+                      if (currentPlayer == &S.P1)
+                      {
+                          currentPlayer = &S.P2;
+                          opposingPlayer = &S.P1;
+                      }
+                      else{
+
+                          currentPlayer = &S.P1;
+                          opposingPlayer = &S.P2;
+                      }
+                  }
+              }
+
+              if(IsKataSama(CKata, Move)) /* command == "MOVE" */
+              {
+
+              }
+
+              if (IsKataSama(CKata, Save)) /* command == "SAVE" */
+              {
+                  char namafile[20];
+                  printf("Save kedalam file bernama : ");scanf(" %s",&namafile);
+                  SaveFile(S,namafile);
+              }
+
+              if (IsKataSama(CKata, Undo))
+              {
+                  printf("Kamu mengundo aksi %s", S.lastaction);
+                  Pop(&stackofstate,&S);
+              }
+
+              Push(&stackofstate,S);
+          }
         }
-        else
-        {
-          LoadSafeFile(&S);
-          //load save file udh dibuat, perbedaannya dikit doang ama file
-   }
+        while(masihMain);
+
+        printf("Permainan telah berakhir.");
+   
 
    return 0;
 }
