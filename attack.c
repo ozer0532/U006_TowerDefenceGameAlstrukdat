@@ -333,9 +333,9 @@ void Attack(Graph G, STATE *T, Player *Pe, Player *Pm)
             
             printf("Bangunan yang diserang: ");
             scanf("%d",&M);
-
+            int j;
             if (M<no) {
-            int j=1;
+            j=1;
             while(j<=A.Neff && M!=0) {
                 if (A.TI[j]!=0 && (*T).listbtot.TI[A.TI[j]].B.Milik!=(*Pe).playerKe) {
                     M=M-1;
