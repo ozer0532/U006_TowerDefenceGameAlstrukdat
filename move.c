@@ -1,5 +1,6 @@
 #include "STATE.h"
 #include "attack.h"
+#include <stdio.h>
 
 void move(STATE *s,Player *CP){
     address P;
@@ -57,7 +58,7 @@ void move(STATE *s,Player *CP){
     addrCol add = NeighborsList(s->Hubungan,indeks); 
     while(moveto){
         if(s->listbtot.TI[Info(add)].B.Milik == curpla) moveto--;
-        if (moveto) add = next(add);
+        if (moveto) add = Next(add);
     }
     int indeksmoveto = Info(add);
     printf("move how many>?\n");
