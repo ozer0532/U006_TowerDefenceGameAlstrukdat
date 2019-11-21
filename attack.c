@@ -24,6 +24,7 @@ void AddToLPemain (Player *Pe, Player *Pm, STATE *T,  IdxType Idx, int JPasNetto
     address PP;
     if ((*T).listbtot.TI[Idx].B.Milik==0)
     {
+        
         PP=AlokasiL(Idx);
         (*T).listbtot.TI[Idx].P = PP;
         ResetBANGUNAN(&((*T).listbtot.TI[Idx].B),JPasNetto,(*Pe).playerKe);
@@ -31,19 +32,16 @@ void AddToLPemain (Player *Pe, Player *Pm, STATE *T,  IdxType Idx, int JPasNetto
 
         //InsertLastL(&La,PP);
         InsVLastL(&(*Pe).bangunanPlayer,Idx);
+        
 
     }
     else
     {
-        
-        printf("mil : %d\n",(*T).listbtot.TI[Idx].B.Milik);
         PP=SearchL((*Pm).bangunanPlayer,Idx);
         ResetBANGUNAN(&(*T).listbtot.TI[Idx].B,JPasNetto,(*Pe).playerKe);
         InsVLastL(&(*Pe).bangunanPlayer,Idx);
         Del1Urut(&(*T).listbtot,PP,Idx,JPasNetto,(*Pe).playerKe);
         DelPL(&(*Pm).bangunanPlayer,Idx);
-        
-        printf("mil : %d\n",(*T).listbtot.TI[Idx].B.Milik);
     }
 }
 
@@ -323,7 +321,7 @@ void Attack(Graph G, STATE *T, Player *Pe, Player *Pm, boolean AttackUp)
                         else if (((*T).listbtot.TI[A.TI[j]].B.Jenis )=='F') {printf("Fort ");}
 
                         //Cetak lokasinya
-                        printf("(%d,%d) ",(*T).listbtot.TI[A.TI[j]].B.Lok.X,(*T).listbtot.TI[Info(P)].B.Lok.Y);
+                        printf("(%d,%d) ",(*T).listbtot.TI[A.TI[j]].B.Lok.X,(*T).listbtot.TI[A.TI[j]].B.Lok.Y);
 
                         //Cetak jumlah pasukannya
                         printf ("%d ",(*T).listbtot.TI[A.TI[j]].B.Jpas);
@@ -364,7 +362,7 @@ void Attack(Graph G, STATE *T, Player *Pe, Player *Pm, boolean AttackUp)
                 printf("Jumlah pasukan: ");
                 scanf("%d",&Pas);
             }
-            
+         
         MakeBangunanPemain(Pe,Pm,T,A.TI[j],Pas,AttackUp);
         (*T).listbtot.TI[Info(P)].B.Jpas -= Pas;
         }
