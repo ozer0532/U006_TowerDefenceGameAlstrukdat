@@ -239,7 +239,7 @@ void CetakDaftarBangunan (BangunanTot T, Player Pe, boolean *bol)
     }
 
 
-    if(Empty==false) {
+    if(Empty==false) {0;
         while((P)!=Nil){
  
             printf("%d. ",no);
