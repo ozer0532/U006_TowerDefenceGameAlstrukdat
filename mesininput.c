@@ -174,8 +174,6 @@ void LoadFile(STATE *s){
     MakeEmptyBangunanTot(&(*s).listbtot);
     ADVKATA();
     (*s).JBang = katatoint(CKata);
-    CreateEmptyL(&(s->P1.bangunanPlayer));
-    CreateEmptyL(&(s->P2.bangunanPlayer));
     for (int i = 1; i <=(*s).JBang; i++){
         ADVKATA();
         s->listbtot.TI[i].B.Jenis = CKata.TabKata[1];
