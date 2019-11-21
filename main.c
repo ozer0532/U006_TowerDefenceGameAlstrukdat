@@ -122,6 +122,15 @@ void AddJumlahPasukan(Player * Pe, BangunanTot * T) {
     }
 }
 
+void PrintStatus(STATE S, Player * Pe) {
+    printf("\n\n\n\n\n");
+    boolean(bol);
+    printpeta(S);
+    printf("Player %d\n", Pe -> playerKe);
+    CetakDaftarBangunan(S.listbtot, *Pe, &bol);
+    printf("Skill Available: <NOT IMPLEMENTED>\n");
+}
+
 int main()
 {
     // KAMUS
@@ -198,86 +207,80 @@ int main()
         /*  - Masukin data konfigurasi ke peta */
         /*  - Dll. */
         // LOOP GAME INTI
-        do
+        PrintStatus(S, currentPlayer);
+        while (masihMain)
         {
-            /* TODO: Cetak peta ke layar */
-          printpeta(S);
-          while (masihMain)
-          {
-              Push(&stackofstate,S); //tiap awal giliran di push state permainan, jadi bisa undo kapan aja
-              //nanti juga tiap akhir suatu aksi, jadiin perubahan di STATE, dan entar state di push ke stack of states, ini bsia gw implementasiin habis gamenya udh fungsional
-              printf("Player %d\n", currentPlayer -> playerKe);
-              /* TODO: Cetak bangunan yang dimiliki pemain */
+            Push(&stackofstate,S); //tiap awal giliran di push state permainan, jadi bisa undo kapan aja
+            //nanti juga tiap akhir suatu aksi, jadiin perubahan di STATE, dan entar state di push ke stack of states, ini bsia gw implementasiin habis gamenya udh fungsional
 
 
-              printf("ENTER COMMAND: ");
-              STARTSTDKATA();
-              if (IsKataSama(CKata, Attk)) /* command == "ATTACK" */
-              {
-                  strcpy(S.lastaction,"ATTACK");
-                  booleanAttackUp=false;
-                  Attack(S.Hubungan, &(S), currentPlayer, opposingPlayer, booleanAttackUp);
+            printf("ENTER COMMAND: ");
+            STARTSTDKATA();
+            if (IsKataSama(CKata, Attk)) /* command == "ATTACK" */
+            {
+                strcpy(S.lastaction,"ATTACK");
+                booleanAttackUp=false;
+                Attack(S.Hubungan, &(S), currentPlayer, opposingPlayer, booleanAttackUp);
 
-              }
+            }
 
-              if (IsKataSama(CKata, Lvup)) /* command == "LEVEL_UP" */
-              {
-                  strcpy(S.lastaction,"LEVEL_UP");
-                  levelUp(&(S.listbtot), currentPlayer);
-              }
+            if (IsKataSama(CKata, Lvup)) /* command == "LEVEL_UP" */
+            {
+                strcpy(S.lastaction,"LEVEL_UP");
+                levelUp(&(S.listbtot), currentPlayer);
+            }
 
-              if (IsKataSama(CKata, Skll)) /* command == "SKILL" */
-              {
+            if (IsKataSama(CKata, Skll)) /* command == "SKILL" */
+            {
 
-              }
+            }
 
-              if (IsKataSama(CKata, Exit)) /* command == "EXIT" */
-              {
-                  masihMain = false;
-              }
+            if (IsKataSama(CKata, Exit)) /* command == "EXIT" */
+            {
+                masihMain = false;
+            }
 
-              if (IsKataSama(CKata, Endt)) /* command == "END_TURN" */
-              {
-                  S.turn++;
-                  AddJumlahPasukan(currentPlayer, &S.listbtot);
-                  if (!(*currentPlayer).extraTurn)
-                  {
-                      if (currentPlayer == &S.P1)
-                      {
-                          currentPlayer = &S.P2;
-                          opposingPlayer = &S.P1;
-                      }
-                      else{
+            if (IsKataSama(CKata, Endt)) /* command == "END_TURN" */
+            {
+                S.turn++;
+                AddJumlahPasukan(currentPlayer, &S.listbtot);
+                if (!(*currentPlayer).extraTurn)
+                {
+                    if (currentPlayer == &S.P1)
+                    {
+                        currentPlayer = &S.P2;
+                        opposingPlayer = &S.P1;
+                    }
+                    else{
 
-                          currentPlayer = &S.P1;
-                          opposingPlayer = &S.P2;
-                      }
-                  }
-              }
+                        currentPlayer = &S.P1;
+                        opposingPlayer = &S.P2;
+                    }
+                }
+                PrintStatus(S, currentPlayer);
+            }
 
-              if(IsKataSama(CKata, Move)) /* command == "MOVE" */
-              {
-                  strcpy(S.lastaction,"MOVE");
-                  move(&S, currentPlayer);
-              }
+            if(IsKataSama(CKata, Move)) /* command == "MOVE" */
+            {
+                strcpy(S.lastaction,"MOVE");
+                move(&S, currentPlayer);
+            }
 
-              if (IsKataSama(CKata, Save)) /* command == "SAVE" */
-              {
-                  char namafile[20];
-                  printf("Save kedalam file bernama : ");scanf(" %s",&namafile);
-                  SaveFile(S,namafile);
-              }
+            if (IsKataSama(CKata, Save)) /* command == "SAVE" */
+            {
+                char namafile[20];
+                printf("Save kedalam file bernama : ");scanf(" %s",&namafile);
+                SaveFile(S,namafile);
+            }
 
-              if (IsKataSama(CKata, Undo))
-              {
-                {printf("Kamu mengundo aksi %s", S.lastaction);
-                Pop(&stackofstate,&S);}
-              }
+            if (IsKataSama(CKata, Undo))
+            {
+                printf("Kamu mengundo aksi %s", S.lastaction);
+                Pop(&stackofstate,&S);
+            }
 
-              Push(&stackofstate,S);
-          }
+            Push(&stackofstate,S);
         }
-        while(masihMain);
 
         printf("Permainan telah berakhir.");
    
