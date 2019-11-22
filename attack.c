@@ -267,7 +267,7 @@ void CetakDaftarBangunan (BangunanTot T, Player Pe, boolean *bol)
 
         if (n==no-1)
         {
-            printf("Kamu tidak punya bangunan yang dapat digunakan untuk menyerang!\n");
+            printf("Kamu tidak punya bangunan yang dapat digunakan untuk menyerang!!\n");
             *bol=false;
 
         }
@@ -456,7 +456,7 @@ void Attack(Graph G, STATE *T, Player *Pe,  Player *Pm, TabInt *Tab, boolean Att
     }
     else {
         //Do Nothing
-}
+    }
 }
 
 
