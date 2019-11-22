@@ -164,8 +164,9 @@ void LoadFile(STATE *s){
   Graph G;
   ACUAN A;
 
-  Inisialisasi(&A);
-  
+    Inisialisasi(&A);
+    s->P1.playerKe = 1;
+    s->P2.playerKe = 2;
     STARTKATA();
     (*s).peta.NBrsEff = katatoint(CKata)+1;
     ADVKATA();
@@ -253,6 +254,8 @@ void STARTKATALOAD(){
 }
 void LoadSafeFile(STATE *s){
     STARTKATALOAD();
+    s->P1.playerKe = 1;
+    s->P2.playerKe = 2;
     (*s).peta.NBrsEff = katatoint(CKata);
     ADVKATA();
     (*s).peta.NKolEff = katatoint(CKata);

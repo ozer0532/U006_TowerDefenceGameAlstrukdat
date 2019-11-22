@@ -9,8 +9,7 @@ void move(STATE *s,Player *CP){
     Inisialisasi(&A);
 
     int curpla;
-    if (s->turn%2 == 1) curpla = 1;
-    else if (s->turn%2 == 0) curpla = 2;
+    curpla = CP->playerKe;
 
     P = (*CP).bangunanPlayer.First;
     if (P!= Nil){
@@ -76,6 +75,7 @@ void move(STATE *s,Player *CP){
                     printf("Jumlah pasukan: ");scanf("%d",&jum);
                     if (s->listbtot.TI[indeks].B.Jpas < jum) printf("More than you have\n");
                     else if ((s->listbtot.TI[indeksmoveto].B.Jpas + jum) > getM(s->listbtot.TI[indeksmoveto].B,A)) printf("The destination can't hold that much troops\n");
+                    else if (jum < 0) printf("seriuslah anjir\n");
                     else valid = true;
                 }
                 
