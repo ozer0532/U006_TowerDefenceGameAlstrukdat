@@ -196,7 +196,7 @@ int main()
 
         TabInt Tab;
         MakeEmptyarr(&Tab); //insialisasi awal flag atatck di tiap giliran main 
-        InisialisasiQueue(&(S.P1),&(S.P2));
+        
 
         currentPlayer = &S.P1;
         opposingPlayer = &S.P2;
@@ -215,10 +215,7 @@ int main()
             LoadSafeFile(&S);
         } else {
             LoadFile(&S);
-            CreateEmptyQ(&(*currentPlayer).skillQueue,10);
-            CreateEmptyQ(&(*opposingPlayer).skillQueue,10);
-            AddQ(&(*currentPlayer).skillQueue,1);
-            AddQ(&(*opposingPlayer).skillQueue,1);
+            InisialisasiQueue(currentPlayer,opposingPlayer);
         }
         /* ALOKASI KONDISI AWAL PERMAINAN */
         /*  - Masukin data konfigurasi ke peta */
@@ -240,8 +237,12 @@ int main()
                   booleanAttackUp=false;
                   Attack(S.Hubungan, &(S), currentPlayer, opposingPlayer, &Tab, booleanAttackUp);
                   //Sesudah(*currentPlayer, *opposingPlayer, &AfterCurPlayer, &AfterOpsPlayer,S.listbtot);
+<<<<<<< HEAD
                  // GetSkill(currentPlayer,opposingPlayer,PrevCurPlayer,PrevOpsPlayer,AfterCurPlayer,AfterOpsPlayer);
 
+=======
+                  GetSkill(currentPlayer,opposingPlayer,PrevCurPlayer,PrevOpsPlayer,AfterCurPlayer,AfterOpsPlayer);
+>>>>>>> 742a0e78932c3d2a0745e28d3a7d3f14c8d815bd
             }
 
             if (IsKataSama(CKata, Lvup)) /* command == "LEVEL_UP" */
