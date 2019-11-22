@@ -8,12 +8,15 @@ void InstantUpgrade (Player Pe, BangunanTot *Ba)
         I.S Penain mungkin belom punya bangunan
         F.S Setiap banguna yang dimiliki pemain naik satu level*/
 {
+    int count = 0;
     address P;
     P = First(Pe.bangunanPlayer);
     while(P != Nil){
         (*Ba).TI[Info(P)].B.Level+=1;
         P = Next(P);
+        count +=1;
     }
+    printf("count: %d\n", count);
   
 
 }
@@ -51,24 +54,27 @@ void AttackUp( Player *Pe, BangunanTot Ba) //Bonus
  /*Jika pemain mengaktifkan skill ini, maka pertahanan lawan tidak akan mempengaruhi penyerangan.
     Syarat: Pemain baru saja melakukan penyerangan ke tower lawan dan tower pemain menjadi berjumlah 3 */
     {
-        //(*Pe).AttackUp = true;
+        (*Pe).AttackUp = true;
     }
 void CriticalHit (Player *Pe) //Bonus
     /* Syarat: Musuh baru saja melakukan skill Extra Turn
         F.S: pada bangunan yang melakukan serangan tepat selanjutnya hanya berkurang 1/2 dari jumlah seharusnya. */
     {
-        //(*Pe).CriticalHit = true;
+        (*Pe).CriticalHit = true;
     }
 void InstantReinforcement(Player Pe, BangunanTot *Ba)
     /* Syarat : Diakhir gilirannya, bila semua bangunan yang ia miliki memiliki level 4
         F.S: Seluruh bangunan yang ia miliki bertambah 5 pasukannya*/
         {
+            int count = 0;
             address P;
                 P = First(Pe.bangunanPlayer);
                 while(P != Nil){
-                    (*Ba).TI[Info(P)].B.Jpas += 5;
+                    (*Ba).TI[Info(P)].B.Jpas = (*Ba).TI[Info(P)].B.Jpas + 5;
                    P = Next(P);
+                   count +=1;
                 }
+                printf("count: %d\n", count);
 
         }
 void Barrage (Player Pe, BangunanTot *Ba)
@@ -82,27 +88,27 @@ void Barrage (Player Pe, BangunanTot *Ba)
                     P = Next(P);
                 }
         }
-void IntToSkill(int SkillKe, Player Pe, ACUAN *Semi,  BangunanTot *Ba){
+void IntToSkill(int SkillKe, Player *Pe, ACUAN *Semi,  BangunanTot *Ba){
     if(SkillKe == 1){
-        InstantUpgrade(Pe, Ba);
+        InstantUpgrade(*Pe, Ba);
     }
     if(SkillKe == 2){
-        Shield(&Pe);
+        Shield(Pe);
     }
     if(SkillKe == 3){
-        ExtraTurn(&Pe);
+        ExtraTurn(Pe);
     }
     if(SkillKe == 4){
-        AttackUp(&Pe, *Ba);
+        AttackUp(Pe, *Ba);
     }
     if(SkillKe == 5){
-        CriticalHit(&Pe);
+        CriticalHit(Pe);
     }
     if(SkillKe == 6){
-        InstantReinforcement(Pe, Ba);
+        InstantReinforcement(*Pe, Ba);
     }
     if(SkillKe == 7){
-        Barrage(Pe, Ba);
+        Barrage(*Pe, Ba);
     }
 }
 
@@ -172,16 +178,14 @@ void Sesudah (Player CurrentPlayer,Player OppsingPlayer, Status *StCurPlyr,Statu
     }
     (*StCurPlyr).XtraTurn = CurrentPlayer.extraTurn;
 }
-void GetSkill(Player *CurrentPlayer, Player *OpposingPlayer, BangunanTot Ba){
+void GetSkill(Player *CurrentPlayer, Player *OpposingPlayer,Status PrevCurPlayer, Status PrevOpsPlayer,Status AfterCurPlayer,Status AfterOpsPlayer){
     /*Kalo mengecek syarat - syarat untuk mendapatkan skill, kalo memenuhi syarat maka skill akan di add
         ke queue. kalol tidak mememnnuhi maka diabaikan. Untuk mengecek syarat - syaratnya menggunakan prosedur 
         sebelum sama sesudah */ 
-        Status PrevCurPlayer;
-        Status AfterCurPlayer;
-        Status PrevOpsPlayer;
-        Status AfterOpsPlayer;
-        Sebelum(*CurrentPlayer, *OpposingPlayer, &PrevCurPlayer,&PrevOpsPlayer, Ba);
-        Sesudah(*CurrentPlayer, *OpposingPlayer, &AfterCurPlayer,&AfterOpsPlayer, Ba);
+        //Status PrevCurPlayer;
+        //Status AfterCurPlayer;
+        //Status PrevOpsPlayer;
+        //Status AfterOpsPlayer;
         // Algoritma mendapatkan skill
 
         //shield
@@ -189,15 +193,15 @@ void GetSkill(Player *CurrentPlayer, Player *OpposingPlayer, BangunanTot Ba){
             AddQ(&(*OpposingPlayer).skillQueue,2);
         }
         //ExtraTurn
-        else if((AfterOpsPlayer.JumlahFort -1) ==  PrevOpsPlayer.JumlahFort){
+        if((AfterOpsPlayer.JumlahFort -1) ==  PrevOpsPlayer.JumlahFort){
             AddQ(&(*OpposingPlayer).skillQueue,3);
         }
         //Attack Up
-        else if(PrevCurPlayer.JumlahTower == 2 && AfterCurPlayer.JumlahTower == 3){
+        if(PrevCurPlayer.JumlahTower == 2 && AfterCurPlayer.JumlahTower == 3){
             AddQ(&(*CurrentPlayer).skillQueue, 4);
         }
         //Critical Hit
-        else if(PrevCurPlayer.XtraTurn == false && AfterCurPlayer.XtraTurn == true){
+        if(PrevCurPlayer.XtraTurn == false && AfterCurPlayer.XtraTurn == true){
             AddQ(&(*OpposingPlayer).skillQueue,5);
         }
 
@@ -207,8 +211,8 @@ void GetSkill(Player *CurrentPlayer, Player *OpposingPlayer, BangunanTot Ba){
         boolean Check;
         Check = true;
         while(P != Nil && Check == true){
-            if(AfterCurPlayer.LevelBangunan.TI[Info(P)].B.Level == 4){
-                Check = true;
+            if(AfterCurPlayer.LevelBangunan.TI[Info(P)].B.Level != 4){
+                Check = false;
             }
             P = Next(P); 
         }
@@ -216,9 +220,14 @@ void GetSkill(Player *CurrentPlayer, Player *OpposingPlayer, BangunanTot Ba){
             AddQ(&(*CurrentPlayer).skillQueue,6);
         }
         //Barrage
-        else if(AfterCurPlayer.JumlahBangunan == 10 && PrevCurPlayer.JumlahBangunan == 9){
+        if(AfterCurPlayer.JumlahBangunan == 10 && PrevCurPlayer.JumlahBangunan == 9){
             AddQ(&(*CurrentPlayer).skillQueue,7);
         }
+        else
+        {
+            printf("hello\n");
+        }
+        
 
 
 

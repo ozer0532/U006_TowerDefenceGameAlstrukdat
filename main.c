@@ -214,6 +214,10 @@ int main()
             LoadSafeFile(&S);
         } else {
             LoadFile(&S);
+            CreateEmptyQ(&(*currentPlayer).skillQueue,10);
+            CreateEmptyQ(&(*opposingPlayer).skillQueue,10);
+            AddQ(&(*currentPlayer).skillQueue,1);
+            AddQ(&(*opposingPlayer).skillQueue,1);
         }
         /* ALOKASI KONDISI AWAL PERMAINAN */
         /*  - Masukin data konfigurasi ke peta */
@@ -250,7 +254,8 @@ int main()
                   int skl;
                   ACUAN Semi;
                   DelQ(&(*currentPlayer).skillQueue,&skl);
-                  IntToSkill(skl,*currentPlayer,&Semi,&S.listbtot);
+                  printf("%d\n", skl);
+                  IntToSkill(skl,currentPlayer,&Semi,&S.listbtot);
             }
 
             if (IsKataSama(CKata, Exit)) /* command == "EXIT" */

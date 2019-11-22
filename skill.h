@@ -39,12 +39,12 @@ void InstantReinforcement(Player Pe, BangunanTot *Ba);
 void Barrage (Player Pe, BangunanTot *Ba);
     /* Syarat: Jumalah bangunan lawan baru saja menjadi 10
         F.S: Jumlah pasukan pada setiap bangunan lawan berkurang 10 */
-void GetSkill(Player *CurrentPlayer, Player *OpposingPlayer, BangunanTot Ba);
+void GetSkill(Player *CurrentPlayer, Player *OpposingPlayer,Status PrevCurPlayer, Status PrevOpsPlayer,Status AfterCurPlayer,Status AfterOpsPlayer);
     /* Menegcek kondisi apakah pemain mendapatkan suatu skill. Jika Mendapakatkan skill
         maka skill tersbut akan di addlast queue */
 
 
-void IntToSkill(int SkillKe, Player Pe, ACUAN *Semi,  BangunanTot *Ba);
+void IntToSkill(int SkillKe, Player *Pe, ACUAN *Semi,  BangunanTot *Ba);
     /* mengubah keluaran di queue ke skill */
 
 void Sebelum(Player CurrentPlayer,Player OppsingPlayer, Status *StCurPlyr,Status *StOpsPlyr, BangunanTot Ba);
