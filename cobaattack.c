@@ -13,6 +13,7 @@ int main()
     STATE S;
     Player Pe;
     Player Pm;
+    boolean bol;
     CreateEmptyL(&(Pe.bangunanPlayer));
     CreateEmptyL(&(Pe.bangunanPlayer));
     MakeEmptyBangunanTot(&T);
@@ -23,10 +24,10 @@ int main()
     T = S.listbtot;
     LoadFile(&S,&T);
     PrintState(S);
-    CetakDaftarBangunan(T,Pe);
+    CetakDaftarBangunan(T,Pe,&bol);
 
     
-        PrintInfoL(Pe);
+    PrintInfoL(Pe.bangunanPlayer);
     
     /*CopyBANGUNAN(MakeBANGUNAN(0,0,1,'C',MakePOINT(3,4)),&T.TI[1].B);
     CopyBANGUNAN(MakeBANGUNAN(0,0,1,'T',MakePOINT(4,4)),&T.TI[2].B);

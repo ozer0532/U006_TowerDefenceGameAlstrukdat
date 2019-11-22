@@ -112,7 +112,7 @@ void AddToLPemain (Player *Pe, Player *Pm, STATE *T,  IdxType Idx, int JPasNetto
         PP=AlokasiL(Idx);
         (*T).listbtot.TI[Idx].P = PP;
         ResetBANGUNAN(&((*T).listbtot.TI[Idx].B),JPasNetto,(*Pe).playerKe);
-        
+        (*T).peta.Mem[(*T).listbtot.TI[Idx].B.Lok.X][(*T).listbtot.TI[Idx].B.Lok.Y].p=(*Pe).playerKe;
 
         //InsertLastL(&La,PP);
         InsVLastL(&(*Pe).bangunanPlayer,Idx);
@@ -123,6 +123,7 @@ void AddToLPemain (Player *Pe, Player *Pm, STATE *T,  IdxType Idx, int JPasNetto
     {
         PP=SearchL((*Pm).bangunanPlayer,Idx);
         ResetBANGUNAN(&(*T).listbtot.TI[Idx].B,JPasNetto,(*Pe).playerKe);
+        (*T).peta.Mem[(*T).listbtot.TI[Idx].B.Lok.X][(*T).listbtot.TI[Idx].B.Lok.Y].p=(*Pe).playerKe;
         InsVLastL(&(*Pe).bangunanPlayer,Idx);
         Del1Urut(&(*T).listbtot,PP,Idx,JPasNetto,(*Pe).playerKe);
         DelPL(&(*Pm).bangunanPlayer,Idx);

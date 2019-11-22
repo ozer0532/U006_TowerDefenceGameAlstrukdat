@@ -226,10 +226,6 @@ void GetSkill(Player *CurrentPlayer, Player *OpposingPlayer,Status PrevCurPlayer
         {
             printf("hello\n");
         }
-        
-
-
-
     }
 
 void InisialisasiQueue (Player *Pe, Player *Pm)
