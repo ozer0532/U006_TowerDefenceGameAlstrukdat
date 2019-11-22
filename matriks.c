@@ -29,7 +29,7 @@ void MakeMATRIKS (int NB, int NK, MATRIKS * M)
 
 
 /* *** Selektor "DUNIA MATRIKS" *** */
-boolean IsIdxValid (int i, int j)
+boolean IsIdxValidM (int i, int j)
 /* Mengirimkan true jika i, j adalah indeks yang valid untuk matriks apa pun */
 {
 	// KAMUS LOKAL
@@ -75,7 +75,7 @@ indeks GetLastIdxKol (MATRIKS M)
 		return NKolEff(M);
 }
 
-boolean IsIdxEff (MATRIKS M, indeks i, indeks j)
+boolean IsIdxEffM (MATRIKS M, indeks i, indeks j)
 /* Mengirimkan true jika i, j adalah indeks efektif bagi M */
 {
 	// KAMUS LOKAL

@@ -233,4 +233,15 @@ void GetSkill(Player *CurrentPlayer, Player *OpposingPlayer,Status PrevCurPlayer
 
     }
 
+void InisialisasiQueue (Player *Pe, Player *Pm)
+{
+    Queue Qpe, Qpm;
+    CreateEmptyQ(&(*Pe).skillQueue,10);
+    CreateEmptyQ(&(*Pm).skillQueue,10);
+    AddQ(&(*Pe).skillQueue,1);
+    AddQ(&(*Pm).skillQueue,1);
+}
+
+
+
 

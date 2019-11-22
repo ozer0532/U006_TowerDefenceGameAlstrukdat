@@ -103,6 +103,7 @@ void MovePas(BangunanTot *T, Player *Pe)
 
 }
 
+
 void AddJumlahPasukan(Player * Pe, BangunanTot * T) {
     // KAMUS LOKAL
     address P;
@@ -194,13 +195,13 @@ int main()
         
 
         TabInt Tab;
-        MakeEmptyarr(&Tab); //insialisasi awal flag atatck di tiap giliran main
-        CreateEmptyQ(&(S.P1.skillQueue), 30); CreateEmptyQ(&(S.P2.skillQueue), 30);  
-                            
+        MakeEmptyarr(&Tab); //insialisasi awal flag atatck di tiap giliran main 
+        InisialisasiQueue(&(S.P1),&(S.P2));
+
         currentPlayer = &S.P1;
         opposingPlayer = &S.P2;
         S.turn = 1;
-        InitPlayer(&S.P1); InitPlayer(&S.P2);
+        InitPlayer(&S.P1); InitPlayer(&S.P2); 
         S.P1.playerKe = 1; S.P2.playerKe = 2;
         masihMain = true;                          // Aktivasi permainan
 
@@ -235,11 +236,11 @@ int main()
             if (IsKataSama(CKata, Attk)) /* command == "ATTACK" */
             {
                   strcpy(S.lastaction,"ATTACK");
-                  Sesudah(*currentPlayer, *opposingPlayer, &PrevCurPlayer, &PrevOpsPlayer,S.listbtot);
+                  //Sesudah(*currentPlayer, *opposingPlayer, &PrevCurPlayer, &PrevOpsPlayer,S.listbtot);
                   booleanAttackUp=false;
                   Attack(S.Hubungan, &(S), currentPlayer, opposingPlayer, &Tab, booleanAttackUp);
-                  Sesudah(*currentPlayer, *opposingPlayer, &AfterCurPlayer, &AfterOpsPlayer,S.listbtot);
-                  GetSkill(currentPlayer,opposingPlayer,S.listbtot);
+                  //Sesudah(*currentPlayer, *opposingPlayer, &AfterCurPlayer, &AfterOpsPlayer,S.listbtot);
+                  //GetSkill(currentPlayer,opposingPlayer,S.listbtot);
 
             }
 

@@ -2,6 +2,10 @@
     "files.associations": {
         "bangunan.h": "c",
         "state.h": "c",
-        "attack.h": "c"
+        "attack.h": "c",
+        "stackt.h": "c",
+        "player.h": "c",
+        "string.h": "c",
+        "move.h": "c"
     }
 }

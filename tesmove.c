@@ -7,7 +7,6 @@
 int main(){
     STATE s;
     LoadSafeFile(&s);
-    s.turn = 1;
     move(&s,&s.P1);
     move(&s,&s.P1);
     move(&s,&s.P1);
