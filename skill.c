@@ -8,15 +8,12 @@ void InstantUpgrade (Player Pe, BangunanTot *Ba)
         I.S Penain mungkin belom punya bangunan
         F.S Setiap banguna yang dimiliki pemain naik satu level*/
 {
-    int count = 0;
     address P;
     P = First(Pe.bangunanPlayer);
     while(P != Nil){
         (*Ba).TI[Info(P)].B.Level+=1;
         P = Next(P);
-        count +=1;
     }
-    printf("count: %d\n", count);
   
 
 }
