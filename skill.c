@@ -51,13 +51,13 @@ void AttackUp( Player *Pe, BangunanTot Ba) //Bonus
  /*Jika pemain mengaktifkan skill ini, maka pertahanan lawan tidak akan mempengaruhi penyerangan.
     Syarat: Pemain baru saja melakukan penyerangan ke tower lawan dan tower pemain menjadi berjumlah 3 */
     {
-        #(*Pe).AttackUp = true;
+        //(*Pe).AttackUp = true;
     }
 void CriticalHit (Player *Pe) //Bonus
     /* Syarat: Musuh baru saja melakukan skill Extra Turn
         F.S: pada bangunan yang melakukan serangan tepat selanjutnya hanya berkurang 1/2 dari jumlah seharusnya. */
     {
-        #(*Pe).CriticalHit = true;
+        //(*Pe).CriticalHit = true;
     }
 void InstantReinforcement(Player Pe, BangunanTot *Ba)
     /* Syarat : Diakhir gilirannya, bila semua bangunan yang ia miliki memiliki level 4
