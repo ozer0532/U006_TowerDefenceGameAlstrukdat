@@ -257,6 +257,7 @@ void SaveFile(STATE s,char nama[]){
       fprintf(f,"!\n");
       G = Next(G);
   }
+  fprintf(f,"   .");
  
   fclose(f);
 }
@@ -352,7 +353,7 @@ void PrintState(STATE S){
   for (int i = 1; i <=S.JBang; i++){
     printf("%d. %c di lokasi %d %d level %d milik %d\n",i,S.listbtot.TI[i].B.Jenis,S.listbtot.TI[i].B.Lok.X,S.listbtot.TI[i].B.Lok.Y,S.listbtot.TI[i].B.Level,S.listbtot.TI[i].B.Milik);
   }
-}
+} 
 
 STATE CopyState(STATE S){
   STATE undo;
