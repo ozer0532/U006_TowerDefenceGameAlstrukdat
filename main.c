@@ -243,27 +243,29 @@ int main()
                   //GetSkill(currentPlayer,opposingPlayer,S.listbtot);
 
             }
-
+            else
             if (IsKataSama(CKata, Lvup)) /* command == "LEVEL_UP" */
             {
                 strcpy(S.lastaction,"LEVEL_UP");
                 levelUp(&(S.listbtot), currentPlayer);
             }
-
+            else
             if (IsKataSama(CKata, Skll)) /* command == "SKILL" */
             {
-                  int skl;
-                  ACUAN Semi;
-                  DelQ(&(*currentPlayer).skillQueue,&skl);
-                  printf("%d\n", skl);
-                  IntToSkill(skl,currentPlayer,&Semi,&S.listbtot);
+                strcpy(S.lastaction,"SKILL");
+                int skl;
+                ACUAN Semi;
+                DelQ(&(*currentPlayer).skillQueue,&skl);
+                printf("%d\n", skl);
+                IntToSkill(skl,currentPlayer,&Semi,&S.listbtot);
             }
-
-            if (IsKataSama(CKata, Exit)) /* command == "EXIT" */
+            else
+            if (IsKataSama(CKata, Undo))
             {
-                masihMain = false;
+                printf("Kamu mengundo aksi %s", S.lastaction);
+                Pop(&stackofstate,&S);
             }
-
+            else
             if (IsKataSama(CKata, Endt)) /* command == "END_TURN" */
             {
                 S.turn++;
@@ -282,31 +284,28 @@ int main()
                     }
                 }
                 
-                  Dealokasiarr(&Tab);
-                  MakeEmptyarr(&Tab); //Inisialisasi flag attack
+                    Dealokasiarr(&Tab);
+                    MakeEmptyarr(&Tab); //Inisialisasi flag attack
                 PrintStatus(S, currentPlayer);
             }
-
-            if(IsKataSama(CKata, Move)) /* command == "MOVE" */
-            {
-                strcpy(S.lastaction,"MOVE");
-                move(&S, currentPlayer);
-            }
-
+            else
             if (IsKataSama(CKata, Save)) /* command == "SAVE" */
             {
                 char namafile[20];
                 printf("Save kedalam file bernama : ");scanf(" %s",&namafile);
                 SaveFile(S,namafile);
             }
-
-            if (IsKataSama(CKata, Undo))
+            else
+            if(IsKataSama(CKata, Move)) /* command == "MOVE" */
             {
-                printf("Kamu mengundo aksi %s", S.lastaction);
-                Pop(&stackofstate,&S);
+                strcpy(S.lastaction,"MOVE");
+                move(&S, currentPlayer);
             }
-
-            Push(&stackofstate,S);
+            else
+            if (IsKataSama(CKata, Exit)) /* command == "EXIT" */
+            {
+                masihMain = false;
+            }
         }
 
         printf("Permainan telah berakhir.");

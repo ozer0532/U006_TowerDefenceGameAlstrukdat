@@ -22,12 +22,12 @@ int main(){
     PrintState(S);
     // Top(sss) += 1;
     // InfoTop(sss) = S;
-    Poosh(&sss,S); //state pertama di push sebelum aksi
+    Push(&sss,S); //state pertama di push sebelum aksi
     printf("action?");scanf(" %c",&c); // aksi tes
     Action(&S);
     PrintState(S); // print state setelah aksi
     printf("undo?");scanf(" %c",&c);
-    Undo(&sss,&S); //undo, state di pop ke curstate
+    Pop(&sss,&S); //undo, state di pop ke curstate
     PrintState(S);  
     return 0;   
 }
