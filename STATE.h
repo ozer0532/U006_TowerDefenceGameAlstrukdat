@@ -12,13 +12,38 @@ typedef struct {
     BangunanTot listbtot;
     int JBang;
     int turn;
-    Queue S;
     MATRIKS peta;
     Graph Hubungan;
     char lastaction[30];
 }STATE;
 
+typedef struct {
+    // GLOBAL
+    BANGUNAN daftarBangunan[100];
+    int jumlahBangunan;
+    int turn;
+    char lastaction[30];
+
+    // PLAYER 1
+    int bangunanPlayer1[30];
+    int skillPlayer1[10];
+    int shieldPlayer1;
+    boolean extraTurnPlayer1;
+    boolean attackUpPlayer1;
+    boolean critHitPlayer1;
+
+    // PLAYER 2
+    int bangunanPlayer2[30];
+    int skillPlayer2[10];
+    int shieldPlayer2;
+    boolean extraTurnPlayer2;
+    boolean attackUpPlayer2;
+    boolean critHitPlayer2;
+
+} SAVEDSTATE;
 
 void makeemptypeta(STATE *s);
 void printpeta(STATE s);
+SAVEDSTATE DuplicateSTATE(STATE S);
+void SETSTATE(STATE * S, SAVEDSTATE s);
 #endif
