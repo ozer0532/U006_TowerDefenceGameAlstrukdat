@@ -182,6 +182,7 @@ void MakeBangunanPemain (Player *Pe, Player *Pm, STATE *T,  IdxType Idx, int Jml
             //Jika jumlahnyaa kurang dari diserang
             else 
             {
+                (*T).listbtot.TI[Idx].B.Jpas = (int)floor(3*Jmlh/4)-JHDiserang;
                 printf("Bangunan gagal direbut.\n");
             }
          }
@@ -210,7 +211,7 @@ void MakeBangunanPemain (Player *Pe, Player *Pm, STATE *T,  IdxType Idx, int Jml
             else
             {
                 printf("Bangunan gagal direbut.\n");
-                    (*T).listbtot.TI[Idx].B.Jpas=JHDiserang- (int)floor(3*Jmlh/4);
+                (*T).listbtot.TI[Idx].B.Jpas=JHDiserang- (int)floor(3*Jmlh/4);
                 
             }
          }
@@ -260,7 +261,8 @@ void MakeBangunanPemain (Player *Pe, Player *Pm, STATE *T,  IdxType Idx, int Jml
                 //Jika sudah menyentuh nilai max
                 else
                 {
-                    AddToLPemain(Pe,Pm,T,Idx,CariDariAcuan(Ac,(*T).listbtot.TI[Idx].B.Jenis,(*T).listbtot.TI[Idx].B.Level,'M'));
+                    AddToLPemain(Pe,Pm,T,Idx,CariDariAcuan(Ac,(*T).listbtot.TI[Idx].B.Jenis,(*T).listbtot.TI[Idx].B.Level,'M'));  
+                    printf("Bangunan lawan menjadi milikmu. \n");
                 }
             }
             else
