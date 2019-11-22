@@ -1,6 +1,7 @@
 //ADT ATTACK
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "boolean.h"
 #include "attack.h"
 #include <math.h>
@@ -275,8 +276,87 @@ void CetakDaftarBangunan (BangunanTot T, Player Pe, boolean *bol)
         }
     }
 }
+void MakeEmptyarr (TabInt * T)
+/* I.S. T sembarang */
+/* F.S. Terbentuk tabel T kosong dengan kapasitas IdxMax-IdxMin+1 */
+{
+    (*T).arr = (int*) malloc ((101)*sizeof(int));
+    //mulai dari 1
+    for (int i=1;i<=100;i++)
+    {
+        (*T).arr[i]= IdxUndef;
+    }
+    (*T).Neff=0;
+}
+void AddAsLastElarr (TabInt * T, int X)
+/* Proses: Menambahkan X sebagai elemen terakhir tabel */
+/* I.S. Tabel T boleh kosong, tetapi tidak penuh */
+/* F.S. X adalah elemen terakhir T yang baru */
+{
+    (*T).arr[NbElmtarr(*T)+1]=X;
+    (*T).Neff=(*T).Neff+1;
+}
 
-void Attack(Graph G, STATE *T, Player *Pe, Player *Pm, boolean AttackUp)
+void Dealokasiarr(TabInt *T)
+/* I.S. T terdefinisi; */
+/* F.S. TI(T) dikembalikan ke system, MaxEl(T)=0; Neff(T)=0 */
+{
+    free((*T).arr);
+    (*T).Neff=0;
+}
+
+
+int NbElmtarr (TabInt T)
+/* Mengirimkan banyaknya elemen efektif tabel */
+/* Mengirimkan nol jika tabel kosong */
+{
+    int a;
+    if ((T).Neff ==0) 
+    {
+        a=0;
+    }
+    else
+    {
+        (a=T.Neff);
+    }
+    return a;
+}
+
+boolean Searcharr (TabInt T, int X)
+/* Search apakah ada elemen tabel T yang bernilai X */
+/* Jika ada, menghasilkan indeks i terkecil, dengan elemen ke-i = X */
+/* Jika tidak ada, mengirimkan IdxUndef */
+/* Menghasilkan indeks tak terdefinisi (IdxUndef) jika tabel T kosong */
+/* Memakai skema search DENGAN boolean Found */
+{
+    int i;
+    boolean Found;
+    Found = false;
+    i=IdxMin;
+    if ((T).Neff ==0) {
+        Found = false;
+    }
+    else
+    {
+        while ((i<=NbElmtarr(T))&& (!(Found))){
+            if (T.arr[i]==X){
+                Found = true;
+            }
+            else{
+                i=i+1;
+            }         
+        }
+    }
+
+    if (Found == true){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+void Attack(Graph G, STATE *T, Player *Pe,  Player *Pm, TabInt *Tab, boolean AttackUp)
 {
     int N,M,Pas;
     address P;
@@ -304,71 +384,79 @@ void Attack(Graph G, STATE *T, Player *Pe, Player *Pm, boolean AttackUp)
             printf("Bangunan tidak ada ~~\n");
         }
 
-        A = (Neighbors(G,Info(P)));
-        if (A.Neff == 0) {
-            printf("Tidak ada bangunan yang dapat diserang\n");
-        } else {
-                //Masukin nilai Index hubung ke array
-                printf("Bangunan yang dapat diserang:\n");
-                for (int j=1;j<=A.Neff;j++) {
-                    if (A.TI[j]!=0 && (*T).listbtot.TI[A.TI[j]].B.Milik!=(*Pe).playerKe) {
-                        printf("%d. ",no);
-                            
-                        //Cetak nama bangunannya
-                        if ((*T).listbtot.TI[A.TI[j]].B.Jenis =='C') {printf("Castle ");}
-                        else if (((*T).listbtot.TI[A.TI[j]].B.Jenis )=='T') {printf("Tower ");}
-                        else if (((*T).listbtot.TI[A.TI[j]].B.Jenis )=='V') {printf("Village ");}
-                        else if (((*T).listbtot.TI[A.TI[j]].B.Jenis )=='F') {printf("Fort ");}
-
-                        //Cetak lokasinya
-                        printf("(%d,%d) ",(*T).listbtot.TI[A.TI[j]].B.Lok.X,(*T).listbtot.TI[A.TI[j]].B.Lok.Y);
-
-                        //Cetak jumlah pasukannya
-                        printf ("%d ",(*T).listbtot.TI[A.TI[j]].B.Jpas);
-
-                        //cetak level
-                        printf("lv. %d\n", (*T).listbtot.TI[A.TI[j]].B.Level);
-                        no++;
-                    }
-                }
-                    
-            } 
-            
-            
-            printf("Bangunan yang diserang: ");
-            scanf("%d",&M);
-            int j;
-            if (M<no) {
-            j=1;
-            while(j<=A.Neff && M!=0) {
-                if (A.TI[j]!=0 && (*T).listbtot.TI[A.TI[j]].B.Milik!=(*Pe).playerKe) {
-                    M=M-1;
-                }
-                if (M!=0){
-                    j++;
-                }
-            }
-            }
-            else {
-                printf("Masukkan input salah\n");
-            }
-
-            printf("Jumlah pasukan: ");
-            scanf("%d",&Pas);
-
-            //Check apakah jumlah pasukan valid atau tidak
-            while ((*T).listbtot.TI[Info(P)].B.Jpas < Pas || Pas<0){
-                printf("Masukan jumlah pasukan salah ~~\n");
-                printf("Jumlah pasukan: ");
-                scanf("%d",&Pas);
-            }
-         
-        MakeBangunanPemain(Pe,Pm,T,A.TI[j],Pas,AttackUp);
-        (*T).listbtot.TI[Info(P)].B.Jpas -= Pas;
+        if (Searcharr((*Tab),N))
+        {
+            printf("Kamu tidak bisa menyerang dengan bangunan ini lagi\n");
         }
+        else { 
+
+            A = (Neighbors(G,Info(P)));
+            if (A.Neff == 0) {
+                printf("Tidak ada bangunan yang dapat diserang\n");
+            } else {
+                    //Masukin nilai Index hubung ke array
+                    printf("Bangunan yang dapat diserang:\n");
+                    for (int j=1;j<=A.Neff;j++) {
+                        if (A.TI[j]!=0 && (*T).listbtot.TI[A.TI[j]].B.Milik!=(*Pe).playerKe) {
+                            printf("%d. ",no);
+                                
+                            //Cetak nama bangunannya
+                            if ((*T).listbtot.TI[A.TI[j]].B.Jenis =='C') {printf("Castle ");}
+                            else if (((*T).listbtot.TI[A.TI[j]].B.Jenis )=='T') {printf("Tower ");}
+                            else if (((*T).listbtot.TI[A.TI[j]].B.Jenis )=='V') {printf("Village ");}
+                            else if (((*T).listbtot.TI[A.TI[j]].B.Jenis )=='F') {printf("Fort ");}
+
+                            //Cetak lokasinya
+                            printf("(%d,%d) ",(*T).listbtot.TI[A.TI[j]].B.Lok.X,(*T).listbtot.TI[A.TI[j]].B.Lok.Y);
+
+                            //Cetak jumlah pasukannya
+                            printf ("%d ",(*T).listbtot.TI[A.TI[j]].B.Jpas);
+
+                            //cetak level
+                            printf("lv. %d\n", (*T).listbtot.TI[A.TI[j]].B.Level);
+                            no++;
+                        }
+                    }
+                        
+                } 
+                
+                
+                printf("Bangunan yang diserang: ");
+                scanf("%d",&M);
+                int j;
+                if (M<=0 && M>no) {
+                    printf("Masukkan input salah\n");
+                }
+                else {
+                    j=1;
+                    while(j<=A.Neff && M!=0) {
+                        if (A.TI[j]!=0 && (*T).listbtot.TI[A.TI[j]].B.Milik!=(*Pe).playerKe) {
+                            M=M-1;
+                        }
+                        if (M!=0){
+                            j++;
+                        }
+                    }
+
+                    printf("Jumlah pasukan: ");
+                    scanf("%d",&Pas);
+
+                    //Check apakah jumlah pasukan valid atau tidak
+                    while ((*T).listbtot.TI[Info(P)].B.Jpas < Pas || Pas<0){
+                        printf("Masukan jumlah pasukan salah ~~\n");
+                        printf("Jumlah pasukan: ");
+                        scanf("%d",&Pas);
+                    }
+            
+                    MakeBangunanPemain(Pe,Pm,T,A.TI[j],Pas,AttackUp);
+                    (*T).listbtot.TI[Info(P)].B.Jpas -= Pas;
+                    AddAsLastElarr(Tab,N);
+                }
+        }
+    }
     else {
         //Do Nothing
-    }
+}
 }
 
 

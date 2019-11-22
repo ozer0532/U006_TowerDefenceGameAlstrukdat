@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "bangunan.h": "c",
-        "state.h": "c"
+        "state.h": "c",
+        "attack.h": "c"
     }
 }

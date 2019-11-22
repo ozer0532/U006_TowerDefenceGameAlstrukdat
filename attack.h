@@ -13,6 +13,18 @@
 #include "graph.h"
 #include "player.h"
 #include "STATE.h"
+#include <stdlib.h>
+
+typedef struct { 
+  int *arr; /* memori tempat penyimpan elemen (container) */
+  int Neff; /* >=0, banyaknya elemen efektif */
+} TabInt;
+
+void MakeEmptyarr (TabInt * T);
+void Dealokasiarr(TabInt *T);
+void AddAsLastElarr (TabInt * T, int X);
+int NbElmtarr (TabInt T);
+boolean Searcharr (TabInt T, int X);
 
 address AlokasiLTambahBangunan (BangunanTot *B, IdxType Index);
 //Saat ingin Alokasi / Buat List Liniear
@@ -40,7 +52,7 @@ void CetakDaftarBangunan (BangunanTot T, Player Pe, boolean *bol);
 //Mencetak daftar bangunan dari pemain ke A atau B
 //I.S L adalah List1 YANG SUDAH TERDEFINISI dimana Info(L).Milik='A'
 
-void Attack(Graph G, STATE *T, Player *Pe, Player *Pm, boolean AttackUp);
+void Attack(Graph G, STATE *T, Player *Pe, Player *Pm, TabInt *Tab,boolean AttackUp);
 
 void UpdateStorageTakNol (Player *Pe, Player *Pm, BangunanTot B);
 

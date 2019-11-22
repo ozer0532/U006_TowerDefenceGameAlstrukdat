@@ -144,6 +144,7 @@ int main()
         int menu;                       // Input pilihan menu
         Kata command;
         boolean booleanAttackUp;
+        boolean bol;
 
       // Variabel laju game
         STATE S;
@@ -170,6 +171,8 @@ int main()
         /* ALOKASI KONDISI AWAL PERMAINAN */
         /*  - Masukin data konfigurasi ke peta */
         /*  - Dll. */
+        TabInt Tab;
+        MakeEmptyarr(&Tab); //insialisasi awal flag atatck di tiap giliran main
         S.turn = 1;
         CreateEmptyQ(&(S.P1.skillQueue), 30); CreateEmptyQ(&(S.P2.skillQueue), 30);  
         S.P1.playerKe = 1; S.P2.playerKe = 2;
@@ -180,15 +183,16 @@ int main()
         // LOOP GAME INTI
         do
         {
+            
             /* TODO: Cetak peta ke layar */
           printpeta(S);
           while (masihMain)
           {
+           
               Push(&stackofstate,S); //tiap awal giliran di push state permainan, jadi bisa undo kapan aja
               //nanti juga tiap akhir suatu aksi, jadiin perubahan di STATE, dan entar state di push ke stack of states, ini bsia gw implementasiin habis gamenya udh fungsional
-              printf("Player %d\n", pemainKe(S.turn));
+              printf("\nPlayer %d\n", pemainKe(S.turn));
               /* TODO: Cetak bangunan yang dimiliki pemain */
-
 
               printf("ENTER COMMAND: ");
               STARTSTDKATA();
@@ -196,7 +200,7 @@ int main()
               {
                   strcpy(S.lastaction,"ATTACK");
                   booleanAttackUp=false;
-                  Attack(S.Hubungan, &(S), currentPlayer, opposingPlayer, booleanAttackUp);
+                  Attack(S.Hubungan, &(S), currentPlayer, opposingPlayer, &Tab,booleanAttackUp);
 
               }
 
@@ -232,6 +236,8 @@ int main()
                           opposingPlayer = &S.P2;
                       }
                   }
+                  Dealokasiarr(&Tab);
+                  MakeEmptyarr(&Tab); //Inisialisasi flag attack
               }
 
               if(IsKataSama(CKata, Move)) /* command == "MOVE" */
