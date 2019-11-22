@@ -27,6 +27,11 @@ void STARTSTD(){
     ADV();
 }
 
+void STARTLOAD(char filename[]){
+    pita = fopen(filename,"r");
+    ADV();
+}
+
 void ADV() {
 /* Pita dimajukan satu karakter.
    I.S. : Karakter pada jendela =
