@@ -192,6 +192,13 @@ int main()
         printf("1. Permainan Baru\n");
         printf("2. Muat Permainan yang Tersimpan\n");
         
+
+        TabInt Tab;
+        MakeEmptyarr(&Tab); //insialisasi awal flag atatck di tiap giliran main
+        CreateEmptyQ(&(S.P1.skillQueue), 30); CreateEmptyQ(&(S.P2.skillQueue), 30);  
+                            
+        currentPlayer = &S.P1;
+        opposingPlayer = &S.P2;
         S.turn = 1;
         InitPlayer(&S.P1); InitPlayer(&S.P2);
         S.P1.playerKe = 1; S.P2.playerKe = 2;
@@ -211,39 +218,10 @@ int main()
         /* ALOKASI KONDISI AWAL PERMAINAN */
         /*  - Masukin data konfigurasi ke peta */
         /*  - Dll. */
-<<<<<<< HEAD
-        TabInt Tab;
-        MakeEmptyarr(&Tab); //insialisasi awal flag atatck di tiap giliran main
-        S.turn = 1;
-        CreateEmptyQ(&(S.P1.skillQueue), 30); CreateEmptyQ(&(S.P2.skillQueue), 30);  
-        S.P1.playerKe = 1; S.P2.playerKe = 2;
-        masihMain = true;                          // Aktivasi permainan
-
-        currentPlayer = &S.P1;
-        opposingPlayer = &S.P2;
-=======
->>>>>>> 2311020840505950664f71aa87b22627d90fd6cf
         // LOOP GAME INTI
         PrintStatus(S, currentPlayer);
         while (masihMain)
         {
-<<<<<<< HEAD
-            
-            /* TODO: Cetak peta ke layar */
-          printpeta(S);
-          while (masihMain)
-          {
-           
-              Push(&stackofstate,S); //tiap awal giliran di push state permainan, jadi bisa undo kapan aja
-              //nanti juga tiap akhir suatu aksi, jadiin perubahan di STATE, dan entar state di push ke stack of states, ini bsia gw implementasiin habis gamenya udh fungsional
-              printf("\nPlayer %d\n", pemainKe(S.turn));
-              /* TODO: Cetak bangunan yang dimiliki pemain */
-
-              printf("ENTER COMMAND: ");
-              STARTSTDKATA();
-              if (IsKataSama(CKata, Attk)) /* command == "ATTACK" */
-              {
-=======
             Push(&stackofstate,S); //tiap awal giliran di push state permainan, jadi bisa undo kapan aja
             //nanti juga tiap akhir suatu aksi, jadiin perubahan di STATE, dan entar state di push ke stack of states, ini bsia gw implementasiin habis gamenya udh fungsional
 
@@ -252,73 +230,10 @@ int main()
             STARTSTDKATA();
             if (IsKataSama(CKata, Attk)) /* command == "ATTACK" */
             {
->>>>>>> 2311020840505950664f71aa87b22627d90fd6cf
                   strcpy(S.lastaction,"ATTACK");
                   Sesudah(*currentPlayer, *opposingPlayer, &PrevCurPlayer, &PrevOpsPlayer,S.listbtot);
                   booleanAttackUp=false;
-<<<<<<< HEAD
-                  Attack(S.Hubungan, &(S), currentPlayer, opposingPlayer, &Tab,booleanAttackUp);
-
-              }
-
-              if (IsKataSama(CKata, Lvup)) /* command == "LEVEL_UP" */
-              {
-                  strcpy(S.lastaction,"LEVEL_UP");
-                  levelUp(&(S.listbtot), currentPlayer);
-              }
-
-              if (IsKataSama(CKata, Skll)) /* command == "SKILL" */
-              {
-
-              }
-
-              if (IsKataSama(CKata, Exit)) /* command == "EXIT" */
-              {
-                  masihMain = false;
-              }
-
-              if (IsKataSama(CKata, Endt)) /* command == "END_TURN" */
-              {
-                  S.turn++;
-                  if (!(*currentPlayer).extraTurn)
-                  {
-                      if (currentPlayer == &S.P1)
-                      {
-                          currentPlayer = &S.P2;
-                          opposingPlayer = &S.P1;
-                      }
-                      else{
-
-                          currentPlayer = &S.P1;
-                          opposingPlayer = &S.P2;
-                      }
-                  }
-                  Dealokasiarr(&Tab);
-                  MakeEmptyarr(&Tab); //Inisialisasi flag attack
-              }
-
-              if(IsKataSama(CKata, Move)) /* command == "MOVE" */
-              {
-
-              }
-
-              if (IsKataSama(CKata, Save)) /* command == "SAVE" */
-              {
-                  char namafile[20];
-                  printf("Save kedalam file bernama : ");scanf(" %s",&namafile);
-                  SaveFile(S,namafile);
-              }
-
-              if (IsKataSama(CKata, Undo))
-              {
-                {printf("Kamu mengundo aksi %s", S.lastaction);
-                Pop(&stackofstate,&S);}
-              }
-
-              Push(&stackofstate,S);
-          }
-=======
-                  Attack(S.Hubungan, &(S), currentPlayer, opposingPlayer, booleanAttackUp);
+                  Attack(S.Hubungan, &(S), currentPlayer, opposingPlayer, &Tab, booleanAttackUp);
                   Sesudah(*currentPlayer, *opposingPlayer, &AfterCurPlayer, &AfterOpsPlayer,S.listbtot);
                   GetSkill(currentPlayer,opposingPlayer,S.listbtot);
 
@@ -360,6 +275,9 @@ int main()
                         opposingPlayer = &S.P2;
                     }
                 }
+                
+                  Dealokasiarr(&Tab);
+                  MakeEmptyarr(&Tab); //Inisialisasi flag attack
                 PrintStatus(S, currentPlayer);
             }
 
@@ -383,7 +301,6 @@ int main()
             }
 
             Push(&stackofstate,S);
->>>>>>> 2311020840505950664f71aa87b22627d90fd6cf
         }
 
         printf("Permainan telah berakhir.");
