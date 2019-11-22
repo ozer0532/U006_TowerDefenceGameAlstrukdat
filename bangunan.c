@@ -2,6 +2,9 @@
 #include <stdio.h>
 
 void Inisialisasi(ACUAN *Ac)
+//Jika ingin menggunakan acuan harus diinisialisasikan dulu
+//I.S Acuan belom terinisialisasi
+//F.S Acuan sudah bisa di pakai
 {
     //ACUAN Referensi
     (*Ac).C[1].A=10;
@@ -62,6 +65,9 @@ void Inisialisasi(ACUAN *Ac)
 }
 
 void InisialisasiShieldNo(ACUAN *Ac)
+//Jika ingin menggunakan acuan KHUSUS untuk Shield
+//I.S Acuan belom terinisialisasi
+//F.S Acuan sudah bisa di pakai
 {
     //ACUAN Referensi
     (*Ac).C[1].A=10;
@@ -206,6 +212,8 @@ int CariDariAcuan (ACUAN Ac, char Jenis, int Lvl, char AMPU)
 
 void MakeBANGUNANEmpty (BANGUNAN *B)
 //Inisialisasi Bangunan dengan membuat semua elemennya 0
+//I.S BANGUNAN belom ada/ belum terdefinisi
+//F.S BANGUNAN sudah terinisialisasi
 {
     (*B).Milik=0;
     (*B).Jenis='X';
@@ -232,7 +240,8 @@ BANGUNAN MakeBANGUNAN (int Milik, int Jpas, int Level, char Jenis,  POINT Lok)
 }
 
 boolean JumlahPasukanValid (BANGUNAN B, int JPas)
-//True jika jumlah pasukan  <=M
+//Menghasilkn True jika jumlah pasukan  <=M dan lebih dari nol
+//Menghasilkan false untuk sebaliknya
 {
     ACUAN A;
     Inisialisasi(&A);
@@ -241,6 +250,8 @@ boolean JumlahPasukanValid (BANGUNAN B, int JPas)
 
 
 boolean IsAdaPertahanan(BANGUNAN B)
+//Menghasilkn True jika BANGUNAN memiliki pertahanan
+//Menghasilkan false untuk sebaliknya
 {
     ACUAN A;
     Inisialisasi(&A);
@@ -248,6 +259,8 @@ boolean IsAdaPertahanan(BANGUNAN B)
 }
 void ResetBANGUNAN(BANGUNAN *B, int  JPasNetto, int Milik)
 //Reset bangunan dilakukan saat bangunan diambil alih
+//I.S BANGUNAN masih kondisi sebelom diambil alih
+//F.S BANGUNAN sudah kondisi setelah diambil alih
 {
     
         (*B).Milik=Milik;
@@ -257,6 +270,9 @@ void ResetBANGUNAN(BANGUNAN *B, int  JPasNetto, int Milik)
 }
 
 void CopyBANGUNAN(BANGUNAN Bin, BANGUNAN *Bout)
+/* I.S. Bin terdefinisi, Bout sembarang */
+/* F.S. Bout berisi salinan dari Bin (elemen dan ukuran identik) */
+/* Proses : Menyalin isi Bin ke Bout */
 {
     (*Bout).Milik=Bin.Milik;
     (*Bout).Jenis=Bin.Jenis;
@@ -266,15 +282,31 @@ void CopyBANGUNAN(BANGUNAN Bin, BANGUNAN *Bout)
     (*Bout).Lok.Y=Bin.Lok.Y;
 }
 
-int getA(BANGUNAN B, ACUAN a){
+int getA(BANGUNAN B, ACUAN a)
+// Berguna untuk mengambil nilai A dari Acuan
+// I.S Acuan suda terinisialisasi
+//F.S Menghasilkan keluar nilai integer dari nilai acuan A
+{
     CariDariAcuan(a,B.Jenis,B.Level,'A');
 }
-int getM(BANGUNAN B, ACUAN a){
+int getM(BANGUNAN B, ACUAN a)
+// Berguna untuk mengambil nilai M dari Acuan
+// I.S Acuan suda terinisialisasi
+//F.S Menghasilkan keluar nilai integer dari nilai acuan M
+{
     CariDariAcuan(a,B.Jenis,B.Level,'M');
 }
-int getP(BANGUNAN B, ACUAN a){
+int getP(BANGUNAN B, ACUAN a)
+// Berguna untuk mengambil nilai P dari Acuan
+// I.S Acuan suda terinisialisasi
+//F.S Menghasilkan keluar nilai integer dari nilai acuan P
+{
     CariDariAcuan(a,B.Jenis,B.Level,'P');
 }
-int getU(BANGUNAN B, ACUAN a){
+int getU(BANGUNAN B, ACUAN a)
+// Berguna untuk mengambil nilai U dari Acuan
+// I.S Acuan suda terinisialisasi
+//F.S Menghasilkan keluar nilai integer dari nilai acuan U
+{
     CariDariAcuan(a,B.Jenis,B.Level,'U');
 }
