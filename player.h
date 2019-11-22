@@ -14,5 +14,6 @@ typedef struct
     int playerKe;
 } Player;
 
+void InitPlayer(Player * P);
 
 #endif

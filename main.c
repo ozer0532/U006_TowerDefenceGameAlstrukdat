@@ -9,6 +9,7 @@
 #include "player.h"
 #include "attack.h"
 #include <string.h>
+#include "move.h"
 
 int pemainKe(int x)
 /* Mengembalikan pemain yang gilirannya sedang berlangsung */
@@ -40,7 +41,6 @@ void levelUp(BangunanTot *T, Player *Pe)
       Inisialisasi(&Ac);
       n = 1;
       P = First((*Pe).bangunanPlayer);
-        PrintInfoL(Pe->bangunanPlayer);
       CetakDaftarBangunan(*T, *Pe,&bol);
       printf("Bangunan yang akan di level up: ");scanf("%d", &pilih);
 
@@ -103,6 +103,34 @@ void MovePas(BangunanTot *T, Player *Pe)
 
 }
 
+void AddJumlahPasukan(Player * Pe, BangunanTot * T) {
+    // KAMUS LOKAL
+    address P;
+    ACUAN A;
+    BANGUNAN * B;
+
+    // ALGORITMA
+    Inisialisasi(&A);
+    P = First(Pe -> bangunanPlayer);
+    while (P != Nil) {
+        B = &(T->TI[Info(P)].B);
+        B -> Jpas += CariDariAcuan(A, B -> Jenis, B -> Level, 'A');
+        if (B -> Jpas > CariDariAcuan(A, B -> Jenis, B -> Level, 'M')) {
+            B -> Jpas = CariDariAcuan(A, B -> Jenis, B -> Level, 'M');
+        }
+        P = Next(P);
+    }
+}
+
+void PrintStatus(STATE S, Player * Pe) {
+    printf("\n\n\n\n\n");
+    boolean(bol);
+    printpeta(S);
+    printf("Player %d\n", Pe -> playerKe);
+    CetakDaftarBangunan(S.listbtot, *Pe, &bol);
+    printf("Skill Available: <NOT IMPLEMENTED>\n");
+}
+
 int main()
 {
     // KAMUS
@@ -147,6 +175,10 @@ int main()
         boolean bol;
 
       // Variabel laju game
+        Status PrevCurPlayer;
+        Status AfterCurPlayer;
+        Status PrevOpsPlayer;
+        Status AfterOpsPlayer;
         STATE S;
         Stack stackofstate;
         CreateEmpty(&stackofstate);
@@ -159,8 +191,16 @@ int main()
         printf("Silakan pilih salah satu menu berikut:\n");
         printf("1. Permainan Baru\n");
         printf("2. Muat Permainan yang Tersimpan\n");
-        scanf("%d", &menu);
+        
+        S.turn = 1;
+        InitPlayer(&S.P1); InitPlayer(&S.P2);
+        S.P1.playerKe = 1; S.P2.playerKe = 2;
+        masihMain = true;                          // Aktivasi permainan
 
+        currentPlayer = &S.P1;
+        opposingPlayer = &S.P2;
+
+        scanf("%d", &menu);
         if (menu == 2){
             char namafile[20];
             printf("Load dari file bernama : ");scanf(" %s",&namafile);
@@ -171,6 +211,7 @@ int main()
         /* ALOKASI KONDISI AWAL PERMAINAN */
         /*  - Masukin data konfigurasi ke peta */
         /*  - Dll. */
+<<<<<<< HEAD
         TabInt Tab;
         MakeEmptyarr(&Tab); //insialisasi awal flag atatck di tiap giliran main
         S.turn = 1;
@@ -180,9 +221,13 @@ int main()
 
         currentPlayer = &S.P1;
         opposingPlayer = &S.P2;
+=======
+>>>>>>> 2311020840505950664f71aa87b22627d90fd6cf
         // LOOP GAME INTI
-        do
+        PrintStatus(S, currentPlayer);
+        while (masihMain)
         {
+<<<<<<< HEAD
             
             /* TODO: Cetak peta ke layar */
           printpeta(S);
@@ -198,8 +243,20 @@ int main()
               STARTSTDKATA();
               if (IsKataSama(CKata, Attk)) /* command == "ATTACK" */
               {
+=======
+            Push(&stackofstate,S); //tiap awal giliran di push state permainan, jadi bisa undo kapan aja
+            //nanti juga tiap akhir suatu aksi, jadiin perubahan di STATE, dan entar state di push ke stack of states, ini bsia gw implementasiin habis gamenya udh fungsional
+
+
+            printf("ENTER COMMAND: ");
+            STARTSTDKATA();
+            if (IsKataSama(CKata, Attk)) /* command == "ATTACK" */
+            {
+>>>>>>> 2311020840505950664f71aa87b22627d90fd6cf
                   strcpy(S.lastaction,"ATTACK");
+                  Sesudah(*currentPlayer, *opposingPlayer, &PrevCurPlayer, &PrevOpsPlayer,S.listbtot);
                   booleanAttackUp=false;
+<<<<<<< HEAD
                   Attack(S.Hubungan, &(S), currentPlayer, opposingPlayer, &Tab,booleanAttackUp);
 
               }
@@ -260,8 +317,74 @@ int main()
 
               Push(&stackofstate,S);
           }
+=======
+                  Attack(S.Hubungan, &(S), currentPlayer, opposingPlayer, booleanAttackUp);
+                  Sesudah(*currentPlayer, *opposingPlayer, &AfterCurPlayer, &AfterOpsPlayer,S.listbtot);
+                  GetSkill(currentPlayer,opposingPlayer,S.listbtot);
+
+            }
+
+            if (IsKataSama(CKata, Lvup)) /* command == "LEVEL_UP" */
+            {
+                strcpy(S.lastaction,"LEVEL_UP");
+                levelUp(&(S.listbtot), currentPlayer);
+            }
+
+            if (IsKataSama(CKata, Skll)) /* command == "SKILL" */
+            {
+                  int skl;
+                  ACUAN Semi;
+                  DelQ(&(*currentPlayer).skillQueue,&skl);
+                  IntToSkill(skl,*currentPlayer,&Semi,&S.listbtot);
+            }
+
+            if (IsKataSama(CKata, Exit)) /* command == "EXIT" */
+            {
+                masihMain = false;
+            }
+
+            if (IsKataSama(CKata, Endt)) /* command == "END_TURN" */
+            {
+                S.turn++;
+                AddJumlahPasukan(currentPlayer, &S.listbtot);
+                if (!(*currentPlayer).extraTurn)
+                {
+                    if (currentPlayer == &S.P1)
+                    {
+                        currentPlayer = &S.P2;
+                        opposingPlayer = &S.P1;
+                    }
+                    else{
+
+                        currentPlayer = &S.P1;
+                        opposingPlayer = &S.P2;
+                    }
+                }
+                PrintStatus(S, currentPlayer);
+            }
+
+            if(IsKataSama(CKata, Move)) /* command == "MOVE" */
+            {
+                strcpy(S.lastaction,"MOVE");
+                move(&S, currentPlayer);
+            }
+
+            if (IsKataSama(CKata, Save)) /* command == "SAVE" */
+            {
+                char namafile[20];
+                printf("Save kedalam file bernama : ");scanf(" %s",&namafile);
+                SaveFile(S,namafile);
+            }
+
+            if (IsKataSama(CKata, Undo))
+            {
+                printf("Kamu mengundo aksi %s", S.lastaction);
+                Pop(&stackofstate,&S);
+            }
+
+            Push(&stackofstate,S);
+>>>>>>> 2311020840505950664f71aa87b22627d90fd6cf
         }
-        while(masihMain);
 
         printf("Permainan telah berakhir.");
    

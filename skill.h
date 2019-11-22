@@ -27,10 +27,10 @@ void Shield (Player *Pe); //Bonus
 void ExtraTurn (Player *Pe);
     /*setelah pengaktifan skill ini berakhir, pemain selanjutnya tetap pemain yang sama*/
 
-void AttackUp(ACUAN Ac, Player Pe, BangunanTot Ba); //Bonus
+void AttackUp( Player *Pe, BangunanTot Ba); //Bonus
  /*Jika pemain mengaktifkan skill ini, maka pertahanan lawan tidak akan mempengaruhi penyerangan.
     Syarat: Pemain baru saja melakukan penyerangan ke tower lawan dan tower pemain menjadi berjumlah 3 */
-void CriticalHit (); //Bonus
+void CriticalHit (Player *Pe); //Bonus
     /* Syarat: Musuh baru saja melakukan skill Extra Turn
         F.S: pada bangunan yang melakukan serangan tepta selanjutnya hanya berkurang 1/2 dari jumlah seharusnya. */
 void InstantReinforcement(Player Pe, BangunanTot *Ba);
@@ -39,16 +39,16 @@ void InstantReinforcement(Player Pe, BangunanTot *Ba);
 void Barrage (Player Pe, BangunanTot *Ba);
     /* Syarat: Jumalah bangunan lawan baru saja menjadi 10
         F.S: Jumlah pasukan pada setiap bangunan lawan berkurang 10 */
-void GetSkill(Player *Pe, BangunanTot Ba);
+void GetSkill(Player *CurrentPlayer, Player *OpposingPlayer, BangunanTot Ba);
     /* Menegcek kondisi apakah pemain mendapatkan suatu skill. Jika Mendapakatkan skill
         maka skill tersbut akan di addlast queue */
 
-int SkillToInt(char Skill);
 
 void IntToSkill(int SkillKe, Player Pe, ACUAN *Semi,  BangunanTot *Ba);
+    /* mengubah keluaran di queue ke skill */
 
-void Sebelum(Player Pe, Status *St, BangunanTot Ba);
+void Sebelum(Player CurrentPlayer,Player OppsingPlayer, Status *StCurPlyr,Status *StOpsPlyr, BangunanTot Ba);
 
-void Sesudah(Player Pe, Status *St, BangunanTot Ba);
+void Sesudah(Player CurrentPlayer,Player OppsingPlayer, Status *StCurPlyr,Status *StOpsPlyr, BangunanTot Ba);
 
 #endif
