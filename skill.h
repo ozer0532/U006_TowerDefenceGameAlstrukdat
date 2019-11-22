@@ -13,6 +13,8 @@ typedef struct {
     boolean XtraTurn;
 } Status;
 
+void InisialisasiStatus(Status *S);
+
 void InisialisasiQueue(Player *Pe, Player *Pm);
 
 void InstantUpgrade (Player Pe, BangunanTot *Ba);

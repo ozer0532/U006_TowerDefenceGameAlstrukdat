@@ -2,23 +2,25 @@
 #include <stdio.h>
 #include "attack.h"
 
+void InisialisasiStatus(Status *S) {
+    (*S).JumlahBangunan=0;
+    MakeEmptyBangunanTot(&(*S).LevelBangunan);
+    (*S).JumlahFort=0;
+    (*S).JumlahTower=0;
+    (*S).XtraTurn =false;
+}
 
 void InstantUpgrade (Player Pe, BangunanTot *Ba)
     /* Pemain mendapatkan skill ini pada skill awal
         I.S Penain mungkin belom punya bangunan
         F.S Setiap banguna yang dimiliki pemain naik satu level*/
 {
-    int count = 0;
     address P;
     P = First(Pe.bangunanPlayer);
     while(P != Nil){
         (*Ba).TI[Info(P)].B.Level+=1;
         P = Next(P);
-        count +=1;
     }
-    printf("count: %d\n", count);
-  
-
 }
 void Shield (Player *Pe){ 
     (*Pe).shieldCooldown = 2;
@@ -124,27 +126,26 @@ void Sebelum(Player CurrentPlayer,Player OppsingPlayer, Status *StCurPlyr,Status
 
     PCur = First(CurrentPlayer.bangunanPlayer);
     POps = First(OppsingPlayer.bangunanPlayer);
-    while(POps != Nil){
-        (*StOpsPlyr).LevelBangunan.TI[Info(POps)].B.Level = Ba.TI[Info(POps)].B.Level;
-        POps = Next(POps);
-    }
     (*StOpsPlyr).JumlahFort = 0;
+    (*StOpsPlyr).JumlahTower =0;
+    
+    if (POps == Nil) {
+         (*StOpsPlyr).LevelBangunan.TI[Info(POps)].B.Level=1;
+         (*StOpsPlyr).JumlahTower =0;
+        (*StOpsPlyr).JumlahFort = 0;
+    }
+
     while(POps != Nil){
         if(Ba.TI[Info(POps)].B.Jenis == 'F'){
             (*StOpsPlyr).JumlahFort += 1;
         }
-        POps = Next(POps);
-    }
-    while(POps != Nil){
         if(Ba.TI[Info(POps)].B.Jenis == 'T'){
             (*StOpsPlyr).JumlahTower += 1;
         }
+        (*StOpsPlyr).LevelBangunan.TI[Info(POps)].B.Level = Ba.TI[Info(POps)].B.Level;
         POps = Next(POps);
     }
     (*StCurPlyr).XtraTurn = CurrentPlayer.extraTurn;
-    
-
-    
     
 }
 void Sesudah (Player CurrentPlayer,Player OppsingPlayer, Status *StCurPlyr,Status *StOpsPlyr, BangunanTot Ba){
@@ -157,23 +158,21 @@ void Sesudah (Player CurrentPlayer,Player OppsingPlayer, Status *StCurPlyr,Statu
     (*StCurPlyr).JumlahBangunan = NbElmtL(CurrentPlayer.bangunanPlayer);
     (*StOpsPlyr).JumlahBangunan = NbElmtL(OppsingPlayer.bangunanPlayer);
 
+
     PCur = First(CurrentPlayer.bangunanPlayer);
     POps = First(OppsingPlayer.bangunanPlayer);
-    while(POps != Nil){
-        (*StOpsPlyr).LevelBangunan.TI[Info(POps)].B.Level = Ba.TI[Info(POps)].B.Level;
-        POps = Next(POps);
-    }
     (*StOpsPlyr).JumlahFort = 0;
+    (*StOpsPlyr).JumlahTower = 0;
+
+
     while(POps != Nil){
         if(Ba.TI[Info(POps)].B.Jenis == 'F'){
             (*StOpsPlyr).JumlahFort += 1;
         }
-        POps = Next(POps);
-    }
-    while(POps != Nil){
         if(Ba.TI[Info(POps)].B.Jenis == 'T'){
             (*StOpsPlyr).JumlahTower += 1;
         }
+        (*StOpsPlyr).LevelBangunan.TI[Info(POps)].B.Level = Ba.TI[Info(POps)].B.Level;
         POps = Next(POps);
     }
     (*StCurPlyr).XtraTurn = CurrentPlayer.extraTurn;
