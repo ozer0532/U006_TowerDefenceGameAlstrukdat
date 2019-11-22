@@ -144,11 +144,11 @@ void MakeBangunanPemain (Player *Pe, Player *Pm, STATE *T,  IdxType Idx, int Jml
     int JHDiserang;
     ACUAN Ac;
 
-    if (AttackUp) {
+    if (AttackUp==false) {
         Inisialisasi(&Ac);
     }
     else {
-        InisialisasiShieldNo(&Ac);
+        InisialisasiAttackUp(&Ac);
     }
     List La= (*Pe).bangunanPlayer;
     List Lb= (*Pm).bangunanPlayer;

@@ -195,9 +195,9 @@ int main()
         
 
         TabInt Tab;
-        MakeEmptyarr(&Tab); //insialisasi awal flag atatck di tiap giliran main
-        CreateEmptyQ(&(S.P1.skillQueue), 30); CreateEmptyQ(&(S.P2.skillQueue), 30);  
-                            
+        MakeEmptyarr(&Tab); //insialisasi awal flag atatck di tiap giliran main 
+        InisialisasiQueue(&(S.P1),&(S.P2));
+
         currentPlayer = &S.P1;
         opposingPlayer = &S.P2;
         S.turn = 1;

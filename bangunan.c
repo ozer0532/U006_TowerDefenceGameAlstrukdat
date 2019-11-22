@@ -64,8 +64,8 @@ void Inisialisasi(ACUAN *Ac)
     (*Ac).V[4].P=0;
 }
 
-void InisialisasiShieldNo(ACUAN *Ac)
-//Jika ingin menggunakan acuan KHUSUS untuk Shield
+void InisialisasiAttackUp(ACUAN *Ac)
+//Jika ingin menggunakan acuan KHUSUS untuk AttackUp
 //I.S Acuan belom terinisialisasi
 //F.S Acuan sudah bisa di pakai
 {

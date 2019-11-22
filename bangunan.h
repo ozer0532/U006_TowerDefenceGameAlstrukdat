@@ -51,7 +51,7 @@ void Inisialisasi(ACUAN *Ac);
 //I.S Acuan belom terinisialisasi
 //F.S Acuan sudah bisa di pakai
 
-void InisialisasiShieldNo(ACUAN *Ac);
+void InisialisasiAttackUp(ACUAN *Ac);
 //Jika ingin menggunakan acuan KHUSUS untuk Shield
 //I.S Acuan belom terinisialisasi
 //F.S Acuan sudah bisa di pakai
