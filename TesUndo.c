@@ -29,5 +29,6 @@ int main(){
     printf("undo?");scanf(" %c",&c);
     Pop(&sss,&S); //undo, state di pop ke curstate
     PrintState(S);  
+
     return 0;   
 }
