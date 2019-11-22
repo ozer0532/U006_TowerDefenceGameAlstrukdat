@@ -114,32 +114,46 @@ void IntToSkill(int SkillKe, Player *Pe, ACUAN *Semi,  BangunanTot *Ba){
 
 void Sebelum(Player CurrentPlayer,Player OppsingPlayer, Status *StCurPlyr,Status *StOpsPlyr, BangunanTot Ba){
     /*KAMUS*/
-    address PCur;
-    address POps;
+    address PCurL;
+    address POpsL;
+    address PCurF;
+    address POpsF;
+    address PCurT;
+    address POpsT;
 
     /*ALGORITMA*/
 
     (*StCurPlyr).JumlahBangunan = NbElmtL(CurrentPlayer.bangunanPlayer);
     (*StOpsPlyr).JumlahBangunan = NbElmtL(OppsingPlayer.bangunanPlayer);
-
-    PCur = First(CurrentPlayer.bangunanPlayer);
-    POps = First(OppsingPlayer.bangunanPlayer);
-    while(POps != Nil){
-        (*StOpsPlyr).LevelBangunan.TI[Info(POps)].B.Level = Ba.TI[Info(POps)].B.Level;
-        POps = Next(POps);
+    if(!IsEmptyL(CurrentPlayer.bangunanPlayer)){
+    PCurL = First(CurrentPlayer.bangunanPlayer);
+    POpsL = First(OppsingPlayer.bangunanPlayer);
+    while(POpsL != Nil){
+        (*StOpsPlyr).LevelBangunan.TI[Info(POpsL)].B.Level = Ba.TI[Info(POpsL)].B.Level;
+        POpsL = Next(POpsL);
     }
+    }
+    if(!IsEmptyL(OppsingPlayer.bangunanPlayer)){
+    PCurF = First(CurrentPlayer.bangunanPlayer);
+    POpsL = First(OppsingPlayer.bangunanPlayer);
     (*StOpsPlyr).JumlahFort = 0;
-    while(POps != Nil){
-        if(Ba.TI[Info(POps)].B.Jenis == 'F'){
+    while(POpsF != Nil){
+        if(Ba.TI[Info(POpsF)].B.Jenis == 'F'){
             (*StOpsPlyr).JumlahFort += 1;
         }
-        POps = Next(POps);
+        POpsF = Next(POpsF);
     }
-    while(POps != Nil){
-        if(Ba.TI[Info(POps)].B.Jenis == 'T'){
+    }
+    if(!IsEmptyL(OppsingPlayer.bangunanPlayer)){
+    PCurT = First(CurrentPlayer.bangunanPlayer);
+    POpsT = First(OppsingPlayer.bangunanPlayer);
+    (*StOpsPlyr).JumlahTower =0;
+    while(POpsT != Nil){
+        if(Ba.TI[Info(POpsT)].B.Jenis == 'T'){
             (*StOpsPlyr).JumlahTower += 1;
         }
-        POps = Next(POps);
+        POpsT = Next(POpsT);
+    }
     }
     (*StCurPlyr).XtraTurn = CurrentPlayer.extraTurn;
     

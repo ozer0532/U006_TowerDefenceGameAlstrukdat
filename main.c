@@ -236,11 +236,11 @@ int main()
             if (IsKataSama(CKata, Attk)) /* command == "ATTACK" */
             {
                   strcpy(S.lastaction,"ATTACK");
-                  //Sesudah(*currentPlayer, *opposingPlayer, &PrevCurPlayer, &PrevOpsPlayer,S.listbtot);
+                 // Sebelum(*currentPlayer, *opposingPlayer, &PrevCurPlayer, &PrevOpsPlayer,S.listbtot);
                   booleanAttackUp=false;
                   Attack(S.Hubungan, &(S), currentPlayer, opposingPlayer, &Tab, booleanAttackUp);
                   //Sesudah(*currentPlayer, *opposingPlayer, &AfterCurPlayer, &AfterOpsPlayer,S.listbtot);
-                  //GetSkill(currentPlayer,opposingPlayer,S.listbtot);
+                 // GetSkill(currentPlayer,opposingPlayer,PrevCurPlayer,PrevOpsPlayer,AfterCurPlayer,AfterOpsPlayer);
 
             }
 
@@ -254,9 +254,13 @@ int main()
             {
                   int skl;
                   ACUAN Semi;
+                  if(!IsEmptyQ((*currentPlayer).skillQueue)){
                   DelQ(&(*currentPlayer).skillQueue,&skl);
                   printf("%d\n", skl);
                   IntToSkill(skl,currentPlayer,&Semi,&S.listbtot);
+                  }else{
+                      printf("Nggaa ADA SKILL ASU!!\n");
+                  }
             }
 
             if (IsKataSama(CKata, Exit)) /* command == "EXIT" */
@@ -282,8 +286,8 @@ int main()
                     }
                 }
                 
-                  Dealokasiarr(&Tab);
-                  MakeEmptyarr(&Tab); //Inisialisasi flag attack
+                Dealokasiarr(&Tab);
+                MakeEmptyarr(&Tab); //Inisialisasi flag attack
                 PrintStatus(S, currentPlayer);
             }
 
