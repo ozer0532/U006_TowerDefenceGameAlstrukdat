@@ -13,6 +13,7 @@ extern boolean EOP;
 
 
 void STARTSTD();
+void STARTLOAD(char filename[]);
 void START();
 /* Mesin siap dioperasikan. Pita disiapkan untuk dibaca.
    Karakter pertama yang ada pada pita posisinya adalah pada jendela.

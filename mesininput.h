@@ -31,6 +31,7 @@ void BacaKata(Kata *K);
 void TulisKata(Kata K);
 
 void STARTKATA();
+void STARTKATALOAD();
 /* I.S. : CC sembarang
    F.S. : EndKata = true, dan CC = MARK;
           atau EndKata = false, CKata adalah kata yang sudah diakuisisi,

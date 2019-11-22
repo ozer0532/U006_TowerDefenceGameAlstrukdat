@@ -239,8 +239,20 @@ void SaveFile(STATE s,char nama[]){
   fclose(f);
 }
 
+void STARTKATALOAD(){
+    char filename[30];
+    printf("Masukkan nama file untuk di load : ");scanf("%s",&filename);
+    STARTLOAD(filename);
+    IgnoreBlank();
+    if (CC == MARK) EndKata = true;
+    else
+    {
+      EndKata = false;
+      SalinKata();
+    }
+}
 void LoadSafeFile(STATE *s){
-    STARTKATA();
+    STARTKATALOAD();
     (*s).peta.NBrsEff = katatoint(CKata);
     ADVKATA();
     (*s).peta.NKolEff = katatoint(CKata);
