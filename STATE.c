@@ -46,8 +46,6 @@ SAVEDSTATE DuplicateSTATE(STATE S) {
 	for (int i = 0; i < IdxMax; i++) {
 		P.daftarBangunan[i] = S.listbtot.TI[i+1].B;
 	}
-	P.jumlahBangunan = S.JBang;
-	P.turn = S.turn;
 	strcpy(P.lastaction, S.lastaction);
 
 	// Buat Player1
@@ -94,5 +92,51 @@ SAVEDSTATE DuplicateSTATE(STATE S) {
 }
 
 void SETSTATE(STATE * S, SAVEDSTATE s) {
+	// KAMUS LOKAL
+	int i;
+
+	// ALGORITMA
+	// Buat bagian global
+	for (int i = 0; i < IdxMax; i++) {
+		S->listbtot.TI[i+1].B = s.daftarBangunan[i];
+	}
+	strcpy(S->lastaction, s.lastaction);
+
+	// Buat P1
+	i = 0;
+	while(!IsEmptyL(S->P1.bangunanPlayer)) {
+		DelVFirstL(&(S->P1.bangunanPlayer), &i);
+	}
+	i = 0;
+	while (i < 30 && s.bangunanPlayer1[i] != ElUndef) {
+		InsVLastL(&(S->P1.bangunanPlayer), s.bangunanPlayer1[i]);
+	}
+	i = 0;
+	CreateEmptyQ(&(S->P1.skillQueue), 10);
+	while (i < 10 && s.skillPlayer1[i] != ElUndef) {
+		AddQ(&(S->P1.skillQueue), s.skillPlayer1[i]);
+	}
+	S->P1.shieldCooldown = s.shieldPlayer1;
+	S->P1.extraTurn = s.extraTurnPlayer1;
+	S->P1.AttackUp = s.attackUpPlayer1;
+	S->P1.CriticalHit = s.critHitPlayer1;
 	
+	// Buat P2
+	i = 0;
+	while(!IsEmptyL(S->P2.bangunanPlayer)) {
+		DelVFirstL(&(S->P2.bangunanPlayer), &i);
+	}
+	i = 0;
+	while (i < 30 && s.bangunanPlayer2[i] != ElUndef) {
+		InsVLastL(&(S->P2.bangunanPlayer), s.bangunanPlayer2[i]);
+	}
+	i = 0;
+	CreateEmptyQ(&(S->P2.skillQueue), 10);
+	while (i < 10 && s.skillPlayer2[i] != ElUndef) {
+		AddQ(&(S->P2.skillQueue), s.skillPlayer2[i]);
+	}
+	S->P2.shieldCooldown = s.shieldPlayer2;
+	S->P2.extraTurn = s.extraTurnPlayer2;
+	S->P2.AttackUp = s.attackUpPlayer2;
+	S->P2.CriticalHit = s.critHitPlayer2;
 }

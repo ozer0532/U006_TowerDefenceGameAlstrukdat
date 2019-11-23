@@ -55,11 +55,9 @@ void Push(Stack * S, STATE X);
 /* F.S. X menjadi TOP yang baru,TOP bertambah 1 */
 
 /* ************ Menghapus sebuah elemen Stack ************ */
-void Pop (Stack * S, info* X);
+void Pop (Stack * S, SAVEDSTATE* X);
 /* Menghapus X dari Stack S. */
 /* I.S. S  tidak mungkin kosong */
 /* F.S. X adalah nilai elemen TOP yang lama, TOP berkurang 1 */
-
-void Undo(Stack *S, info *s);
 
 #endif

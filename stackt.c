@@ -37,9 +37,8 @@ void Push(Stack * S, STATE X){
 /* F.S. X menjadi TOP yang baru,TOP bertambah 1 */
 
 /* ************ Menghapus sebuah elemen Stack ************ */
-void Pop (Stack * S, STATE * X){
-    SAVEDSTATE ss = InfoTop(*S);
-    SETSTATE(X, ss);
+void Pop (Stack * S, SAVEDSTATE * X){
+    *X = InfoTop(*S);
     Top(*S) -= 1;
 }
 /* Menghapus X dari Stack S. */

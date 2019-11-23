@@ -20,8 +20,6 @@ typedef struct {
 typedef struct {
     // GLOBAL
     BANGUNAN daftarBangunan[100];
-    int jumlahBangunan;
-    int turn;
     char lastaction[30];
 
     // PLAYER 1
