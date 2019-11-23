@@ -259,7 +259,6 @@ int main()
         PrintStatus(S, currentPlayer);
         while (masihMain)
         {
-            printf("%d", stackofstate);
             Push(&stackofstate, S); //tiap awal giliran di push state permainan, jadi bisa undo kapan aja
             //nanti juga tiap akhir suatu aksi, jadiin perubahan di STATE, dan entar state di push ke stack of states, ini bsia gw implementasiin habis gamenya udh fungsional
 
@@ -297,8 +296,16 @@ int main()
             }else
             if (IsKataSama(CKata, Undo))
             {
-                printf("Kamu mengundo aksi %s", S.lastaction);
-                Pop(&stackofstate,&S);
+                if (stackofstate.TOP > 1) {
+                    printf("Kamu meng-undo aksi %s\n", S.lastaction);
+                    SAVEDSTATE previousState;
+                    SAVEDSTATE currentState;
+                    Pop(&stackofstate,&currentState);
+                    Pop(&stackofstate,&previousState);
+                    SETSTATE(&S, previousState);
+                } else {
+                    printf("Kamu tidak bisa meng-undo\n");
+                }
             }
             else
             if (IsKataSama(CKata, Endt)) /* command == "END_TURN" */
