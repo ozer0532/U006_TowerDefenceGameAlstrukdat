@@ -2,7 +2,6 @@
 #define STATE_H
 
 #include "array.h"
-#include "attack.h"
 #include "bangunan.h"
 #include "graph.h"
 #include "player.h"
