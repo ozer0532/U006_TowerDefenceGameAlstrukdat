@@ -214,6 +214,7 @@ int main()
         printf("Hewo");
         Player * currentPlayer;
         Player * opposingPlayer;
+        boolean operationFailed;
 
     // ALGORITMA
         printf("********** AVATAR WORLD WAR **********\n");
@@ -259,8 +260,12 @@ int main()
         PrintStatus(S, currentPlayer);
         while (masihMain)
         {
-            Push(&stackofstate, S); //tiap awal giliran di push state permainan, jadi bisa undo kapan aja
-            //nanti juga tiap akhir suatu aksi, jadiin perubahan di STATE, dan entar state di push ke stack of states, ini bsia gw implementasiin habis gamenya udh fungsional
+            if (operationFailed) {
+                operationFailed = false;
+            } else {
+                Push(&stackofstate, S); //tiap awal giliran di push state permainan, jadi bisa undo kapan aja
+                //nanti juga tiap akhir suatu aksi, jadiin perubahan di STATE, dan entar state di push ke stack of states, ini bsia gw implementasiin habis gamenya udh fungsional
+            }
 
 
             printf("ENTER COMMAND: ");
@@ -355,6 +360,9 @@ int main()
             if (IsKataSama(CKata, Exit)) /* command == "EXIT" */
             {
                 masihMain = false;
+            }
+            else {
+                operationFailed = true;
             }
         }
 
