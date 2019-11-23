@@ -256,12 +256,10 @@ void GetSkill(Player *CurrentPlayer, Player *OpposingPlayer,Status PrevCurPlayer
 
 
 
-=======
         else
         {
             printf("hello\n");
         }
->>>>>>> 71bfd6639a816de9b3117d356ab2e0daa7836ccf
     }
 
 void InisialisasiQueue (Player *Pe, Player *Pm)
