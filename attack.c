@@ -314,7 +314,7 @@ void CetakDaftarBangunan (BangunanTot T, Player Pe, boolean *bol)
     address P;
     int no=1; int n=0;
     boolean Empty=true;
-    print("Hewo\n");
+    printf("Hewo\n");
     
     printf("Daftar bangunan:\n");
 
