@@ -130,8 +130,7 @@ void PrintStatus(STATE S, Player * Pe) {
     printf("Player %d\n", Pe -> playerKe);
     CetakDaftarBangunan(S.listbtot, *Pe, &bol);
     printf("Skill Available: ");
-    int SkillKe=(*Pe).skillQueue.HEAD;
-    
+    int SkillKe=Head((*Pe).skillQueue);    
     if (SkillKe==1) {
         printf("Instant Upgrade\n");
     }
@@ -144,7 +143,7 @@ void PrintStatus(STATE S, Player * Pe) {
     else if(SkillKe == 4){
         printf("Attack Up\n");
     }
-    else if(SkillKe == 5){
+   else if(SkillKe == 5){
         printf("Critical Hit\n");
     }
     else if(SkillKe == 6){
@@ -245,7 +244,8 @@ int main()
             InisialisasiQueue(currentPlayer,opposingPlayer);
             AddQ(&(*currentPlayer).skillQueue,1);
             AddQ(&(*currentPlayer).skillQueue,1);
-            AddQ(&(*currentPlayer).skillQueue,7);
+            AddQ(&(*currentPlayer).skillQueue,1);
+           // AddQ(&(*currentPlayer).skillQueue,7);
             InisialisasiStatus(&PrevCurPlayer);
             InisialisasiStatus(&PrevOpsPlayer);
             InisialisasiStatus(&AfterCurPlayer);
@@ -288,7 +288,6 @@ int main()
                   int skl;
                   if(!IsEmptyQ((*currentPlayer).skillQueue)){
                   DelQ(&(*currentPlayer).skillQueue,&skl);
-                  printf("%d\n", skl);
                   IntToSkill(skl,currentPlayer,opposingPlayer,&S.listbtot);
                   }else{
                       printf("Nggaa ADA SKILL ASU!!\n");
@@ -303,6 +302,13 @@ int main()
             if (IsKataSama(CKata, Endt)) /* command == "END_TURN" */
             {
                 S.turn++;
+                Sesudah(*currentPlayer, *opposingPlayer, &AfterCurPlayer, &AfterOpsPlayer,S.listbtot);
+                int j,d;
+                j = Info(First((*currentPlayer).bangunanPlayer));
+                printf("Level: %d",AfterCurPlayer.LevelBangunan.TI[j].B.Level);
+                GetSkillIR(currentPlayer,AfterCurPlayer);
+                int SkillKe=(*currentPlayer).skillQueue.HEAD;
+                printf("Skill Ke: %d", SkillKe);
                 AddJumlahPasukan(currentPlayer, &S.listbtot);
                 if (!(*currentPlayer).extraTurn)
                 {
