@@ -53,6 +53,7 @@ SAVEDSTATE DuplicateSTATE(STATE S) {
 	for (int i = 0; i < 30; i++) {
 		if (Q != Nil) {
 			P.bangunanPlayer1[i] = Info(Q);
+			Q = Next(Q);
 		} else {
 			P.bangunanPlayer1[i] = ElUndef;
 		}
@@ -74,6 +75,7 @@ SAVEDSTATE DuplicateSTATE(STATE S) {
 	for (int i = 0; i < 30; i++) {
 		if (Q != Nil) {
 			P.bangunanPlayer2[i] = Info(Q);
+			Q = Next(Q);
 		} else {
 			P.bangunanPlayer2[i] = ElUndef;
 		}
@@ -89,6 +91,8 @@ SAVEDSTATE DuplicateSTATE(STATE S) {
 	P.extraTurnPlayer2 = S.P2.extraTurn;
 	P.attackUpPlayer2 = S.P2.AttackUp;
 	P.critHitPlayer2 = S.P2.CriticalHit;
+
+	return P;
 }
 
 void SETSTATE(STATE * S, SAVEDSTATE s) {
