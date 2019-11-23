@@ -55,7 +55,7 @@ void levelUp(BangunanTot *T, Player *Pe)
       lvl = (*T).TI[Info(P)].B.Level;
 
       M = CariDariAcuan(Ac, jns, lvl, 'M');
-      if (pas >= M)
+      if (pas >= (M/2))
       {
           (*T).TI[Info(P)].B.Level++;
           (*T).TI[Info(P)].B.Jpas -= M / 2;
@@ -130,8 +130,8 @@ void PrintStatus(STATE S, Player * Pe) {
     printf("Player %d\n", Pe -> playerKe);
     CetakDaftarBangunan(S.listbtot, *Pe, &bol);
     printf("Skill Available: ");
-    int SkillKe=Head((*Pe).skillQueue);    
-    if (SkillKe==1) {
+    int SkillKe = (*Pe).skillQueue.T[Pe->skillQueue.HEAD];    
+    if (SkillKe==1) {   
         printf("Instant Upgrade\n");
     }
     else if(SkillKe == 2){
@@ -241,6 +241,10 @@ int main()
         scanf("%d", &menu);
         if (menu == 2){
             LoadSafeFile(&S);
+            InisialisasiStatus(&PrevCurPlayer);
+            InisialisasiStatus(&PrevOpsPlayer);
+            InisialisasiStatus(&AfterCurPlayer);
+            InisialisasiStatus(&AfterOpsPlayer);
         } else {
             LoadFile(&S);
             InisialisasiQueue(currentPlayer,opposingPlayer);
@@ -266,8 +270,6 @@ int main()
                 Push(&stackofstate, S); //tiap awal giliran di push state permainan, jadi bisa undo kapan aja
                 //nanti juga tiap akhir suatu aksi, jadiin perubahan di STATE, dan entar state di push ke stack of states, ini bsia gw implementasiin habis gamenya udh fungsional
             }
-
-
             printf("ENTER COMMAND: ");
             STARTSTDKATA();
             if (IsKataSama(CKata, Attk)) /* command == "ATTACK" */
@@ -275,11 +277,20 @@ int main()
                   strcpy(S.lastaction,"ATTACK");
                   int j;
                   j = Info(First((*currentPlayer).bangunanPlayer));
+                //   printf("a");
                   Sebelum(*currentPlayer, *opposingPlayer, &PrevCurPlayer, &PrevOpsPlayer,S.listbtot);
+                //   printf("a");
                   booleanAttackUp=false;
+                //   printf("a");
                   Attack(S.Hubungan, &(S), currentPlayer, opposingPlayer, &Tab, booleanAttackUp);
+                //   printf("a");
                   Sesudah(*currentPlayer, *opposingPlayer, &AfterCurPlayer, &AfterOpsPlayer,S.listbtot);
+                //   printf("a");
                   GetSkill(currentPlayer,opposingPlayer,PrevCurPlayer,PrevOpsPlayer,AfterCurPlayer,AfterOpsPlayer);
+                  if(IsEmptyL(opposingPlayer->bangunanPlayer)){
+                      masihMain = false;
+                      printf("ANDA MENANG");
+                  }
             }
             else
             if (IsKataSama(CKata, Lvup)) /* command == "LEVEL_UP" */
@@ -294,6 +305,8 @@ int main()
                   int skl;
                   if(!IsEmptyQ((*currentPlayer).skillQueue)){
                   DelQ(&(*currentPlayer).skillQueue,&skl);
+                  if (skl == 3) AddQ(&(currentPlayer->skillQueue),5);
+                //   PrintQueue(currentPlayer->skillQueue);
                   IntToSkill(skl,currentPlayer,opposingPlayer,&S.listbtot);
                   }else{
                       printf("Nggaa ADA SKILL ASU!!\n");

@@ -14,8 +14,3 @@ POINT MakePOINT (int X, int Y)
 	return p;
 }
 
-boolean IsDalamMatriks (POINT P, int i, int j)
-//Menghasilkan True jika Komponen  X<=i dan Y<=j dimana i adalah baris matriks dan j adalah kolom matriks
-{
-    return ((P.X<=i && P.X>0)&&(P.Y<=j && P.Y>0));
-}

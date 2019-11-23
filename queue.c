@@ -117,3 +117,12 @@ void DelQ (Queue * Q, int * X)
         }
     } 
 }
+
+void PrintQueue(Queue Q){
+    int x;
+    while(!IsEmptyQ(Q)){
+        DelQ(&Q,&x);
+        printf("%d ",x);
+    }
+    printf("\n");
+}

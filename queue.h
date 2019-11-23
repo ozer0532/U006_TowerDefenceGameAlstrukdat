@@ -38,7 +38,7 @@ boolean IsFullQ (Queue Q);
 /* yaitu mengandung elemen sebanyak MaxEl */
 int NBElmtQ (Queue Q);
 /* Mengirimkan banyaknya elemen queue. Mengirimkan 0 jika Q kosong. */
-
+void PrintQueue(Queue Q);
 /* *** Kreator *** */
 void CreateEmptyQ (Queue * Q, int Max);
 /* I.S. sembarang */
