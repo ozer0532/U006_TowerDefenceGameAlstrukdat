@@ -12,32 +12,10 @@ Kata CKata;
 #define bs(s,j) s.listbtot.TI[i].B.j
 
 /* KONSTRUKTOR */
-void CreateKata(Kata *K, char *s){
-    int i = 0;
-    while(s[i] != '\0'){ /* \0 itu NULL */
-        (*K).TabKata[i+1] = s[i];
-        i+= 1;
-    }
-    (*K).Length = i;
-}
-
-void BacaKata(Kata *K){
-    int pjg;
-    char inp;
-    pjg=0;
-    scanf("%c", &inp);
-    while ((inp != ENTER) && (inp != BLANK) && (pjg < NMax)){
-        pjg++;
-        (*K).TabKata[pjg]=inp;
-        scanf("%c", &inp);
-    }
-    (*K).Length = pjg;
-}
-
 void TulisKata (Kata K){
   /*I.S K terdefinisi
     F.S K dituliskan ke layar pengguna
-    MENULIS KATA, PEMAKAIAN LEBIH UNTUK DEBUGGING*/
+    MENULIS KATA, PEMAKAIAN LEBIH UNTUK DEBUGGING MESINKATA DKK*/
     for (int i = 1; i <= K.Length; i++){
         printf("%c",K.TabKata[i]);
     }
@@ -218,7 +196,7 @@ void LoadFile(STATE *s){
         }
     }
     for(int j =0; j <= (*s).JBang; j++){
-        Elm((*s).peta,(*s).listbtot.TI[j].B.Lok.X,(*s).listbtot.TI[j].B.Lok.Y).p = (*s).listbtot.TI[j].B.Milik;
+        (*s).peta.Mem[(*s).listbtot.TI[j].B.Lok.X][(*s).listbtot.TI[j].B.Lok.Y].p = (*s).listbtot.TI[j].B.Milik;
     }
 }
 
@@ -310,7 +288,7 @@ void LoadSafeFile(STATE *s){
         s->listbtot.TI[i].B.Milik = m;
         ADVKATA();
         j = katatoint(CKata);
-        Elm((*s).peta,(*s).listbtot.TI[i].B.Lok.X,(*s).listbtot.TI[i].B.Lok.Y).C = c;
+        (*s).peta.Mem[(*s).listbtot.TI[i].B.Lok.X][(*s).listbtot.TI[i].B.Lok.Y].C = c;
         s->listbtot.TI[i].B.Jpas = j;
         // (*s).listbtot.TI[i].B = MakeBANGUNAN(m,j,l,c,MakePOINT(x,y));
         if (m == 1) InsVLastL(&(s->P1.bangunanPlayer),i);
@@ -328,7 +306,7 @@ void LoadSafeFile(STATE *s){
     }
 
     for(int j =0; j <= (*s).JBang; j++){
-        Elm((*s).peta,(*s).listbtot.TI[j].B.Lok.X,(*s).listbtot.TI[j].B.Lok.Y).p = (*s).listbtot.TI[j].B.Milik;
+        (*s).peta.Mem[(*s).listbtot.TI[j].B.Lok.X][(*s).listbtot.TI[j].B.Lok.Y].p = (*s).listbtot.TI[j].B.Milik;
     }
     
     int i ,je;

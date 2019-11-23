@@ -130,7 +130,7 @@ void PrintStatus(STATE S, Player * Pe) {
     printf("Player %d\n", Pe -> playerKe);
     CetakDaftarBangunan(S.listbtot, *Pe, &bol);
     printf("Skill Available: ");
-    int SkillKe=Head((*Pe).skillQueue);    
+    int SkillKe = (*Pe).skillQueue.T[Pe->skillQueue.HEAD];    
     if (SkillKe==1) {   
         printf("Instant Upgrade\n");
     }
