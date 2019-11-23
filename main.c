@@ -55,7 +55,7 @@ void levelUp(BangunanTot *T, Player *Pe)
       lvl = (*T).TI[Info(P)].B.Level;
 
       M = CariDariAcuan(Ac, jns, lvl, 'M');
-      if (pas >= M)
+      if (pas >= (M/2))
       {
           (*T).TI[Info(P)].B.Level++;
           (*T).TI[Info(P)].B.Jpas -= M / 2;
@@ -131,7 +131,7 @@ void PrintStatus(STATE S, Player * Pe) {
     CetakDaftarBangunan(S.listbtot, *Pe, &bol);
     printf("Skill Available: ");
     int SkillKe=Head((*Pe).skillQueue);    
-    if (SkillKe==1) {
+    if (SkillKe==1) {   
         printf("Instant Upgrade\n");
     }
     else if(SkillKe == 2){
@@ -237,6 +237,10 @@ int main()
         scanf("%d", &menu);
         if (menu == 2){
             LoadSafeFile(&S);
+            InisialisasiStatus(&PrevCurPlayer);
+            InisialisasiStatus(&PrevOpsPlayer);
+            InisialisasiStatus(&AfterCurPlayer);
+            InisialisasiStatus(&AfterOpsPlayer);
         } else {
             LoadFile(&S);
             InisialisasiQueue(currentPlayer,opposingPlayer);
@@ -256,10 +260,8 @@ int main()
         PrintStatus(S, currentPlayer);
         while (masihMain)
         {
-            Push(&stackofstate,S); //tiap awal giliran di push state permainan, jadi bisa undo kapan aja
-            //nanti juga tiap akhir suatu aksi, jadiin perubahan di STATE, dan entar state di push ke stack of states, ini bsia gw implementasiin habis gamenya udh fungsional
-
-
+             //tiap awal giliran di push state permainan, jadi bisa undo kapan aja
+            //nanti juga tiap akhir suatu aksi, jadiin perubahan di STATE, dan entar state di push ke stack of states, ini bsia gw implementasiin habis gamenya udh fungsion
             printf("ENTER COMMAND: ");
             STARTSTDKATA();
             if (IsKataSama(CKata, Attk)) /* command == "ATTACK" */
@@ -267,10 +269,15 @@ int main()
                   strcpy(S.lastaction,"ATTACK");
                   int j;
                   j = Info(First((*currentPlayer).bangunanPlayer));
+                //   printf("a");
                   Sebelum(*currentPlayer, *opposingPlayer, &PrevCurPlayer, &PrevOpsPlayer,S.listbtot);
+                //   printf("a");
                   booleanAttackUp=false;
+                //   printf("a");
                   Attack(S.Hubungan, &(S), currentPlayer, opposingPlayer, &Tab, booleanAttackUp);
+                //   printf("a");
                   Sesudah(*currentPlayer, *opposingPlayer, &AfterCurPlayer, &AfterOpsPlayer,S.listbtot);
+                //   printf("a");
                   GetSkill(currentPlayer,opposingPlayer,PrevCurPlayer,PrevOpsPlayer,AfterCurPlayer,AfterOpsPlayer);
             }
             else

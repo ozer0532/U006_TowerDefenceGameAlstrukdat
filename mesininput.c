@@ -279,6 +279,8 @@ void LoadSafeFile(STATE *s){
   /*I.S filename yang diminta di STARTKATALOAD() terisi hasil save
     F.S s berisi data STATE permainan sesuai filename*/
     STARTKATALOAD();
+    CreateEmptyQ(&(s->P1.skillQueue),10);
+    CreateEmptyQ(&(s->P1.skillQueue),10);
     s->P1.playerKe = 1;
     s->P2.playerKe = 2;
     (*s).peta.NBrsEff = katatoint(CKata);

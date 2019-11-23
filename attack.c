@@ -406,9 +406,12 @@ void Attack(Graph G, STATE *T, Player *Pe,  Player *Pm, TabInt *Tab, boolean Att
             printf("Kamu tidak bisa menyerang dengan bangunan ini lagi\n");
         }
         else { 
-
             A = (Neighbors(G,Info(P)));
-            if (A.Neff == 0) {
+            int bisadiserang=0;
+            for (int l = 1; l <= A.Neff; l ++){
+                if (T->listbtot.TI[A.TI[l]].B.Milik != Pe->playerKe) bisadiserang += 1;
+            }
+            if (bisadiserang == 0) {
                 printf("Tidak ada bangunan yang dapat diserang\n");
             } else {
                     //Masukin nilai Index hubung ke array
@@ -435,7 +438,7 @@ void Attack(Graph G, STATE *T, Player *Pe,  Player *Pm, TabInt *Tab, boolean Att
                         }
                     }
                         
-                } 
+                
                 
                 
                 printf("Bangunan yang diserang: ");
@@ -469,6 +472,7 @@ void Attack(Graph G, STATE *T, Player *Pe,  Player *Pm, TabInt *Tab, boolean Att
                     (*T).listbtot.TI[Info(P)].B.Jpas -= Pas;
                     AddAsLastElarr(Tab,N);
                 }
+            }
         }
     }
     else {
