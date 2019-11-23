@@ -437,9 +437,6 @@ void Attack(Graph G, STATE *T, Player *Pe,  Player *Pm, TabInt *Tab, boolean Att
                             no++;
                         }
                     }
-                        
-                
-                
                 
                 printf("Bangunan yang diserang: ");
                 scanf("%d",&M);

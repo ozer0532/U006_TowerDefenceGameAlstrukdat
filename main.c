@@ -293,6 +293,8 @@ int main()
                   int skl;
                   if(!IsEmptyQ((*currentPlayer).skillQueue)){
                   DelQ(&(*currentPlayer).skillQueue,&skl);
+                  if (skl == 3) AddQ(&(currentPlayer->skillQueue),5);
+                //   PrintQueue(currentPlayer->skillQueue);
                   IntToSkill(skl,currentPlayer,opposingPlayer,&S.listbtot);
                   }else{
                       printf("Nggaa ADA SKILL ASU!!\n");
