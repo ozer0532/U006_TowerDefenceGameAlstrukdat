@@ -302,12 +302,25 @@ int main()
             if (IsKataSama(CKata, Undo))
             {
                 if (stackofstate.TOP > 1) {
+                    int playerId;
+                    if (currentPlayer == &S.P1) {
+                        playerId = 1;
+                    } else {
+                        playerId = 2;
+                    }
+
                     printf("Kamu meng-undo aksi %s\n", S.lastaction);
                     SAVEDSTATE previousState;
                     SAVEDSTATE currentState;
                     Pop(&stackofstate,&currentState);
                     Pop(&stackofstate,&previousState);
                     SETSTATE(&S, previousState);
+                    
+                    if (playerId == 1) {
+                        currentPlayer = &S.P1;
+                    } else {
+                        currentPlayer = &S.P2;
+                    }
                 } else {
                     printf("Kamu tidak bisa meng-undo\n");
                 }
