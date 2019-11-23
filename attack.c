@@ -5,7 +5,6 @@
 #include "boolean.h"
 #include "attack.h"
 #include <math.h>
-#include "STATE.h"
 
 
 void MakeEmptyarr (TabInt * T)
