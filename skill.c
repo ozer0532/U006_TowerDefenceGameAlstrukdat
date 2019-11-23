@@ -252,10 +252,17 @@ void GetSkill(Player *CurrentPlayer, Player *OpposingPlayer,Status PrevCurPlayer
         if(AfterCurPlayer.JumlahBangunan == 10 && PrevCurPlayer.JumlahBangunan == 9){
             AddQ(&(*CurrentPlayer).skillQueue,7);
         }
+<<<<<<< HEAD
 
 
 
 
+=======
+        else
+        {
+            printf("hello\n");
+        }
+>>>>>>> 71bfd6639a816de9b3117d356ab2e0daa7836ccf
     }
 
 void InisialisasiQueue (Player *Pe, Player *Pm)

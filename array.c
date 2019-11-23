@@ -195,8 +195,6 @@ void Add1Urut (BangunanTot *T, BANGUNAN Ba)
     }
 }
 
-
-
 void Del1Urut (BangunanTot *T, address Pe, IdxType Idx, int JPasNetto, int PEMAINKE)
 //I.S BangunanTot belom terapus elemennya
 //F.S Saat dihapus dari array artinya
