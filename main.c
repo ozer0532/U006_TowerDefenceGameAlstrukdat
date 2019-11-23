@@ -223,11 +223,9 @@ int main()
         printf("1. Permainan Baru\n");
         printf("2. Muat Permainan yang Tersimpan\n");
         
-
-        TabInt Tab;
-        MakeEmptyarr(&Tab); //insialisasi awal flag atatck di tiap giliran main 
         
 
+        MakeEmptyarr(&S.flagAttack); //insialisasi awal flag atatck di tiap giliran main 
         currentPlayer = &S.P1;
         opposingPlayer = &S.P2;
         S.turn = 1;
@@ -282,7 +280,7 @@ int main()
                 //   printf("a");
                   booleanAttackUp=false;
                 //   printf("a");
-                  Attack(S.Hubungan, &(S), currentPlayer, opposingPlayer, &Tab, booleanAttackUp);
+                  Attack(S.Hubungan, &(S), currentPlayer, opposingPlayer, &S.flagAttack, booleanAttackUp);
                 //   printf("a");
                   Sesudah(*currentPlayer, *opposingPlayer, &AfterCurPlayer, &AfterOpsPlayer,S.listbtot);
                 //   printf("a");
@@ -291,12 +289,15 @@ int main()
                       masihMain = false;
                       printf("ANDA MENANG");
                   }
+                printf("\n");
+                PrintStatus(S, currentPlayer);
             }
             else
             if (IsKataSama(CKata, Lvup)) /* command == "LEVEL_UP" */
             {
                 strcpy(S.lastaction,"LEVEL_UP");
                 levelUp(&(S.listbtot), currentPlayer);
+                printf("\n");
             }
             else
             if (IsKataSama(CKata, Skll)) /* command == "SKILL" */
@@ -311,6 +312,7 @@ int main()
                   }else{
                       printf("Nggaa ADA SKILL ASU!!\n");
                   }
+                printf("\n");
             }else
             if (IsKataSama(CKata, Undo))
             {
@@ -337,6 +339,7 @@ int main()
                 } else {
                     printf("Kamu tidak bisa meng-undo\n");
                 }
+                printf("\n");
             }
             else
             if (IsKataSama(CKata, Endt)) /* command == "END_TURN" */
@@ -365,8 +368,9 @@ int main()
                 }
                 (*currentPlayer).extraTurn = false;
                 
-                    Dealokasiarr(&Tab);
-                    MakeEmptyarr(&Tab); //Inisialisasi flag attack
+                Dealokasiarr(&S.flagAttack);
+                MakeEmptyarr(&S.flagAttack); //Inisialisasi flag 
+                printf("\n");
                 PrintStatus(S, currentPlayer);
             }
             else
@@ -375,20 +379,24 @@ int main()
                 char namafile[20];
                 printf("Save kedalam file bernama : ");scanf(" %s",&namafile);
                 SaveFile(S,namafile);
+                printf("\n");
             }
             else
             if(IsKataSama(CKata, Move)) /* command == "MOVE" */
             {
                 strcpy(S.lastaction,"MOVE");
                 move(&S, currentPlayer);
+                printf("\n");
             }
             else
             if (IsKataSama(CKata, Exit)) /* command == "EXIT" */
             {
                 masihMain = false;
+                printf("\n");
             }
             else {
                 operationFailed = true;
+                printf("\n");
             }
         }
 

@@ -2,6 +2,7 @@
 #define STATE_H
 
 #include "array.h"
+#include "attack.h"
 #include "bangunan.h"
 #include "graph.h"
 #include "player.h"
@@ -10,6 +11,7 @@
 typedef struct {
     Player P1,P2;
     BangunanTot listbtot;
+    TabInt flagAttack;
     int JBang;
     int turn;
     MATRIKS peta;
@@ -21,6 +23,8 @@ typedef struct {
     // GLOBAL
     BANGUNAN daftarBangunan[100];
     char lastaction[30];
+    int flagAttack[100];
+    int sizeFlagAttack;
 
     // PLAYER 1
     int bangunanPlayer1[30];

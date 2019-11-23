@@ -47,6 +47,10 @@ SAVEDSTATE DuplicateSTATE(STATE S) {
 		P.daftarBangunan[i] = S.listbtot.TI[i+1].B;
 	}
 	strcpy(P.lastaction, S.lastaction);
+	for (int i = 0; i < IdxMax; i++) {
+		P.flagAttack[i] = S.flagAttack.arr[i];
+	}
+	P.sizeFlagAttack = S.flagAttack.Neff;
 
 	// Buat Player1
 	Q = First(S.P1.bangunanPlayer);
@@ -105,6 +109,10 @@ void SETSTATE(STATE * S, SAVEDSTATE s) {
 		S->listbtot.TI[i+1].B = s.daftarBangunan[i];
 	}
 	strcpy(S->lastaction, s.lastaction);
+	for (int i = 0; i < IdxMax; i++) {
+		S->flagAttack.arr[i] = s.flagAttack[i];
+	}
+	S->flagAttack.Neff = s.sizeFlagAttack;
 
 	// Buat P1
 	i = 0;
