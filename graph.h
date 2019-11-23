@@ -10,6 +10,7 @@
 #define vertex int
 #define edge POINT
 
+//Pendefinisian tipe bentukan
 typedef struct tElmtRow * addrRow;
 typedef struct tElmtCol * addrCol;
 
@@ -39,14 +40,19 @@ typedef struct {
 #define Neff(M) (M).Neff
 #define ElmtM(M,i,j) (M).Mem[(i)][(j)]
 
+//Inisialisasi Awal
 Graph CreateEmptyGraph ();
 /* Neff = V.length */
 /* Graph berisi matriks adjacency hubungan antar V menurut E */
 /* Memori yang dipakai mulai dari indeks 1,1 */
 
 addrRow AlokRow (vertex X);
+//Address untuk Row belom terdefinisi awalnya
+//addrRow sudah terdefinisi lewat AlokRow
 
 addrCol AlokCol (vertex X);
+//Address untuk Col belom terdefinisi awalnya
+//addrRow sudah terdefinisi lewat AlokCol
 
 int NbElmtRow (Graph G);
 /* Mengirimkan banyaknya row graph; mengirimkan 0 jika list kosong */
@@ -63,30 +69,24 @@ void AddElmtR (addrRow * R, vertex X);
 /* F.s. X ditambahkan di akhir list row R */
 
 void AddRelation (Graph * G, vertex from, vertex to);
+/* Belom ada relasi dalam graph*/
+/* Graph sudah terdefinisi dengan relasi yang ada dalam graph*/
 
 boolean IsEmptyG (Graph G);
-/* Neff = 0 */
+/* Akan mengembalikan true jika Neff = 0 */
+/* False untuk sebaliknya */
 
 boolean Adjacent (Graph G, vertex v1, vertex v2);
-/* Mengetes bila terdapat relas v1->v2 */
-/* Mengouput nilai ElmtM(G, v1, v2); */
+/* Mengetes bila terdapat relasi v1->v2 */
 
 boolean Incident (Graph G, vertex v, edge e);
 /* Mengetes bila v dan e berhubungan */
+/* Akan mengembalikan true jika v dan e saling berelasi/berhubungan*/
 
 addrCol NeighborsList (Graph G, vertex v);
 /* Mengoutput semua vertex yang merupakan relasi dari v */
 
 ArrayVertex Neighbors (Graph G, vertex v);
-
-/* Gak aku buat karena gak bakal dipake juga...
-void AddV (Graph * G, vertex v);
-
-void DeleteV (Graph * G, vertex v);
-
-void AddE (Graph * G, edge e);
-
-void DeleteE (Graph * G, edge e);
-*/
+/* Mengoutput semua vertex yang merupakan relasi dari v */
 
 #endif

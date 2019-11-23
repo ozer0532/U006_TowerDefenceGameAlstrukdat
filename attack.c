@@ -158,7 +158,7 @@ void MakeBangunanPemain (Player *Pe, Player *Pm, STATE *T,  IdxType Idx, int Jml
     //Saat Belum dikuasai siapa2. Maka Minimal yang harus diserang adalah Sebanyak U
     //Jika Jumlahnya lebih dari diserang
 
-    if (IsAdaPertahanan((*T).listbtot.TI[Idx].B) && (*Pm).shieldCooldown != 0)
+    if (IsAdaPertahanan((*T).listbtot.TI[Idx].B) || (*Pm).shieldCooldown != 0)
     {
         
         if ((*T).listbtot.TI[Idx].B.Milik==0) //Kalau Bangunannya belom dikuasai siapa2
