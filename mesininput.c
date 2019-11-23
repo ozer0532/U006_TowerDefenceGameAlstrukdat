@@ -54,7 +54,6 @@ void IgnoreBlank(){
 void STARTSTDKATA(){
   /*UNTUK MEMBACA COMMAND DARI KEYBOARD*/
     STARTSTD();
-    IgnoreBlank();
     if (CC == MARK) EndKata = true;
     else
     {
@@ -73,7 +72,6 @@ void STARTKATA()
 
   // ALGORITMA
     START();
-    IgnoreBlank();
     if (CC == MARK) EndKata = true;
     else
     {
