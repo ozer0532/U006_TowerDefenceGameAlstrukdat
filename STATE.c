@@ -110,11 +110,13 @@ void SETSTATE(STATE * S, SAVEDSTATE s) {
 	i = 0;
 	while (i < 30 && s.bangunanPlayer1[i] != ElUndef) {
 		InsVLastL(&(S->P1.bangunanPlayer), s.bangunanPlayer1[i]);
+		i++;
 	}
 	i = 0;
 	CreateEmptyQ(&(S->P1.skillQueue), 10);
 	while (i < 10 && s.skillPlayer1[i] != ElUndef) {
 		AddQ(&(S->P1.skillQueue), s.skillPlayer1[i]);
+		i++;
 	}
 	S->P1.shieldCooldown = s.shieldPlayer1;
 	S->P1.extraTurn = s.extraTurnPlayer1;
@@ -129,11 +131,13 @@ void SETSTATE(STATE * S, SAVEDSTATE s) {
 	i = 0;
 	while (i < 30 && s.bangunanPlayer2[i] != ElUndef) {
 		InsVLastL(&(S->P2.bangunanPlayer), s.bangunanPlayer2[i]);
+		i++;
 	}
 	i = 0;
 	CreateEmptyQ(&(S->P2.skillQueue), 10);
 	while (i < 10 && s.skillPlayer2[i] != ElUndef) {
 		AddQ(&(S->P2.skillQueue), s.skillPlayer2[i]);
+		i++;
 	}
 	S->P2.shieldCooldown = s.shieldPlayer2;
 	S->P2.extraTurn = s.extraTurnPlayer2;
