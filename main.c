@@ -130,7 +130,7 @@ void PrintStatus(STATE S, Player * Pe) {
     printf("Player %d\n", Pe -> playerKe);
     CetakDaftarBangunan(S.listbtot, *Pe, &bol);
     printf("Skill Available: ");
-    int SkillKe=(*Pe).skillQueue.HEAD;
+    int SkillKe=(*Pe).skillQueue.T[Pe->skillQueue.HEAD];
     
     if (SkillKe==1) {
         printf("Instant Upgrade\n");
@@ -237,8 +237,6 @@ int main()
 
         scanf("%d", &menu);
         if (menu == 2){
-            char namafile[20];
-            printf("Load dari file bernama : ");scanf(" %s",&namafile);
             LoadSafeFile(&S);
         } else {
             LoadFile(&S);
