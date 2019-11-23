@@ -284,7 +284,7 @@ int main()
             else
             if (IsKataSama(CKata, Skll)) /* command == "SKILL" */
             {
-<<<<<<< HEAD
+                  strcpy(S.lastaction,"SKILL");
                   int skl;
                   if(!IsEmptyQ((*currentPlayer).skillQueue)){
                   DelQ(&(*currentPlayer).skillQueue,&skl);
@@ -293,16 +293,7 @@ int main()
                   }else{
                       printf("Nggaa ADA SKILL ASU!!\n");
                   }
-=======
-                strcpy(S.lastaction,"SKILL");
-                int skl;
-                ACUAN Semi;
-                DelQ(&(*currentPlayer).skillQueue,&skl);
-                printf("%d\n", skl);
-                IntToSkill(skl,currentPlayer,&Semi,&S.listbtot);
->>>>>>> 71bfd6639a816de9b3117d356ab2e0daa7836ccf
-            }
-            else
+            }else
             if (IsKataSama(CKata, Undo))
             {
                 printf("Kamu mengundo aksi %s", S.lastaction);
@@ -328,13 +319,8 @@ int main()
                 }
                 (*currentPlayer).extraTurn = false;
                 
-<<<<<<< HEAD
-                Dealokasiarr(&Tab);
-                MakeEmptyarr(&Tab); //Inisialisasi flag attack
-=======
                     Dealokasiarr(&Tab);
                     MakeEmptyarr(&Tab); //Inisialisasi flag attack
->>>>>>> 71bfd6639a816de9b3117d356ab2e0daa7836ccf
                 PrintStatus(S, currentPlayer);
             }
             else

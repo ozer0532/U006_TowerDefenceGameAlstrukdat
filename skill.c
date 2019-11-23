@@ -252,7 +252,6 @@ void GetSkill(Player *CurrentPlayer, Player *OpposingPlayer,Status PrevCurPlayer
         if(AfterCurPlayer.JumlahBangunan == 10 && PrevCurPlayer.JumlahBangunan == 9){
             AddQ(&(*CurrentPlayer).skillQueue,7);
         }
-<<<<<<< HEAD
 
 
 
