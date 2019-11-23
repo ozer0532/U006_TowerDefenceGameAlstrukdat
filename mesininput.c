@@ -1,7 +1,7 @@
 #include "mesininput.h"
 #include <stdio.h>
 #include "bangunan.h"
-#include "state.h"
+#include "STATE.h"
 #include "graph.h"
 #include <string.h>
 #include "listlinier.h"
