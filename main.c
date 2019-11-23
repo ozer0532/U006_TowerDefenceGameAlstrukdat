@@ -279,6 +279,10 @@ int main()
                   Sesudah(*currentPlayer, *opposingPlayer, &AfterCurPlayer, &AfterOpsPlayer,S.listbtot);
                 //   printf("a");
                   GetSkill(currentPlayer,opposingPlayer,PrevCurPlayer,PrevOpsPlayer,AfterCurPlayer,AfterOpsPlayer);
+                  if(IsEmptyL(opposingPlayer->bangunanPlayer)){
+                      masihMain = false;
+                      printf("ANDA MENANG");
+                  }
             }
             else
             if (IsKataSama(CKata, Lvup)) /* command == "LEVEL_UP" */
