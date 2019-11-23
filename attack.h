@@ -15,11 +15,6 @@
 #include "STATE.h"
 #include <stdlib.h>
 
-typedef struct { 
-  int *arr; /* memori tempat penyimpan elemen (container) */
-  int Neff; /* >=0, banyaknya elemen efektif */
-} TabInt;
-
 void MakeEmptyarr (TabInt * T);
 void Dealokasiarr(TabInt *T);
 void AddAsLastElarr (TabInt * T, int X);

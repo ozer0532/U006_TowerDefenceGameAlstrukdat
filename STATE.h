@@ -8,6 +8,11 @@
 #include "player.h"
 #include "skill.h"
 
+typedef struct { 
+  int *arr; /* memori tempat penyimpan elemen (container) */
+  int Neff; /* >=0, banyaknya elemen efektif */
+} TabInt;
+
 typedef struct {
     Player P1,P2;
     BangunanTot listbtot;
