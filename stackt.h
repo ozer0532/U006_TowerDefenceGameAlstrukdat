@@ -20,7 +20,7 @@ typedef STATE info;
 /* Contoh deklarasi variabel bertype stack dengan ciri TOP : */
 /* Versi I : dengan menyimpan tabel dan alamat top secara eksplisit*/
 typedef struct {
-  STATE T[MaxElStack+1]; /* tabel penyimpan elemen */
+  SAVEDSTATE T[MaxElStack+1]; /* tabel penyimpan elemen */
   addressST TOP;  /* alamat TOP: elemen puncak */
 } Stack;
 /* Definisi stack S kosong : S.TOP = Nil */
@@ -60,6 +60,6 @@ void Pop (Stack * S, info* X);
 /* I.S. S  tidak mungkin kosong */
 /* F.S. X adalah nilai elemen TOP yang lama, TOP berkurang 1 */
 
-void Undo(Stack *S,info *s);
+void Undo(Stack *S, info *s);
 
 #endif

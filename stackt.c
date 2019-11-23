@@ -21,13 +21,15 @@ boolean IsFullST (Stack S){
 
 /* ************ Menambahkan sebuah elemen ke Stack ************ */
 void Push(Stack * S, STATE X){
+    SAVEDSTATE ss;
+    ss = DuplicateSTATE(X);
     if (IsEmptyST(*S) == true){
         Top(*S) = 1;
-        InfoTop(*S) = X;
+        InfoTop(*S) = ss;
     }
     else{
         Top(*S) += 1;
-        InfoTop(*S) = X;
+        InfoTop(*S) = ss;
     }
 }
 /* Menambahkan X sebagai elemen Stack S. */
@@ -35,8 +37,9 @@ void Push(Stack * S, STATE X){
 /* F.S. X menjadi TOP yang baru,TOP bertambah 1 */
 
 /* ************ Menghapus sebuah elemen Stack ************ */
-void Pop (Stack * S, STATE* X){
-    *X = InfoTop(*S);
+void Pop (Stack * S, STATE * X){
+    SAVEDSTATE ss = InfoTop(*S);
+    SETSTATE(X, ss);
     Top(*S) -= 1;
 }
 /* Menghapus X dari Stack S. */

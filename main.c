@@ -161,6 +161,7 @@ int main()
 {
     // KAMUS
       /* Konstanta */
+        printf("Hewo");
         Kata Attk, Lvup, Skll, Exit, Undo, Endt, Save, Move;
         Lvup.TabKata[1] = 'L';  Endt.TabKata[1] = 'E';
         Lvup.TabKata[2] = 'E';  Endt.TabKata[2] = 'N';
@@ -207,8 +208,10 @@ int main()
         Status AfterOpsPlayer;
 
         STATE S;
+        printf("Hewo");
         Stack stackofstate;
         CreateEmpty(&stackofstate);
+        printf("Hewo");
         Player * currentPlayer;
         Player * opposingPlayer;
 
@@ -256,7 +259,8 @@ int main()
         PrintStatus(S, currentPlayer);
         while (masihMain)
         {
-            Push(&stackofstate,S); //tiap awal giliran di push state permainan, jadi bisa undo kapan aja
+            printf("%d", stackofstate);
+            Push(&stackofstate, S); //tiap awal giliran di push state permainan, jadi bisa undo kapan aja
             //nanti juga tiap akhir suatu aksi, jadiin perubahan di STATE, dan entar state di push ke stack of states, ini bsia gw implementasiin habis gamenya udh fungsional
 
 

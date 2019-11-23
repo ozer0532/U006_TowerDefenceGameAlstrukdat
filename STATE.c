@@ -92,3 +92,7 @@ SAVEDSTATE DuplicateSTATE(STATE S) {
 	P.attackUpPlayer2 = S.P2.AttackUp;
 	P.critHitPlayer2 = S.P2.CriticalHit;
 }
+
+void SETSTATE(STATE * S, SAVEDSTATE s) {
+	
+}
