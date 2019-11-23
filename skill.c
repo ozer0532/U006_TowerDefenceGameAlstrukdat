@@ -23,6 +23,8 @@ void InstantUpgrade (Player Pe, BangunanTot *Ba)
         }
         P = Next(P);
     }
+    printf("Instant Upgrade Telah Diaktifkan\n");
+    printf("Level Bangunan Anda Diupgrade\n");
 }
 void Shield (Player *Pe){ 
     (*Pe).shieldCooldown = 2;
@@ -63,23 +65,24 @@ void InstantReinforcement(Player Pe, BangunanTot *Ba)
                             (*Ba).TI[Info(P)].B.Jpas = (*Ba).TI[Info(P)].B.Jpas + 5;
                         }
                     }
-                    if(jns = 'T'){
+                    else if(jns = 'T'){
                         if((*Ba).TI[Info(P)].B.Jpas <= (AC.T[lvl].M-5)){
                             (*Ba).TI[Info(P)].B.Jpas = (*Ba).TI[Info(P)].B.Jpas + 5;
                         }
                     }
-                    if(jns = 'F'){
+                    else if(jns = 'F'){
                         if((*Ba).TI[Info(P)].B.Jpas <= (AC.F[lvl].M-5)){
                             (*Ba).TI[Info(P)].B.Jpas = (*Ba).TI[Info(P)].B.Jpas + 5;
                         }
                     }
-                    if(jns = 'V'){
+                    else{
                         if((*Ba).TI[Info(P)].B.Jpas <= (AC.V[lvl].M-5)){
                             (*Ba).TI[Info(P)].B.Jpas = (*Ba).TI[Info(P)].B.Jpas + 5;
                         }
                     }
                    P = Next(P);
                 }
+                printf("Instant Reinforcment Aktif\n");
 
         }
 void Barrage (Player Pe, BangunanTot *Ba)
@@ -233,8 +236,12 @@ void GetSkill(Player *CurrentPlayer, Player *OpposingPlayer,Status PrevCurPlayer
         if(PrevCurPlayer.XtraTurn == false && AfterCurPlayer.XtraTurn == true){
             AddQ(&(*OpposingPlayer).skillQueue,5);
         }
-
-        //Instant Force
+        //Barrage
+        if(AfterCurPlayer.JumlahBangunan == 10 && PrevCurPlayer.JumlahBangunan == 9){
+            AddQ(&(*CurrentPlayer).skillQueue,7);
+        }
+}
+void GetSkillIR(Player *CurrentPlayer, Status AfterCurPlayer){
         address P;
         P = First((*CurrentPlayer).bangunanPlayer);
         boolean Check;
@@ -248,19 +255,8 @@ void GetSkill(Player *CurrentPlayer, Player *OpposingPlayer,Status PrevCurPlayer
         if(Check == true){
             AddQ(&(*CurrentPlayer).skillQueue,6);
         }
-        //Barrage
-        if(AfterCurPlayer.JumlahBangunan == 10 && PrevCurPlayer.JumlahBangunan == 9){
-            AddQ(&(*CurrentPlayer).skillQueue,7);
-        }
+}
 
-
-
-
-        else
-        {
-            printf("hello\n");
-        }
-    }
 
 void InisialisasiQueue (Player *Pe, Player *Pm)
 {

@@ -49,7 +49,7 @@ void GetSkill(Player *CurrentPlayer, Player *OpposingPlayer,Status PrevCurPlayer
 
 void IntToSkill(int SkillKe, Player *Pe, Player *Pm,  BangunanTot *Ba);
     /* mengubah keluaran di queue ke skill */
-
+void GetSkillIR(Player *CurrentPlayer, Status AfterCurPlayer);
 void Sebelum(Player CurrentPlayer,Player OppsingPlayer, Status *StCurPlyr,Status *StOpsPlyr, BangunanTot Ba);
 
 void Sesudah(Player CurrentPlayer,Player OppsingPlayer, Status *StCurPlyr,Status *StOpsPlyr, BangunanTot Ba);
