@@ -13,6 +13,8 @@ typedef struct {
     boolean XtraTurn;
 } Status;
 
+void InisialisasiStatus(Status *S);
+
 void InisialisasiQueue(Player *Pe, Player *Pm);
 
 void InstantUpgrade (Player Pe, BangunanTot *Ba);
@@ -28,7 +30,7 @@ void Shield (Player *Pe); //Bonus
 void ExtraTurn (Player *Pe);
     /*setelah pengaktifan skill ini berakhir, pemain selanjutnya tetap pemain yang sama*/
 
-void AttackUp( Player *Pe, BangunanTot Ba); //Bonus
+void AttackUp( Player *Pe); //Bonus
  /*Jika pemain mengaktifkan skill ini, maka pertahanan lawan tidak akan mempengaruhi penyerangan.
     Syarat: Pemain baru saja melakukan penyerangan ke tower lawan dan tower pemain menjadi berjumlah 3 */
 void CriticalHit (Player *Pe); //Bonus
@@ -45,7 +47,7 @@ void GetSkill(Player *CurrentPlayer, Player *OpposingPlayer,Status PrevCurPlayer
         maka skill tersbut akan di addlast queue */
 
 
-void IntToSkill(int SkillKe, Player *Pe, ACUAN *Semi,  BangunanTot *Ba);
+void IntToSkill(int SkillKe, Player *Pe, Player *Pm,  BangunanTot *Ba);
     /* mengubah keluaran di queue ke skill */
 
 void Sebelum(Player CurrentPlayer,Player OppsingPlayer, Status *StCurPlyr,Status *StOpsPlyr, BangunanTot Ba);

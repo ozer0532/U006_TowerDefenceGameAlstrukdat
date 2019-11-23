@@ -129,8 +129,34 @@ void PrintStatus(STATE S, Player * Pe) {
     printpeta(S);
     printf("Player %d\n", Pe -> playerKe);
     CetakDaftarBangunan(S.listbtot, *Pe, &bol);
-    printf("Skill Available: <NOT IMPLEMENTED>\n");
-}
+    printf("Skill Available: ");
+    int SkillKe=(*Pe).skillQueue.HEAD;
+    
+    if (SkillKe==1) {
+        printf("Instant Upgrade\n");
+    }
+    else if(SkillKe == 2){
+        printf("Shield\n");
+    }
+    else if(SkillKe == 3){
+        printf("Extra Turn\n");
+    }
+    else if(SkillKe == 4){
+        printf("Attack Up\n");
+    }
+    else if(SkillKe == 5){
+        printf("Critical Hit\n");
+    }
+    else if(SkillKe == 6){
+        printf("Instant Reinforcement\n");
+    }
+    else if(SkillKe == 7){
+        printf("Barrage\n");
+    }
+    else {
+        printf("Tidak ada Skill\n");
+    }
+    }
 
 int main()
 {
@@ -180,6 +206,7 @@ int main()
         Status AfterCurPlayer;
         Status PrevOpsPlayer;
         Status AfterOpsPlayer;
+
         STATE S;
         Stack stackofstate;
         CreateEmpty(&stackofstate);
@@ -216,6 +243,13 @@ int main()
         } else {
             LoadFile(&S);
             InisialisasiQueue(currentPlayer,opposingPlayer);
+            AddQ(&(*currentPlayer).skillQueue,1);
+            AddQ(&(*currentPlayer).skillQueue,1);
+            AddQ(&(*currentPlayer).skillQueue,7);
+            InisialisasiStatus(&PrevCurPlayer);
+            InisialisasiStatus(&PrevOpsPlayer);
+            InisialisasiStatus(&AfterCurPlayer);
+            InisialisasiStatus(&AfterOpsPlayer);
         }
         /* ALOKASI KONDISI AWAL PERMAINAN */
         /*  - Masukin data konfigurasi ke peta */
@@ -233,16 +267,13 @@ int main()
             if (IsKataSama(CKata, Attk)) /* command == "ATTACK" */
             {
                   strcpy(S.lastaction,"ATTACK");
-                 // Sebelum(*currentPlayer, *opposingPlayer, &PrevCurPlayer, &PrevOpsPlayer,S.listbtot);
+                  int j;
+                  j = Info(First((*currentPlayer).bangunanPlayer));
+                  Sebelum(*currentPlayer, *opposingPlayer, &PrevCurPlayer, &PrevOpsPlayer,S.listbtot);
                   booleanAttackUp=false;
                   Attack(S.Hubungan, &(S), currentPlayer, opposingPlayer, &Tab, booleanAttackUp);
-                  //Sesudah(*currentPlayer, *opposingPlayer, &AfterCurPlayer, &AfterOpsPlayer,S.listbtot);
-<<<<<<< HEAD
-                 // GetSkill(currentPlayer,opposingPlayer,PrevCurPlayer,PrevOpsPlayer,AfterCurPlayer,AfterOpsPlayer);
-
-=======
+                  Sesudah(*currentPlayer, *opposingPlayer, &AfterCurPlayer, &AfterOpsPlayer,S.listbtot);
                   GetSkill(currentPlayer,opposingPlayer,PrevCurPlayer,PrevOpsPlayer,AfterCurPlayer,AfterOpsPlayer);
->>>>>>> 742a0e78932c3d2a0745e28d3a7d3f14c8d815bd
             }
 
             if (IsKataSama(CKata, Lvup)) /* command == "LEVEL_UP" */
@@ -254,11 +285,10 @@ int main()
             if (IsKataSama(CKata, Skll)) /* command == "SKILL" */
             {
                   int skl;
-                  ACUAN Semi;
                   if(!IsEmptyQ((*currentPlayer).skillQueue)){
                   DelQ(&(*currentPlayer).skillQueue,&skl);
                   printf("%d\n", skl);
-                  IntToSkill(skl,currentPlayer,&Semi,&S.listbtot);
+                  IntToSkill(skl,currentPlayer,opposingPlayer,&S.listbtot);
                   }else{
                       printf("Nggaa ADA SKILL ASU!!\n");
                   }
@@ -286,6 +316,7 @@ int main()
                         opposingPlayer = &S.P2;
                     }
                 }
+                (*currentPlayer).extraTurn = false;
                 
                 Dealokasiarr(&Tab);
                 MakeEmptyarr(&Tab); //Inisialisasi flag attack

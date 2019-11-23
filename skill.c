@@ -2,6 +2,13 @@
 #include <stdio.h>
 #include "attack.h"
 
+void InisialisasiStatus(Status *S) {
+    (*S).JumlahBangunan=0;
+    MakeEmptyBangunanTot(&(*S).LevelBangunan);
+    (*S).JumlahFort=0;
+    (*S).JumlahTower=0;
+    (*S).XtraTurn =false;
+}
 
 void InstantUpgrade (Player Pe, BangunanTot *Ba)
     /* Pemain mendapatkan skill ini pada skill awal
@@ -11,43 +18,22 @@ void InstantUpgrade (Player Pe, BangunanTot *Ba)
     address P;
     P = First(Pe.bangunanPlayer);
     while(P != Nil){
+        if((*Ba).TI[Info(P)].B.Level <4){
         (*Ba).TI[Info(P)].B.Level+=1;
+        }
         P = Next(P);
     }
-  
-
 }
 void Shield (Player *Pe){ 
     (*Pe).shieldCooldown = 2;
 }
-void ShieldSkill (Player Pe, BangunanTot Ba, ACUAN *Semi) //Bonus
-    /*Seluruh bangunan yang dimiliki pemain akan memiliki pertahanan selama 2 turn
-        apabila pemain menggunakan skill ini 2 kali beturut-turut durasi tidak akan bertamabah, namun menjadi nilai maksimum    */
-{
-    address P;
 
-    P = First(Pe.bangunanPlayer);
-    char Jns;
-    char Lvl;
-    while(P != Nil){
-       Jns =  Ba.TI[Info(P)].B.Jenis;
-       Lvl = Ba.TI[Info(P)].B.Level;
-        if(Jns == 'C'){ (*Semi).C[Lvl].P = 1;}
-        if(Jns == 'T'){(*Semi).T[Lvl].P = 1;}
-        if(Jns == 'F'){(*Semi).F[Lvl].P = 1;}
-        if(Jns == 'V'){(*Semi).F[Lvl].P = 1;}
-        P = Next(P);
-
-    }
-
-
-}
 void ExtraTurn (Player *Pe)
     /*setelah pengaktifan skill ini berakhir, pemain selanjutnya tetap pemain yang sama*/
 {
     (*Pe).extraTurn = true;
 }
-void AttackUp( Player *Pe, BangunanTot Ba) //Bonus
+void AttackUp( Player *Pe) //Bonus
  /*Jika pemain mengaktifkan skill ini, maka pertahanan lawan tidak akan mempengaruhi penyerangan.
     Syarat: Pemain baru saja melakukan penyerangan ke tower lawan dan tower pemain menjadi berjumlah 3 */
     {
@@ -63,15 +49,37 @@ void InstantReinforcement(Player Pe, BangunanTot *Ba)
     /* Syarat : Diakhir gilirannya, bila semua bangunan yang ia miliki memiliki level 4
         F.S: Seluruh bangunan yang ia miliki bertambah 5 pasukannya*/
         {
-            int count = 0;
+            ACUAN AC;
+            Inisialisasi(&AC);
+            int lvl;
+            char jns;
             address P;
                 P = First(Pe.bangunanPlayer);
                 while(P != Nil){
-                    (*Ba).TI[Info(P)].B.Jpas = (*Ba).TI[Info(P)].B.Jpas + 5;
+                    lvl = (*Ba).TI[Info(P)].B.Level;
+                    jns = (*Ba).TI[Info(P)].B.Jenis;
+                    if(jns = 'C'){
+                        if((*Ba).TI[Info(P)].B.Jpas <= (AC.C[lvl].M - 5)){
+                            (*Ba).TI[Info(P)].B.Jpas = (*Ba).TI[Info(P)].B.Jpas + 5;
+                        }
+                    }
+                    if(jns = 'T'){
+                        if((*Ba).TI[Info(P)].B.Jpas <= (AC.T[lvl].M-5)){
+                            (*Ba).TI[Info(P)].B.Jpas = (*Ba).TI[Info(P)].B.Jpas + 5;
+                        }
+                    }
+                    if(jns = 'F'){
+                        if((*Ba).TI[Info(P)].B.Jpas <= (AC.F[lvl].M-5)){
+                            (*Ba).TI[Info(P)].B.Jpas = (*Ba).TI[Info(P)].B.Jpas + 5;
+                        }
+                    }
+                    if(jns = 'V'){
+                        if((*Ba).TI[Info(P)].B.Jpas <= (AC.V[lvl].M-5)){
+                            (*Ba).TI[Info(P)].B.Jpas = (*Ba).TI[Info(P)].B.Jpas + 5;
+                        }
+                    }
                    P = Next(P);
-                   count +=1;
                 }
-                printf("count: %d\n", count);
 
         }
 void Barrage (Player Pe, BangunanTot *Ba)
@@ -81,11 +89,13 @@ void Barrage (Player Pe, BangunanTot *Ba)
             address P;
                 P = First(Pe.bangunanPlayer);
                 while(P != Nil){
+                    if((*Ba).TI[Info(P)].B.Jpas >= 10){
                     (*Ba).TI[Info(P)].B.Jpas -= 10;
+                    }
                     P = Next(P);
                 }
         }
-void IntToSkill(int SkillKe, Player *Pe, ACUAN *Semi,  BangunanTot *Ba){
+void IntToSkill(int SkillKe, Player *Pe,Player *Pm,  BangunanTot *Ba){
     if(SkillKe == 1){
         InstantUpgrade(*Pe, Ba);
     }
@@ -96,7 +106,7 @@ void IntToSkill(int SkillKe, Player *Pe, ACUAN *Semi,  BangunanTot *Ba){
         ExtraTurn(Pe);
     }
     if(SkillKe == 4){
-        AttackUp(Pe, *Ba);
+        AttackUp(Pe);
     }
     if(SkillKe == 5){
         CriticalHit(Pe);
@@ -105,63 +115,15 @@ void IntToSkill(int SkillKe, Player *Pe, ACUAN *Semi,  BangunanTot *Ba){
         InstantReinforcement(*Pe, Ba);
     }
     if(SkillKe == 7){
-        Barrage(*Pe, Ba);
+        Barrage(*Pm, Ba);
     }
 }
 
 void Sebelum(Player CurrentPlayer,Player OppsingPlayer, Status *StCurPlyr,Status *StOpsPlyr, BangunanTot Ba){
     /*KAMUS*/
-    address PCurL;
-    address POpsL;
-    address PCurF;
-    address POpsF;
-    address PCurT;
-    address POpsT;
-
-    /*ALGORITMA*/
-
-    (*StCurPlyr).JumlahBangunan = NbElmtL(CurrentPlayer.bangunanPlayer);
-    (*StOpsPlyr).JumlahBangunan = NbElmtL(OppsingPlayer.bangunanPlayer);
-    if(!IsEmptyL(CurrentPlayer.bangunanPlayer)){
-    PCurL = First(CurrentPlayer.bangunanPlayer);
-    POpsL = First(OppsingPlayer.bangunanPlayer);
-    while(POpsL != Nil){
-        (*StOpsPlyr).LevelBangunan.TI[Info(POpsL)].B.Level = Ba.TI[Info(POpsL)].B.Level;
-        POpsL = Next(POpsL);
-    }
-    }
-    if(!IsEmptyL(OppsingPlayer.bangunanPlayer)){
-    PCurF = First(CurrentPlayer.bangunanPlayer);
-    POpsL = First(OppsingPlayer.bangunanPlayer);
-    (*StOpsPlyr).JumlahFort = 0;
-    while(POpsF != Nil){
-        if(Ba.TI[Info(POpsF)].B.Jenis == 'F'){
-            (*StOpsPlyr).JumlahFort += 1;
-        }
-        POpsF = Next(POpsF);
-    }
-    }
-    if(!IsEmptyL(OppsingPlayer.bangunanPlayer)){
-    PCurT = First(CurrentPlayer.bangunanPlayer);
-    POpsT = First(OppsingPlayer.bangunanPlayer);
-    (*StOpsPlyr).JumlahTower =0;
-    while(POpsT != Nil){
-        if(Ba.TI[Info(POpsT)].B.Jenis == 'T'){
-            (*StOpsPlyr).JumlahTower += 1;
-        }
-        POpsT = Next(POpsT);
-    }
-    }
-    (*StCurPlyr).XtraTurn = CurrentPlayer.extraTurn;
-    
-
-    
-    
-}
-void Sesudah (Player CurrentPlayer,Player OppsingPlayer, Status *StCurPlyr,Status *StOpsPlyr, BangunanTot Ba){
-    /*KAMUS*/
     address PCur;
     address POps;
+
 
     /*ALGORITMA*/
 
@@ -170,22 +132,83 @@ void Sesudah (Player CurrentPlayer,Player OppsingPlayer, Status *StCurPlyr,Statu
 
     PCur = First(CurrentPlayer.bangunanPlayer);
     POps = First(OppsingPlayer.bangunanPlayer);
-    while(POps != Nil){
-        (*StOpsPlyr).LevelBangunan.TI[Info(POps)].B.Level = Ba.TI[Info(POps)].B.Level;
-        POps = Next(POps);
+    
+    if (POps == Nil ) {
+         (*StOpsPlyr).LevelBangunan.TI[Info(POps)].B.Level=1;
+         (*StOpsPlyr).JumlahTower =0;
+        (*StOpsPlyr).JumlahFort = 0;
     }
-    (*StOpsPlyr).JumlahFort = 0;
     while(POps != Nil){
         if(Ba.TI[Info(POps)].B.Jenis == 'F'){
             (*StOpsPlyr).JumlahFort += 1;
         }
-        POps = Next(POps);
-    }
-    while(POps != Nil){
         if(Ba.TI[Info(POps)].B.Jenis == 'T'){
             (*StOpsPlyr).JumlahTower += 1;
         }
+        (*StOpsPlyr).LevelBangunan.TI[Info(POps)].B.Level = Ba.TI[Info(POps)].B.Level;
         POps = Next(POps);
+    }
+    if(PCur == Nil){
+        (*StCurPlyr).LevelBangunan.TI[Info(POps)].B.Level=1;
+        (*StCurPlyr).JumlahTower =0;
+        (*StCurPlyr).JumlahFort = 0;
+    }
+    while(PCur != Nil){
+        if(Ba.TI[Info(PCur)].B.Jenis == 'F'){
+            (*StCurPlyr).JumlahFort += 1;
+        }
+        if(Ba.TI[Info(PCur)].B.Jenis == 'T'){
+            (*StCurPlyr).JumlahTower += 1;
+        }
+        (*StCurPlyr).LevelBangunan.TI[Info(PCur)].B.Level = Ba.TI[Info(PCur)].B.Level;
+        PCur = Next(PCur);
+    }
+    (*StCurPlyr).XtraTurn = CurrentPlayer.extraTurn;
+    
+}
+void Sesudah (Player CurrentPlayer,Player OppsingPlayer, Status *StCurPlyr,Status *StOpsPlyr, BangunanTot Ba){
+    /*KAMUS*/
+    address PCur;
+    address POps;
+
+
+    /*ALGORITMA*/
+
+    (*StCurPlyr).JumlahBangunan = NbElmtL(CurrentPlayer.bangunanPlayer);
+    (*StOpsPlyr).JumlahBangunan = NbElmtL(OppsingPlayer.bangunanPlayer);
+
+    PCur = First(CurrentPlayer.bangunanPlayer);
+    POps = First(OppsingPlayer.bangunanPlayer);
+    
+    if (POps == Nil ) {
+         (*StOpsPlyr).LevelBangunan.TI[Info(POps)].B.Level=1;
+         (*StOpsPlyr).JumlahTower =0;
+        (*StOpsPlyr).JumlahFort = 0;
+    }
+    while(POps != Nil){
+        if(Ba.TI[Info(POps)].B.Jenis == 'F'){
+            (*StOpsPlyr).JumlahFort += 1;
+        }
+        if(Ba.TI[Info(POps)].B.Jenis == 'T'){
+            (*StOpsPlyr).JumlahTower += 1;
+        }
+        (*StOpsPlyr).LevelBangunan.TI[Info(POps)].B.Level = Ba.TI[Info(POps)].B.Level;
+        POps = Next(POps);
+    }
+    if(PCur == Nil){
+        (*StCurPlyr).LevelBangunan.TI[Info(POps)].B.Level=1;
+        (*StCurPlyr).JumlahTower =0;
+        (*StCurPlyr).JumlahFort = 0;
+    }
+    while(PCur != Nil){
+        if(Ba.TI[Info(PCur)].B.Jenis == 'F'){
+            (*StCurPlyr).JumlahFort += 1;
+        }
+        if(Ba.TI[Info(PCur)].B.Jenis == 'T'){
+            (*StCurPlyr).JumlahTower += 1;
+        }
+        (*StCurPlyr).LevelBangunan.TI[Info(PCur)].B.Level = Ba.TI[Info(PCur)].B.Level;
+        PCur = Next(PCur);
     }
     (*StCurPlyr).XtraTurn = CurrentPlayer.extraTurn;
 }
@@ -193,11 +216,6 @@ void GetSkill(Player *CurrentPlayer, Player *OpposingPlayer,Status PrevCurPlayer
     /*Kalo mengecek syarat - syarat untuk mendapatkan skill, kalo memenuhi syarat maka skill akan di add
         ke queue. kalol tidak mememnnuhi maka diabaikan. Untuk mengecek syarat - syaratnya menggunakan prosedur 
         sebelum sama sesudah */ 
-        //Status PrevCurPlayer;
-        //Status AfterCurPlayer;
-        //Status PrevOpsPlayer;
-        //Status AfterOpsPlayer;
-        // Algoritma mendapatkan skill
 
         //shield
         if(AfterOpsPlayer.JumlahBangunan == 2 && PrevOpsPlayer.JumlahBangunan ==3){
@@ -234,11 +252,7 @@ void GetSkill(Player *CurrentPlayer, Player *OpposingPlayer,Status PrevCurPlayer
         if(AfterCurPlayer.JumlahBangunan == 10 && PrevCurPlayer.JumlahBangunan == 9){
             AddQ(&(*CurrentPlayer).skillQueue,7);
         }
-        else
-        {
-            printf("hello\n");
-        }
-        
+
 
 
 
