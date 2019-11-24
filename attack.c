@@ -112,7 +112,8 @@ void AddToLPemain (Player *Pe, Player *Pm, STATE *T,  IdxType Idx, int JPasNetto
         PP=AlokasiL(Idx);
         (*T).listbtot.TI[Idx].P = PP;
         ResetBANGUNAN(&((*T).listbtot.TI[Idx].B),JPasNetto,(*Pe).playerKe);
-        
+        (*T).peta.Mem[(*T).listbtot.TI[Idx].B.Lok.X][(*T).listbtot.TI[Idx].B.Lok.Y].p=(*Pe).playerKe;
+
 
         //InsertLastL(&La,PP);
         InsVLastL(&(*Pe).bangunanPlayer,Idx);
@@ -123,6 +124,7 @@ void AddToLPemain (Player *Pe, Player *Pm, STATE *T,  IdxType Idx, int JPasNetto
     {
         PP=SearchL((*Pm).bangunanPlayer,Idx);
         ResetBANGUNAN(&(*T).listbtot.TI[Idx].B,JPasNetto,(*Pe).playerKe);
+        (*T).peta.Mem[(*T).listbtot.TI[Idx].B.Lok.X][(*T).listbtot.TI[Idx].B.Lok.Y].p=(*Pe).playerKe;
         InsVLastL(&(*Pe).bangunanPlayer,Idx);
         Del1Urut(&(*T).listbtot,PP,Idx,JPasNetto,(*Pe).playerKe);
         DelPL(&(*Pm).bangunanPlayer,Idx);
@@ -417,6 +419,14 @@ void Attack(Graph G, STATE *T, Player *Pe,  Player *Pm, TabInt *Tab, boolean Att
         if ((First((*Pe).bangunanPlayer))!=Nil) {
             scanf("%d",&N);
 
+            
+        //Validasi inputan pengguna
+        while (N<=0 || N>NbElmtL((*Pe).bangunanPlayer)) {
+            printf("Inputan kamu salah\n");
+            printf("Bangunan yang digunakan untuk menyerang: ");
+            scanf("%d",&N);
+        }
+
         P = First((*Pe).bangunanPlayer);
         int i = 1;
         while (i < N && P != Nil) {
@@ -468,34 +478,38 @@ void Attack(Graph G, STATE *T, Player *Pe,  Player *Pm, TabInt *Tab, boolean Att
                 printf("Bangunan yang diserang: ");
                 scanf("%d",&M);
                 int j;
-                if (M<=0 && M>no) {
+                
+                //Validasi inputan pengguna
+                while (M<=0 || M>=no) {
                     printf("Masukkan input salah\n");
+                    printf("Bangunan yang diserang: ");
+                    scanf("%d",&M);
                 }
-                else {
-                    j=1;
-                    while(j<=A.Neff && M!=0) {
-                        if (A.TI[j]!=0 && (*T).listbtot.TI[A.TI[j]].B.Milik!=(*Pe).playerKe) {
-                            M=M-1;
-                        }
-                        if (M!=0){
-                            j++;
-                        }
-                    }
 
+                j=1;
+                while(j<=A.Neff && M!=0) {
+                    if (A.TI[j]!=0 && (*T).listbtot.TI[A.TI[j]].B.Milik!=(*Pe).playerKe) {
+                        M=M-1;
+                    }
+                    if (M!=0){
+                        j++;
+                    }
+                }
+
+                printf("Jumlah pasukan: ");
+                scanf("%d",&Pas);
+
+                //Check apakah jumlah pasukan valid atau tidak
+                while ((*T).listbtot.TI[Info(P)].B.Jpas < Pas || Pas<0){
+                    printf("Masukan jumlah pasukan salah ~~\n");
                     printf("Jumlah pasukan: ");
                     scanf("%d",&Pas);
-
-                    //Check apakah jumlah pasukan valid atau tidak
-                    while ((*T).listbtot.TI[Info(P)].B.Jpas < Pas || Pas<0){
-                        printf("Masukan jumlah pasukan salah ~~\n");
-                        printf("Jumlah pasukan: ");
-                        scanf("%d",&Pas);
-                    }
-            
-                    MakeBangunanPemain(Pe,Pm,T,A.TI[j],Pas,AttackUp);
-                    (*T).listbtot.TI[Info(P)].B.Jpas -= Pas;
-                    AddAsLastElarr(Tab,N);
                 }
+        
+                MakeBangunanPemain(Pe,Pm,T,A.TI[j],Pas,AttackUp);
+                (*T).listbtot.TI[Info(P)].B.Jpas -= Pas;
+                AddAsLastElarr(Tab,N);
+                
         }
     }
     else {
