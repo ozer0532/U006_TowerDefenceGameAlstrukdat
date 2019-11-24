@@ -59,4 +59,6 @@ void Sebelum(Player CurrentPlayer,Player OppsingPlayer, Status *StCurPlyr,Status
 void Sesudah(Player CurrentPlayer,Player OppsingPlayer, Status *StCurPlyr,Status *StOpsPlyr, BangunanTot Ba);
 /* prosedur ini digunakan untuk mengecek kondisi pemain setelah meakukan attack atau command lain */
  
+void skillOff (Player *Pe);
+// Mengnonaktifkan skill setiap end turn /*
 #endif

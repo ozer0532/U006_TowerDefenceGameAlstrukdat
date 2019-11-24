@@ -304,6 +304,22 @@ void InisialisasiQueue (Player *Pe, Player *Pm){
     AddQ(&(*Pe).skillQueue,1);
     AddQ(&(*Pm).skillQueue,1);
 }
+void skillOff (Player *Pe){
+// Mengnonaktifkan skill setiap end turn /*
+if((*Pe).extraTurn == true){
+    if((*Pe).AttackUp == true){ //mengnon aktifak attack up
+        (*Pe).AttackUp = false;
+    }
+    if((*Pe).CriticalHit == true){
+        (*Pe).CriticalHit = false;
+    }
+}
+else{
+    if((*Pe).shieldCooldown >= 0){
+        (*Pe).shieldCooldown -= 1;
+    }
+}
+}
 
 
 
