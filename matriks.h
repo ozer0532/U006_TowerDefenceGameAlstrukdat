@@ -27,6 +27,24 @@ typedef struct {
 /* Memori matriks yang dipakai selalu di "ujung kiri atas" */
 
 
+/* *** Selektor *** */
+#define NBrsEff(M) (M).NBrsEff
+#define NKolEff(M) (M).NKolEff
+#define Elm(M,i,j) (M).Mem[i][j]
+
+/* *** Selektor "DUNIA MATRIKS" *** */
+boolean IsIdxValidM (int i, int j);
+/* Mengirimkan true jika i, j adalah indeks yang valid untuk matriks apa pun */
+
+/* *** Selektor: Untuk sebuah matriks M yang terdefinisi: *** */
+int GetFirstIdxBrsM (MATRIKS M);
+/* Mengirimkan indeks baris terkecil M */
+int GetFirstIdxKolM (MATRIKS M);
+/* Mengirimkan indeks kolom terkecil M */
+int GetLastIdxBrsM (MATRIKS M);
+/* Mengirimkan indeks baris terbesar M */
+int GetLastIdxKolM (MATRIKS M);
+/* Mengirimkan indeks kolom terbesar M */
 
 /* ********** DEFINISI PROTOTIPE PRIMITIF ********** */
 /* *** Konstruktor membentuk MATRIKS *** */
@@ -36,5 +54,11 @@ void MakeMATRIKS (int NB, int NK, MATRIKS * M);
 /* F.S. Matriks M sesuai dengan definisi di atas terbentuk */
 
 /* ********** Operasi lain ********** */
+
+/* ********** Assignment  MATRIKS ********** */
+void CopyMATRIKS (MATRIKS MIn, MATRIKS * MHsl);
+/* Melakukan assignment MHsl  MIn */
+
+
 
 #endif

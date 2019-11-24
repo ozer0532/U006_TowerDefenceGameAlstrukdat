@@ -6,7 +6,7 @@
 #define stackt_H
 
 #include "boolean.h"
-#include "state.h"
+#include "STATE.h"
 #include <stdio.h>
 
 #define NilST 0

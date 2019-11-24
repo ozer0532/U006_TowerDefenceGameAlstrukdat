@@ -6,6 +6,7 @@
         "stackt.h": "c",
         "player.h": "c",
         "string.h": "c",
-        "move.h": "c"
+        "move.h": "c",
+        "stdio.h": "c"
     }
 }

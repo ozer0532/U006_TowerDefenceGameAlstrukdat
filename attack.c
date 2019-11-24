@@ -21,16 +21,6 @@ void MakeEmptyarr (TabInt * T)
     (*T).Neff=0;
 }
 
-address AlokasiLTambahBangunan (BangunanTot *B, IdxType Index)
-//Saat ingin Alokasi / Buat List Liniear
-//F.S address di BangunanTOt sudah terisi oleh address dari Alokasi Index di List Linier
-{
-    address Pe;
-    Pe=AlokasiL(Index);
-    (*B).TI[Index].P = Pe;
-    return (Pe);
-}
-
 void AddAsLastElarr (TabInt * T, int X)
 /* Proses: Menambahkan X sebagai elemen terakhir tabel */
 /* I.S. Tabel T boleh kosong, tetapi tidak penuh */
@@ -99,6 +89,16 @@ boolean Searcharr (TabInt T, int X)
         return false;
     }
 }
+address AlokasiLTambahBangunan (BangunanTot *B, IdxType Index)
+//Saat ingin Alokasi / Buat List Liniear
+//F.S address di BangunanTOt sudah terisi oleh address dari Alokasi Index di List Linier
+{
+    address Pe;
+    Pe=AlokasiL(Index);
+    (*B).TI[Index].P = Pe;
+    return (Pe);
+}
+
 
 void AddToLPemain (Player *Pe, Player *Pm, STATE *T,  IdxType Idx, int JPasNetto)
 //Membuat Bangunan menjadi berubah kepemilikan
@@ -158,7 +158,7 @@ void MakeBangunanPemain (Player *Pe, Player *Pm, STATE *T,  IdxType Idx, int Jml
     //Saat Belum dikuasai siapa2. Maka Minimal yang harus diserang adalah Sebanyak U
     //Jika Jumlahnya lebih dari diserang
 
-    if (IsAdaPertahanan((*T).listbtot.TI[Idx].B) && (*Pm).shieldCooldown != 0)
+    if (IsAdaPertahanan((*T).listbtot.TI[Idx].B) || (*Pm).shieldCooldown != 0)
     {
         
         if ((*T).listbtot.TI[Idx].B.Milik==0) //Kalau Bangunannya belom dikuasai siapa2
@@ -437,6 +437,9 @@ void Attack(Graph G, STATE *T, Player *Pe,  Player *Pm, TabInt *Tab, boolean Att
                             no++;
                         }
                     }
+                        
+                
+                
                 
                 printf("Bangunan yang diserang: ");
                 scanf("%d",&M);

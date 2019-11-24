@@ -1,8 +1,8 @@
 #include "graph.h"
+#include <stdio.h>
 
 int main(){
-    Graph G;
-    CreateEmptyGraph(&G);
+    Graph G= CreateEmptyGraph();
     AddRelation(&G,1,2);
     AddRelation(&G,2,3);
     AddRelation(&G,2,4);
@@ -20,7 +20,7 @@ int main(){
             printf("%d ",GN->info);
             GN = Next(GN);
         }
-        fprintf("!\n");
+        printf("\n");
         GG = Next(GG);
     }
 }
