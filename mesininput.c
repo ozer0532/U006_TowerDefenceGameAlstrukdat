@@ -153,11 +153,12 @@ void LoadFile(STATE *s){
     Inisialisasi(&A);
     s->P1.playerKe = 1;
     s->P2.playerKe = 2;
+    makeemptypeta(s);
     STARTKATA();
     (*s).peta.NBrsEff = katatoint(CKata)+1;
     ADVKATA();
     (*s).peta.NKolEff = katatoint(CKata)+1;
-    makeemptypeta(s);
+    
     MakeEmptyBangunanTot(&(*s).listbtot);
     ADVKATA();
     (*s).JBang = katatoint(CKata);
