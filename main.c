@@ -236,14 +236,23 @@ int main()
         currentPlayer = &S.P1;
         opposingPlayer = &S.P2;
 
+        
+        printf("Masukkan menu : ");
         scanf("%d", &menu);
+
+        //Validasi
+        while ((menu<1) || (menu>2)) {
+            printf("inputan salah... Ulang lagi\n");
+            printf("Masukkan menu : ");
+            scanf("%d", &menu);
+        };
         if (menu == 2){
             LoadSafeFile(&S);
             InisialisasiStatus(&PrevCurPlayer);
             InisialisasiStatus(&PrevOpsPlayer);
             InisialisasiStatus(&AfterCurPlayer);
             InisialisasiStatus(&AfterOpsPlayer);
-        } else {
+        } else if (menu ==1){
             LoadFile(&S);
             InisialisasiQueue(currentPlayer,opposingPlayer);
             InisialisasiStatus(&PrevCurPlayer);
