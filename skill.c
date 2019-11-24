@@ -28,7 +28,7 @@ void InstantUpgrade (Player Pe, BangunanTot *Ba)
     printf("Level Bangunan Anda Diupgrade\n");
 }
 void Shield (Player *Pe){ 
-    (*Pe).shieldCooldown = 2;
+    (*Pe).shieldCooldown = 3; // ET P1 S = 2, ET P1 S = 1
     printf("Shield Anda Telah Aktif \n");
 }
 
