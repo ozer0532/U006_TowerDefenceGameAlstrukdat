@@ -158,7 +158,7 @@ void MakeBangunanPemain (Player *Pe, Player *Pm, STATE *T,  IdxType Idx, int Jml
     //Saat Belum dikuasai siapa2. Maka Minimal yang harus diserang adalah Sebanyak U
     //Jika Jumlahnya lebih dari diserang
 
-    if (IsAdaPertahanan((*T).listbtot.TI[Idx].B) && (*Pm).shieldCooldown >= 0)
+    if (IsAdaPertahanan((*T).listbtot.TI[Idx].B))
     {
         
         if ((*T).listbtot.TI[Idx].B.Milik==0) //Kalau Bangunannya belom dikuasai siapa2
@@ -306,29 +306,110 @@ void MakeBangunanPemain (Player *Pe, Player *Pm, STATE *T,  IdxType Idx, int Jml
          //Saat bangunan sudah dikuasasi Pemain yang laain
          else
          {
-            JHDiserang=(*T).listbtot.TI[Idx].B.Jpas;
-            if ( Jmlh>=JHDiserang)
-            {
-                 //Jika belom menyentuh nilai max
-                if (JumlahPasukanValid((*T).listbtot.TI[Idx].B, Jmlh-JHDiserang))
-                {
-                    AddToLPemain(Pe,Pm,T,Idx,Jmlh-JHDiserang);
-                    printf("Bangunan lawan menjadi milikmu. \n");
+            if((*Pm).shieldCooldown >= 0){
+                if((*Pe).CriticalHit == true){
+                    JHDiserang= (int)floor(((*T).listbtot.TI[Idx].B.Jpas)/2);
+                    if ( Jmlh>=JHDiserang)
+                    {
+                        //Jika belom menyentuh nilai max
+                        if (JumlahPasukanValid((*T).listbtot.TI[Idx].B, Jmlh-JHDiserang))
+                        {
+                            AddToLPemain(Pe,Pm,T,Idx,Jmlh-JHDiserang);
+                            printf("Bangunan lawan menjadi milikmu. \n");
+                        }
+                        
+                        //Jika sudah menyentuh nilai max
+                        else
+                        {
+                            AddToLPemain(Pe,Pm,T,Idx,CariDariAcuan(Ac,(*T).listbtot.TI[Idx].B.Jenis,(*T).listbtot.TI[Idx].B.Level,'M'));  
+                            printf("Bangunan lawan menjadi milikmu. \n");
+                        }
+                    }
+                    else
+                    {
+                        printf("Bangunan gagal direbut.\n");
+                        (*T).listbtot.TI[Idx].B.Jpas=JHDiserang- Jmlh;
+                        
+                    }
+
+                }else{
+                    JHDiserang=(*T).listbtot.TI[Idx].B.Jpas;
+                    if ( (int)floor(3/4)*Jmlh>=JHDiserang)
+                    {
+                        //Jika belom menyentuh nilai max
+                        if (JumlahPasukanValid((*T).listbtot.TI[Idx].B, (int)floor(3*Jmlh/4)-JHDiserang))
+                        {
+                            AddToLPemain(Pe,Pm,T,Idx,(int)floor(3*Jmlh/4)-JHDiserang);
+                            
+                            printf("Bangunan lawan menjadi milikmu. \n");
+                        }
+                        
+                        //Jika sudah menyentuh nilai max
+                        else
+                        {
+                            AddToLPemain(Pe,Pm,T,Idx,CariDariAcuan(Ac,(*T).listbtot.TI[Idx].B.Jenis,(*T).listbtot.TI[Idx].B.Level,'M'));
+                            printf("Bangunan lawan menjadi milikmu. \n");
+                        }
+                    }
+                    else
+                    {
+                        printf("Bangunan gagal direbut.\n");
+                        (*T).listbtot.TI[Idx].B.Jpas=JHDiserang- (int)floor(3*Jmlh/4);
+                        
+                    }
                 }
-                
-                //Jika sudah menyentuh nilai max
-                else
-                {
-                    AddToLPemain(Pe,Pm,T,Idx,CariDariAcuan(Ac,(*T).listbtot.TI[Idx].B.Jenis,(*T).listbtot.TI[Idx].B.Level,'M'));  
-                    printf("Bangunan lawan menjadi milikmu. \n");
+            }else{
+                if((*Pe).CriticalHit == true){
+                    JHDiserang= (int)floor(((*T).listbtot.TI[Idx].B.Jpas)/2);
+                    if ( Jmlh>=JHDiserang)
+                    {
+                        //Jika belom menyentuh nilai max
+                        if (JumlahPasukanValid((*T).listbtot.TI[Idx].B, Jmlh-JHDiserang))
+                        {
+                            AddToLPemain(Pe,Pm,T,Idx,Jmlh-JHDiserang);
+                            printf("Bangunan lawan menjadi milikmu. \n");
+                        }
+                        
+                        //Jika sudah menyentuh nilai max
+                        else
+                        {
+                            AddToLPemain(Pe,Pm,T,Idx,CariDariAcuan(Ac,(*T).listbtot.TI[Idx].B.Jenis,(*T).listbtot.TI[Idx].B.Level,'M'));  
+                            printf("Bangunan lawan menjadi milikmu. \n");
+                        }
+                    }
+                    else
+                    {
+                        printf("Bangunan gagal direbut.\n");
+                        (*T).listbtot.TI[Idx].B.Jpas=JHDiserang- Jmlh;
+                        
+                    }
+
+                }else{
+                    JHDiserang=(*T).listbtot.TI[Idx].B.Jpas;
+                    if ( Jmlh>=JHDiserang)
+                    {
+                        //Jika belom menyentuh nilai max
+                        if (JumlahPasukanValid((*T).listbtot.TI[Idx].B, Jmlh-JHDiserang))
+                        {
+                            AddToLPemain(Pe,Pm,T,Idx,Jmlh-JHDiserang);
+                            printf("Bangunan lawan menjadi milikmu. \n");
+                        }
+                        
+                        //Jika sudah menyentuh nilai max
+                        else
+                        {
+                            AddToLPemain(Pe,Pm,T,Idx,CariDariAcuan(Ac,(*T).listbtot.TI[Idx].B.Jenis,(*T).listbtot.TI[Idx].B.Level,'M'));  
+                            printf("Bangunan lawan menjadi milikmu. \n");
+                        }
+                    }
+                    else
+                    {
+                        printf("Bangunan gagal direbut.\n");
+                      
+                      (*T).listbtot.TI[Idx].B.Jpas=JHDiserang- Jmlh;
+                    }
                 }
-            }
-            else
-            {
-                printf("Bangunan gagal direbut.\n");
-                (*T).listbtot.TI[Idx].B.Jpas=JHDiserang- Jmlh;
-                
-            }
+             }
          }
     }   
 }
