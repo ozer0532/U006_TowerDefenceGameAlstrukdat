@@ -164,7 +164,7 @@ void MakeBangunanPemain (Player *Pe, Player *Pm, STATE *T,  IdxType Idx, int Jml
         
         if ((*T).listbtot.TI[Idx].B.Milik==0) //Kalau Bangunannya belom dikuasai siapa2
         {
-            JHDiserang=CariDariAcuan(Ac,(*T).listbtot.TI[Idx].B.Jenis,(*T).listbtot.TI[Idx].B.Level,'U');
+            JHDiserang=(*T).listbtot.TI[Idx].B.Jpas;
             if ( (int)floor((3*Jmlh/4))>=JHDiserang)
             {
                 
@@ -280,7 +280,7 @@ void MakeBangunanPemain (Player *Pe, Player *Pm, STATE *T,  IdxType Idx, int Jml
     {
         if ((*T).listbtot.TI[Idx].B.Milik==0) //Kalau Bangunannya belom dikuasai siapa2
         {
-            JHDiserang=CariDariAcuan(Ac,(*T).listbtot.TI[Idx].B.Jenis,(*T).listbtot.TI[Idx].B.Level,'U');
+            JHDiserang=(*T).listbtot.TI[Idx].B.Jpas;
             if ( Jmlh>=JHDiserang)
             {
                 //Jika belom menyentuh nilai max
