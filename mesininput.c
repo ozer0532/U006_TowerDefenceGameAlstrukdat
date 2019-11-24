@@ -30,8 +30,27 @@ void IgnoreBlank(){
 
 
 void STARTSTDKATA(){
-  /*UNTUK MEMBACA COMMAND DARI KEYBOARD*/
+/*UNTUK MEMBACA COMMAND DARI KEYBOARD*/
+/* I.S Pita kata terdefinisi */
+/* F.S Kata ENTER COMMAND inputan user terbaca dan terdefinisi */
     STARTSTD();
+    if (CC == MARK) EndKata = true;
+    else
+    {
+      EndKata = false;
+      SalinKata();
+    }
+}
+void STARTFILE()
+/* I.S. : CC sembarang
+   F.S. : EndKata = true, dan CC = MARK;
+          atau EndKata = false, CKata adalah kata yang sudah diakuisisi,
+          CC karakter pertama sesudah karakter terakhir kata */
+{
+  // KAMUS LOKAL
+
+  // ALGORITMA
+    STARTFILEKAR();
     if (CC == MARK) EndKata = true;
     else
     {
@@ -153,7 +172,7 @@ void LoadFile(STATE *s){
     Inisialisasi(&A);
     s->P1.playerKe = 1;
     s->P2.playerKe = 2;
-    STARTKATA();
+    STARTFILE();
     (*s).peta.NBrsEff = katatoint(CKata)+1;
     ADVKATA();
     (*s).peta.NKolEff = katatoint(CKata)+1;
@@ -327,6 +346,9 @@ void LoadSafeFile(STATE *s){
 
 
 void PrintState(STATE S){
+/* I.S State belom tercetak ke layar, State terdefinisi */
+/* F.S State sudah tercetak ke layar */
+/* Spesifikasi state : besar peta, bangunan, lokasi, dan milik */
   printf("besar peta %d x %d\n",S.peta.NBrsEff-2,S.peta.NKolEff-2);
   printf("ada %d bangunan : \n",S.JBang);
   for (int i = 1; i <=S.JBang; i++){

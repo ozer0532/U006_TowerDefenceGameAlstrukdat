@@ -1,7 +1,10 @@
 #include "player.h"
 
 void InitPlayer (Player * P) {
-    // KAMUS LOKAL
+/*I.S Player belom terdefinisi */
+/*F.S Player sudah terdefinisi / terinisialisasi */
+/* Proses : Inisialisasi dilakukan dengan create empty ListLinier, Queue*/
+/*          Selain itu membuant integer tipe bentukan menjadi 0 semua */
 
     // ALGORITMA
     CreateEmptyL(&(P -> bangunanPlayer));

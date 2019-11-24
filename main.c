@@ -342,12 +342,10 @@ int main()
             {
                 S.turn++;
                 Sesudah(*currentPlayer, *opposingPlayer, &AfterCurPlayer, &AfterOpsPlayer,S.listbtot);
-                int j,d;
+                int j;
                 j = Info(First((*currentPlayer).bangunanPlayer));
-                printf("Level: %d",AfterCurPlayer.LevelBangunan.TI[j].B.Level);
                 GetSkillIR(currentPlayer,AfterCurPlayer);
-                int SkillKe=(*currentPlayer).skillQueue.HEAD;
-                printf("Skill Ke: %d", SkillKe);
+                skillOff(currentPlayer);
                 AddJumlahPasukan(currentPlayer, &S.listbtot);
                 if (!(*currentPlayer).extraTurn)
                 {
