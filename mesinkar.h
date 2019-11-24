@@ -11,7 +11,7 @@
 extern char CC;
 extern boolean EOP;
 
-
+void STARTFILEKAR();
 void STARTSTD();
 void STARTLOAD(char filename[]);
 void START();

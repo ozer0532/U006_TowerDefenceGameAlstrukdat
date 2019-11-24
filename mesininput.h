@@ -22,6 +22,7 @@ extern boolean EndKata;
 extern Kata CKata;
 STATE LoadFiles();
 void IgnoreBlank();
+void STARTFILE();
 /* Mengabaikan satu atau beberapa BLANK
    I.S. : CC sembarang
    F.S. : CC ≠ BLANK atau CC = MARK */
