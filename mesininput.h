@@ -20,24 +20,35 @@ typedef struct {
 /* State Mesin Kata */
 extern boolean EndKata;
 extern Kata CKata;
-STATE LoadFiles();
+
 void IgnoreBlank();
 /* Mengabaikan satu atau beberapa BLANK
    I.S. : CC sembarang
    F.S. : CC ≠ BLANK atau CC = MARK */
 
-void BacaKata(Kata *K);
-
 void TulisKata(Kata K);
+  /*I.S K terdefinisi
+    F.S K dituliskan ke layar pengguna
+    MENULIS KATA, PEMAKAIAN LEBIH UNTUK DEBUGGING MESINKATA DKK*/
 
 void STARTKATA();
+/* I.S. : CC sembarang
+   F.S. : EndKata = true, dan CC = MARK;
+          atau EndKata = false, CKata adalah kata yang sudah diakuisisi,
+          CC karakter pertama sesudah karakter terakhir kata */
+
+
 void STARTKATALOAD();
+/*Proses membaca kata dari hasil LoadFile */
 /* I.S. : CC sembarang
    F.S. : EndKata = true, dan CC = MARK;
           atau EndKata = false, CKata adalah kata yang sudah diakuisisi,
           CC karakter pertama sesudah karakter terakhir kata */
 
 void STARTSTDKATA();
+/*UNTUK MEMBACA COMMAND DARI KEYBOARD*/
+/* I.S Pita kata terdefinisi */
+/* F.S Kata ENTER COMMAND inputan user terbaca dan terdefinisi */
 
 void ADVKATA();
 /* I.S. : CC adalah karakter pertama kata yang akan diakuisisi
@@ -59,11 +70,21 @@ void SalinKata();
 
 
 void SaveFile(STATE s, char nama[]);
-
+/*I.S s terdefinisi dan merupakan STATE di tengah permainan
+  F.S terbentuk file bernama nama[] yang berisi data dari s*/
 
 void LoadFile(STATE *s);
+/*I.S diminta nama file untuk di load
+  F.S dibuka pita untuk mengeload dan pita ditempatkan pada karakter pertama file tsb*/
+  
 
 void LoadSafeFile(STATE *s);
+/*I.S filename yang diminta di STARTKATALOAD() terisi hasil save
+  F.S s berisi data STATE permainan sesuai filename*/
 
 void PrintState(STATE S);
+/* I.S State belom tercetak ke layar, State terdefinisi */
+/* F.S State sudah tercetak ke layar */
+/* Spesifikasi state : besar peta, bangunan, lokasi, dan milik */
+
 #endif

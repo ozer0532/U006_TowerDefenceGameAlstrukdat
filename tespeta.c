@@ -5,10 +5,10 @@
 
 
 
-main(){
+int main(){
     STATE S;
     LoadFile(&S);
     PrintState(S);
     printpeta(S);
-
+    return 0;
 }
