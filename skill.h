@@ -63,4 +63,6 @@ void Sesudah(Player CurrentPlayer,Player OppsingPlayer, Status *StCurPlyr,Status
  
 void skillOff (Player *Pe);
 // Mengnonaktifkan skill setiap end turn /*
+void skillOffCH (Player *Pe);
+// mengnonaktifkan skill critical hit
 #endif
