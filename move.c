@@ -40,6 +40,9 @@ void move(STATE *s,Player *CP){
             P = Next(P);
         }
         printf ("Pilih Bangunan: "); scanf("%d",&num);
+        while (num >= no){
+            printf("Masukkan dengan benar : ");scanf("%d",&num);
+        }
         int indeks;
         address ch = (*CP).bangunanPlayer.First;
         while(--num) ch = Next(ch);
@@ -72,6 +75,9 @@ void move(STATE *s,Player *CP){
                 
                 int moveto;
                 printf("move to : ");scanf("%d",&moveto);
+                while(moveto > countally){
+                    printf("Masukkan nilai yang benar :");scanf("%d",&moveto);
+                }
                 addrCol add = NeighborsList(s->Hubungan,indeks);
                 while(moveto){
                     if(s->listbtot.TI[Info(add)].B.Milik == curpla) moveto--;
