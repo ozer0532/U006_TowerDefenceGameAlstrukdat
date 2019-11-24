@@ -30,7 +30,9 @@ void IgnoreBlank(){
 
 
 void STARTSTDKATA(){
-  /*UNTUK MEMBACA COMMAND DARI KEYBOARD*/
+/*UNTUK MEMBACA COMMAND DARI KEYBOARD*/
+/* I.S Pita kata terdefinisi */
+/* F.S Kata ENTER COMMAND inputan user terbaca dan terdefinisi */
     STARTSTD();
     if (CC == MARK) EndKata = true;
     else
@@ -344,6 +346,9 @@ void LoadSafeFile(STATE *s){
 
 
 void PrintState(STATE S){
+/* I.S State belom tercetak ke layar, State terdefinisi */
+/* F.S State sudah tercetak ke layar */
+/* Spesifikasi state : besar peta, bangunan, lokasi, dan milik */
   printf("besar peta %d x %d\n",S.peta.NBrsEff-2,S.peta.NKolEff-2);
   printf("ada %d bangunan : \n",S.JBang);
   for (int i = 1; i <=S.JBang; i++){

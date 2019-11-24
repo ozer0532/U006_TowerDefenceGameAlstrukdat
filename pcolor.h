@@ -21,8 +21,14 @@ We only provide 8 colors. Feel free to modify/add colors if you want to.
 #define CYAN "\x1B[36m"
 
 void print_red(char c);
+//Mencetak warna merah ke layar
 void print_green(char c);
+//Mencetak warna hijau ke layar
 void print_yellow(char c);
+//Mencetak  warna kuning ke layar
 void print_blue(char c);
+//Mencetak warna biru ke layar
 void print_magenta(char c);
+//Mencetak warna magenta ke layar
 void print_cyan(char c);
+//Mencetak warna cyan ke layar
