@@ -105,6 +105,10 @@ void MovePas(BangunanTot *T, Player *Pe)
 
 
 void AddJumlahPasukan(Player * Pe, BangunanTot * T) {
+// Menambah jumlah pasukkan
+// I.S Player terdefinisi
+// F.S Jumlah Pasukkan yang ada diinisialisasikan 
+
     // KAMUS LOKAL
     address P;
     ACUAN A;
@@ -124,6 +128,10 @@ void AddJumlahPasukan(Player * Pe, BangunanTot * T) {
 }
 
 void PrintStatus(STATE S, Player * Pe) {
+//Prosedur untuk mencetak status ke layar
+//I.S STATE harus sudah terdefinisi
+//F.S Status tercetak kelayar
+
     printf("\n\n\n\n\n");
     boolean(bol);
     printpeta(S);
@@ -160,7 +168,8 @@ void PrintStatus(STATE S, Player * Pe) {
 int main()
 {
     // KAMUS
-      /* Konstanta */
+      //Digunakan untuk membaca inputan user dalam command 
+      //Implementasi menggunakan mesin kata
         Kata Attk, Lvup, Skll, Exit, Undo, Endt, Save, Move;
         Lvup.TabKata[1] = 'L';  Endt.TabKata[1] = 'E';
         Lvup.TabKata[2] = 'E';  Endt.TabKata[2] = 'N';
@@ -208,7 +217,7 @@ int main()
 
         STATE S;
         Stack stackofstate;
-        CreateEmpty(&stackofstate);
+        CreateEmpty(&stackofstate);     //Inisialisasi stack
         Player * currentPlayer;
         Player * opposingPlayer;
 
@@ -238,7 +247,7 @@ int main()
         printf("Masukkan menu : ");
         scanf("%d", &menu);
 
-        //Validasi
+        //Validasi inputan menu
         while ((menu<1) || (menu>2)) {
             printf("inputan salah... Ulang lagi\n");
             printf("Masukkan menu : ");
@@ -265,24 +274,22 @@ int main()
         PrintStatus(S, currentPlayer);
         while (masihMain)
         {
-             //tiap awal giliran di push state permainan, jadi bisa undo kapan aja
-            //nanti juga tiap akhir suatu aksi, jadiin perubahan di STATE, dan entar state di push ke stack of states, ini bsia gw implementasiin habis gamenya udh fungsion
+            //nanti juga tiap akhir suatu aksi, setiap perubahannya dijadikkan ke dalam state
+            //Agar mempermudah skill dan undo
             printf("ENTER COMMAND: ");
             STARTSTDKATA();
             if (IsKataSama(CKata, Attk)) /* command == "ATTACK" */
             {
                   strcpy(S.lastaction,"ATTACK");
                   int j;
+                  //prosedur Sebelum(...) adalah prosedur yang digunakkan untuk mengecheck kondisi sebelom attack
+                  //prosedur Sesudah(...) adalah prosedur yang digunakkan untuk mengecheck kondisi setelah attack
+                  //GetSkill adakan diterima jika kondisi mendapatkan skill memenuhi
                   j = Info(First((*currentPlayer).bangunanPlayer));
-                //   printf("a");
                   Sebelum(*currentPlayer, *opposingPlayer, &PrevCurPlayer, &PrevOpsPlayer,S.listbtot);
-                //   printf("a");
                   booleanAttackUp=false;
-                //   printf("a");
                   Attack(S.Hubungan, &(S), currentPlayer, opposingPlayer, &Tab, booleanAttackUp);
-                //   printf("a");
                   Sesudah(*currentPlayer, *opposingPlayer, &AfterCurPlayer, &AfterOpsPlayer,S.listbtot);
-                //   printf("a");
                   GetSkill(currentPlayer,opposingPlayer,PrevCurPlayer,PrevOpsPlayer,AfterCurPlayer,AfterOpsPlayer);
                   skillOff(currentPlayer);
                   if(IsEmptyL(opposingPlayer->bangunanPlayer)){
@@ -307,7 +314,7 @@ int main()
                   Sesudah(*currentPlayer, *opposingPlayer, &AfterCurPlayer, &AfterOpsPlayer,S.listbtot);
                   GetSkillCH(currentPlayer,opposingPlayer,AfterCurPlayer);
                   }else{
-                      printf("Nggaa ADA SKILL ASU!!\n");
+                      printf("Nggaa ADA SKILL :( !!\n");
                   }
             }else
             if (IsKataSama(CKata, Undo))

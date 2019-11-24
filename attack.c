@@ -307,7 +307,7 @@ void MakeBangunanPemain (Player *Pe, Player *Pm, STATE *T,  IdxType Idx, int Jml
          //Saat bangunan sudah dikuasasi Pemain yang laain
          else
          {
-            if((*Pm).shieldCooldown >= 0){
+            if((*Pm).shieldCooldown > 0){
                 if((*Pe).CriticalHit == true){
                     JHDiserang= (int)floor(((*T).listbtot.TI[Idx].B.Jpas)/2);
                     if ( Jmlh>=JHDiserang)
