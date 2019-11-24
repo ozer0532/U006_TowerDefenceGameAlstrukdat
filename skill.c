@@ -110,6 +110,8 @@ void Barrage (Player Pe, BangunanTot *Ba)
                 while(P != Nil){
                     if((*Ba).TI[Info(P)].B.Jpas >= 10){
                     (*Ba).TI[Info(P)].B.Jpas -= 10;
+                    }else{
+                        (*Ba).TI[Info(P)].B.Jpas = 0;
                     }
                     P = Next(P);
                 }
@@ -310,9 +312,6 @@ if((*Pe).extraTurn == true){
     if((*Pe).AttackUp == true){ //mengnon aktifak attack up
         (*Pe).AttackUp = false;
     }
-    if((*Pe).CriticalHit == true){
-        (*Pe).CriticalHit = false;
-    }
 }
 else{
     if((*Pe).shieldCooldown >= 0){
@@ -320,7 +319,12 @@ else{
     }
 }
 }
-
+void skillOffCH (Player *Pe){
+    // mengnonaktifkan skill critical hit 
+    if((*Pe).CriticalHit == true){
+        (*Pe).CriticalHit = false;
+    }
+}
 
 
 

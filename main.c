@@ -275,6 +275,7 @@ int main()
                   Sesudah(*currentPlayer, *opposingPlayer, &AfterCurPlayer, &AfterOpsPlayer,S.listbtot);
                 //   printf("a");
                   GetSkill(currentPlayer,opposingPlayer,PrevCurPlayer,PrevOpsPlayer,AfterCurPlayer,AfterOpsPlayer);
+                  skillOff(currentPlayer);
                   if(IsEmptyL(opposingPlayer->bangunanPlayer)){
                       masihMain = false;
                       printf("ANDA MENANG");
