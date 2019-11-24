@@ -14,8 +14,10 @@ typedef struct {
 } Status;
 
 void InisialisasiStatus(Status *S);
+/* pprosedur ini digunakan untuk melakukan inisialisasi status pemain */
 
 void InisialisasiQueue(Player *Pe, Player *Pm);
+/* Prosedur ini digunakan untuk menginisialisasi Queue pemain yang telah dibuat */
 
 void InstantUpgrade (Player Pe, BangunanTot *Ba);
 
