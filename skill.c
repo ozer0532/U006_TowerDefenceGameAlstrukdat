@@ -3,6 +3,7 @@
 #include "attack.h"
 
 void InisialisasiStatus(Status *S) {
+/* pprosedur ini digunakan untuk melakukan inisialisasi status pemain */
     (*S).JumlahBangunan=0;
     MakeEmptyBangunanTot(&(*S).LevelBangunan);
     (*S).JumlahFort=0;
@@ -28,24 +29,28 @@ void InstantUpgrade (Player Pe, BangunanTot *Ba)
 }
 void Shield (Player *Pe){ 
     (*Pe).shieldCooldown = 2;
+    printf("Shield Anda Telah Aktif \n");
 }
 
 void ExtraTurn (Player *Pe)
     /*setelah pengaktifan skill ini berakhir, pemain selanjutnya tetap pemain yang sama*/
 {
     (*Pe).extraTurn = true;
+    printf("Extra Turn Telah Aktif!!\n");
 }
 void AttackUp( Player *Pe) //Bonus
  /*Jika pemain mengaktifkan skill ini, maka pertahanan lawan tidak akan mempengaruhi penyerangan.
     Syarat: Pemain baru saja melakukan penyerangan ke tower lawan dan tower pemain menjadi berjumlah 3 */
     {
         (*Pe).AttackUp = true;
+        printf("Attack Up Anda Telah Aktif!\n");
     }
 void CriticalHit (Player *Pe) //Bonus
     /* Syarat: Musuh baru saja melakukan skill Extra Turn
         F.S: pada bangunan yang melakukan serangan tepat selanjutnya hanya berkurang 1/2 dari jumlah seharusnya. */
     {
         (*Pe).CriticalHit = true;
+        printf("Critical Hit Anda Aktif!!\n");
     }
 void InstantReinforcement(Player Pe, BangunanTot *Ba)
     /* Syarat : Diakhir gilirannya, bila semua bangunan yang ia miliki memiliki level 4
@@ -60,29 +65,40 @@ void InstantReinforcement(Player Pe, BangunanTot *Ba)
                 while(P != Nil){
                     lvl = (*Ba).TI[Info(P)].B.Level;
                     jns = (*Ba).TI[Info(P)].B.Jenis;
-                    if(jns = 'C'){
+                    if(jns == 'C'){
                         if((*Ba).TI[Info(P)].B.Jpas <= (AC.C[lvl].M - 5)){
                             (*Ba).TI[Info(P)].B.Jpas = (*Ba).TI[Info(P)].B.Jpas + 5;
+                            printf("Instant Reinforcment Aktif\n");
+                        }else{
+                            printf("Jumlah bangunan dibatas maksimum!\n");
                         }
                     }
-                    else if(jns = 'T'){
+                    else if(jns == 'T'){
                         if((*Ba).TI[Info(P)].B.Jpas <= (AC.T[lvl].M-5)){
                             (*Ba).TI[Info(P)].B.Jpas = (*Ba).TI[Info(P)].B.Jpas + 5;
+                            printf("Instant Reinforcment Aktif\n");
+                        }else{
+                            printf("Jumlah bangunan dibatas maksimum!\n");
                         }
                     }
-                    else if(jns = 'F'){
+                    else if(jns == 'F'){
                         if((*Ba).TI[Info(P)].B.Jpas <= (AC.F[lvl].M-5)){
                             (*Ba).TI[Info(P)].B.Jpas = (*Ba).TI[Info(P)].B.Jpas + 5;
+                            printf("Instant Reinforcment Aktif\n");
+                        }else{
+                            printf("Jumlah bangunan dibatas maksimum!\n");
                         }
                     }
-                    else{
+                    else if(jns == 'V'){
                         if((*Ba).TI[Info(P)].B.Jpas <= (AC.V[lvl].M-5)){
                             (*Ba).TI[Info(P)].B.Jpas = (*Ba).TI[Info(P)].B.Jpas + 5;
+                            printf("Instant Reinforcment Aktif\n");
+                        }else{
+                            printf("Jumlah bangunan dibatas maksimum!\n");
                         }
                     }
                    P = Next(P);
                 }
-                printf("Instant Reinforcment Aktif\n");
 
         }
 void Barrage (Player Pe, BangunanTot *Ba)
@@ -97,8 +113,11 @@ void Barrage (Player Pe, BangunanTot *Ba)
                     }
                     P = Next(P);
                 }
+            printf("Barrage Aktif!!\n");
         }
 void IntToSkill(int SkillKe, Player *Pe,Player *Pm,  BangunanTot *Ba){
+/* Akan karena keluaran dari queue itu berbentuk integer maka kita perlu
+    bentuk integer tersebut ke skill dengan menggunakan prosedur ini */
     if(SkillKe == 1){
         InstantUpgrade(*Pe, Ba);
     }
@@ -123,6 +142,8 @@ void IntToSkill(int SkillKe, Player *Pe,Player *Pm,  BangunanTot *Ba){
 }
 
 void Sebelum(Player CurrentPlayer,Player OppsingPlayer, Status *StCurPlyr,Status *StOpsPlyr, BangunanTot Ba){
+/* Prosedur ini digunakan untuk mengecek status pemain setiap sebelum attack, baik status oppsing
+    ataupun current, status tersebut akan dimasukan kedalam tipe bentukan Status */
     /*KAMUS*/
     address PCur;
     address POps;
@@ -170,6 +191,8 @@ void Sebelum(Player CurrentPlayer,Player OppsingPlayer, Status *StCurPlyr,Status
     
 }
 void Sesudah (Player CurrentPlayer,Player OppsingPlayer, Status *StCurPlyr,Status *StOpsPlyr, BangunanTot Ba){
+/* prosedur ini digunakan untuk mengecek kondisi pemain setelah meakukan attack atau command lain */
+    
     /*KAMUS*/
     address PCur;
     address POps;
@@ -222,26 +245,31 @@ void GetSkill(Player *CurrentPlayer, Player *OpposingPlayer,Status PrevCurPlayer
 
         //shield
         if(AfterOpsPlayer.JumlahBangunan == 2 && PrevOpsPlayer.JumlahBangunan ==3){
-            AddQ(&(*OpposingPlayer).skillQueue,2);
+            if(!IsFullQ((*OpposingPlayer).skillQueue)){
+                AddQ(&(*OpposingPlayer).skillQueue,2);
+            }
         }
         //ExtraTurn
         if((AfterOpsPlayer.JumlahFort -1) ==  PrevOpsPlayer.JumlahFort){
-            AddQ(&(*OpposingPlayer).skillQueue,3);
+            if(!IsFullQ((*OpposingPlayer).skillQueue)){
+                AddQ(&(*OpposingPlayer).skillQueue,3);
+            }
         }
         //Attack Up
         if(PrevCurPlayer.JumlahTower == 2 && AfterCurPlayer.JumlahTower == 3){
-            AddQ(&(*CurrentPlayer).skillQueue, 4);
-        }
-        //Critical Hit
-        if(PrevCurPlayer.XtraTurn == false && AfterCurPlayer.XtraTurn == true){
-            AddQ(&(*OpposingPlayer).skillQueue,5);
+            if(!IsFullQ((*CurrentPlayer).skillQueue)){
+                AddQ(&(*CurrentPlayer).skillQueue, 4);
+             }
         }
         //Barrage
         if(AfterCurPlayer.JumlahBangunan == 10 && PrevCurPlayer.JumlahBangunan == 9){
-            AddQ(&(*CurrentPlayer).skillQueue,7);
+            if(!IsFullQ((*CurrentPlayer).skillQueue)){
+                AddQ(&(*CurrentPlayer).skillQueue,7);
+            }
         }
 }
 void GetSkillIR(Player *CurrentPlayer, Status AfterCurPlayer){
+/* untuk mengecek apakah pemain mendapatkan skill Instant Reinforce,ent apa tidak */
         address P;
         P = First((*CurrentPlayer).bangunanPlayer);
         boolean Check;
@@ -253,13 +281,23 @@ void GetSkillIR(Player *CurrentPlayer, Status AfterCurPlayer){
             P = Next(P); 
         }
         if(Check == true){
+            if(!IsFullQ((*CurrentPlayer).skillQueue)){
             AddQ(&(*CurrentPlayer).skillQueue,6);
+            }
+        }
+}
+void GetSkillCH(Player *CurrentPlayer, Player *OpposingPlayer, Status AfterCurPlayer){
+/* Untuk mengecek apakah pemain mendapatkan skill critical hit atau tidak */
+        //Critical Hit
+        if(AfterCurPlayer.XtraTurn == true){
+            if(!IsFullQ((*OpposingPlayer).skillQueue)){
+            AddQ(&(*OpposingPlayer).skillQueue,5);
+            }
         }
 }
 
-
-void InisialisasiQueue (Player *Pe, Player *Pm)
-{
+void InisialisasiQueue (Player *Pe, Player *Pm){
+/* Prosedur ini digunakan untuk menginisialisasi Queue pemain yang telah dibuat */
     Queue Qpe, Qpm;
     CreateEmptyQ(&(*Pe).skillQueue,10);
     CreateEmptyQ(&(*Pm).skillQueue,10);

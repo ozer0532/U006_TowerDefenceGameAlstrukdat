@@ -50,8 +50,13 @@ void GetSkill(Player *CurrentPlayer, Player *OpposingPlayer,Status PrevCurPlayer
 void IntToSkill(int SkillKe, Player *Pe, Player *Pm,  BangunanTot *Ba);
     /* mengubah keluaran di queue ke skill */
 void GetSkillIR(Player *CurrentPlayer, Status AfterCurPlayer);
+/* untuk mengecek apakah pemain mendapatkan skill Instant Reinforce,ent apa tidak */
+void GetSkillCH(Player *CurrentPlayer, Player *OpposingPlayer, Status AfterCurPlayer);
+/* Untuk mengecek apakah pemain mendapatkan skill critical hit atau tidak */
 void Sebelum(Player CurrentPlayer,Player OppsingPlayer, Status *StCurPlyr,Status *StOpsPlyr, BangunanTot Ba);
-
+/* Prosedur ini digunakan untuk mengecek status pemain setiap sebelum attack, baik status oppsing
+    ataupun current, status tersebut akan dimasukan kedalam tipe bentukan Status */
 void Sesudah(Player CurrentPlayer,Player OppsingPlayer, Status *StCurPlyr,Status *StOpsPlyr, BangunanTot Ba);
-
+/* prosedur ini digunakan untuk mengecek kondisi pemain setelah meakukan attack atau command lain */
+ 
 #endif
