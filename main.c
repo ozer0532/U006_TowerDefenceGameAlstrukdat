@@ -364,6 +364,10 @@ int main()
                 
                 Dealokasiarr(&S.flagAttack);
                 MakeEmptyarr(&S.flagAttack); //Inisialisasi flag 
+                while(!IsEmptyST(stackofstate)) {
+                    SAVEDSTATE temp;
+                    Pop(&stackofstate, &temp);
+                }
                 printf("\n");
                 PrintStatus(S, currentPlayer);
             }
@@ -372,6 +376,7 @@ int main()
             {
                 char namafile[20];
                 printf("Save kedalam file bernama : ");scanf(" %s",&namafile);
+                masihMain = false;
                 SaveFile(S,namafile);
                 printf("\n");
             }
