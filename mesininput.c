@@ -209,17 +209,17 @@ void SaveFile(STATE s,char nama[]){
   fprintf(f, "%d\n",s.JBang);
   for (int i = 1; i <= s.JBang; i ++){
     fprintf(f, "%c %d %d %d %d %d\n",s.listbtot.TI[i].B.Jenis,s.listbtot.TI[i].B.Lok.X,s.listbtot.TI[i].B.Lok.Y,s.listbtot.TI[i].B.Level,s.listbtot.TI[i].B.Milik,s.listbtot.TI[i].B.Jpas);
-  }
+  }     //save data tiap bangunan
   int temp;
   while (IsEmptyQ(s.P1.skillQueue) == false){
     DelQ(&(s.P1.skillQueue),&temp);
     fprintf(f,"%d ",temp);
-  }
+  } 
   fprintf(f," !\n");
   while (IsEmptyQ(s.P2.skillQueue) == false){
     DelQ(&(s.P2.skillQueue),&temp);
     fprintf(f,"%d ",temp);
-  }
+  }         //save queue skill tiap pemain
   fprintf(f," !\n");
   addrRow G;  
   G = s.Hubungan.First;
@@ -228,7 +228,7 @@ void SaveFile(STATE s,char nama[]){
      fprintf(f,"%d ",G->info);
      GN = G->branch;
      while (GN != Nil){
-       fprintf(f,"%d ",GN->info);
+       fprintf(f,"%d ",GN->info);   //save branch
        GN = Next(GN);
      }
       fprintf(f,"!\n");
@@ -246,7 +246,7 @@ void STARTKATALOAD(){
     printf("Masukkan nama file untuk di load : ");scanf("%s",&filename);
     STARTLOAD(filename);
     IgnoreBlank();
-    if (CC == MARK) EndKata = true;
+    if (CC == MARK) EndKata = true;   //load tidak mengambil dari pitakar namun sesuai dari keinginan user
     else
     {
       EndKata = false;
