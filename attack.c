@@ -163,7 +163,7 @@ void MakeBangunanPemain (Player *Pe, Player *Pm, STATE *T,  IdxType Idx, int Jml
         
         if ((*T).listbtot.TI[Idx].B.Milik==0) //Kalau Bangunannya belom dikuasai siapa2
         {
-            JHDiserang=CariDariAcuan(Ac,(*T).listbtot.TI[Idx].B.Jenis,(*T).listbtot.TI[Idx].B.Level,'U');
+            JHDiserang=(*T).listbtot.TI[Idx].B.Jpas;
             if ( (int)floor((3*Jmlh/4))>=JHDiserang)
             {
                 
@@ -190,7 +190,7 @@ void MakeBangunanPemain (Player *Pe, Player *Pm, STATE *T,  IdxType Idx, int Jml
         }
          //Saat bangunan sudah dikuasasi Pemain yang lain
          else
-         {
+        {
             if((*Pe).AttackUp == true || (*Pe).CriticalHit == true){ //Pemain mengaktifkan  attack up
                 if((*Pe).CriticalHit == true){
                     JHDiserang= (int)floor(((*T).listbtot.TI[Idx].B.Jpas)/2);
@@ -279,7 +279,7 @@ void MakeBangunanPemain (Player *Pe, Player *Pm, STATE *T,  IdxType Idx, int Jml
     {
         if ((*T).listbtot.TI[Idx].B.Milik==0) //Kalau Bangunannya belom dikuasai siapa2
         {
-            JHDiserang=CariDariAcuan(Ac,(*T).listbtot.TI[Idx].B.Jenis,(*T).listbtot.TI[Idx].B.Level,'U');
+            JHDiserang=(*T).listbtot.TI[Idx].B.Jpas;
             if ( Jmlh>=JHDiserang)
             {
                 //Jika belom menyentuh nilai max
@@ -306,7 +306,7 @@ void MakeBangunanPemain (Player *Pe, Player *Pm, STATE *T,  IdxType Idx, int Jml
          //Saat bangunan sudah dikuasasi Pemain yang laain
          else
          {
-            if((*Pm).shieldCooldown >= 0){
+            if((*Pm).shieldCooldown > 0){
                 if((*Pe).CriticalHit == true){
                     JHDiserang= (int)floor(((*T).listbtot.TI[Idx].B.Jpas)/2);
                     if ( Jmlh>=JHDiserang)

@@ -105,6 +105,10 @@ void MovePas(BangunanTot *T, Player *Pe)
 
 
 void AddJumlahPasukan(Player * Pe, BangunanTot * T) {
+// Menambah jumlah pasukkan
+// I.S Player terdefinisi
+// F.S Jumlah Pasukkan yang ada diinisialisasikan 
+
     // KAMUS LOKAL
     address P;
     ACUAN A;
@@ -124,6 +128,10 @@ void AddJumlahPasukan(Player * Pe, BangunanTot * T) {
 }
 
 void PrintStatus(STATE S, Player * Pe) {
+//Prosedur untuk mencetak status ke layar
+//I.S STATE harus sudah terdefinisi
+//F.S Status tercetak kelayar
+
     printf("\n\n\n\n\n");
     boolean(bol);
     printpeta(S);
@@ -160,8 +168,8 @@ void PrintStatus(STATE S, Player * Pe) {
 int main()
 {
     // KAMUS
-      /* Konstanta */
-        printf("Hewo");
+      //Digunakan untuk membaca inputan user dalam command 
+      //Implementasi menggunakan mesin kata
         Kata Attk, Lvup, Skll, Exit, Undo, Endt, Save, Move;
         Lvup.TabKata[1] = 'L';  Endt.TabKata[1] = 'E';
         Lvup.TabKata[2] = 'E';  Endt.TabKata[2] = 'N';
@@ -210,12 +218,95 @@ int main()
         STATE S;
         printf("Hewo");
         Stack stackofstate;
-        CreateEmpty(&stackofstate);
-        printf("Hewo");
+        CreateEmpty(&stackofstate);     //Inisialisasi stack
         Player * currentPlayer;
         Player * opposingPlayer;
         boolean operationFailed;
 
+
+
+printf("                                                                                                                                                         .###% \n");
+printf("                                                                                                                                                     #%######%#  \n");
+printf("                                                                                                                                               /%######%%%%%%, \n");
+printf("                                                                                                                                        ,%#######%%%%%,       \n");
+printf("                                                                                     ,#,,,,,     *#.                            %#%%#######%%%&(              \n");
+printf("                                                                                  (   ,,,,,          ,                 (     ,%######%%%%%.                   \n");
+printf("                                                                      ,*,.      *     ,,,,,            #           /(   ,%########%%%.                        \n");
+printf("                                                                 .#///////////%,     ,,,,,.             .         ,.,,. %#%%%&%%%%                            \n");
+printf("                                                               %//////////////,.     ,,,,,,              #    *%###/%.    (                                   \n");
+printf("                                                             %///////////////%,      ,,,,,,,,,,,          %#####,,..#,(/                                      \n");
+printf("                                                           ,#(((/////////////%,  .,,,,,,,,,,,,,           (//%,....#                                          \n");
+printf("                                                (////#(,##(((((((((((////////%*    ,,,,,,,,,,,            (,.//#..*                                           \n");
+printf("                                               (//////////((////////////////%%,      ,,,,,,,   ,%%        *,* /(,.                                            \n");
+printf("                                    //       #/////////////////////////////#,%/,,,%%(  ,,,. *%%&&&&*     /*.# #(                                              \n");
+printf("                                  %,,,#     (/////////////////////(((((((((**/#*.. %/*.     , * %/      ,,. (*/#                                              \n");
+printf("               /,,..              ,,, (    #////////////////////////(((((((%,*,,, %((          // ,      #(.#//#                                              \n");
+printf("               *,,,              .,,, #    (((((((((((((((((((((((((%(((((((((,(.                       .  (//(                                               \n");
+printf("               #,,,,,             ,,, (    (((((((((((((((((((#%((((((((((((((&%,     #,.,,/            #////,                                                \n");
+printf("                ,,,,..            ,,, ,     #(((((((((((#%%((((((((((((((((((%(,,                       (//(                                                  \n");
+printf("                ,,,,,./           ,,,     ,////////////((((((((((((((((((((((((*(,    *,,(#,    (     .#///                                                   \n");
+printf("                 .,,,,, *         ,,,, %///(%%#(////((((((((((((((((((((((#((#(%,,(,  /%      .(/   /..*//(                                                   \n");
+printf("                  #,,,,, #        /,,,.#//%(((%/////////////////(((((((((((#(#((#,,,%(,    ,*.    #....///%                                                   \n");
+printf("*,,,#               (,,(,, *       *,,,..((((((((%(((((((((((/////////(((((((#((((#,,,(,*#,     %.......(//,                                                   \n");
+printf("%,,,,,*.             #,,,,. ,      /,,,. %((%(%.  %(((####(/(#(((////////(((((%(((((%,,,#,......,,.....%//%                                                    \n");
+printf(",/,,,,,,(.           *,,,,,  /    (,,,, *%(   (,%#((#%#(((((((%///////////((((#((((((##..,#....*((((%#///                                                     \n");
+printf("   %,,,,,,,.#         .,,,,,,,,,,,,,,,,       %,,,,,,,(((%(,,,##/////////(//((((#((((((((%#((#%/%////////                                                     \n");
+printf("     ,*,,,,,,..&/      %,,,,,#,,,,,,,,,,  . /,,,....,,,#((%,,,,#////////////((((#((((((((((%(((///////(                                                       \n");
+printf("        */,,,,,,*.  **,#,,,,,,,,,,,,,,,,* /,,,.........,,((,,,,,///////////////(((((((((///,,(//////#                                                         \n");
+printf("            %,,,,,,,,*,,,,,,,,,,,,,,,,,,,, (,#/........,,#(/,,,,#//////////((/////////////#/* ,////                                                           \n");
+printf("               %,,,(,,,,,,,,,,,,,,,,,,,,,, .,,(.........,((,,,,,#%///((((((//////////////%    */*                                                         .   \n");
+printf("(,,*##*,,,//,,*/##,/,,,,,,,,,,,,,,,,,,,,,,,,, .,,........,/(#,,%#,#(%,%////////////////////,,,,,/,,,.........**                                            .    \n");
+printf("(#,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,*(#(,,,..,  #.......,/(/,,#,,,,#(#,,,,,*(#%///////////,,,,,,...............*                                              . \n");
+printf(" .%*,,,,,,,,,,,,,#,,,,,,,,,,(,,,,,,,,,**,,,,   .#,,#  #*(#,,,,,,,,##((%*,,,,,,#///////#,,,,,...................,                                        .     \n");
+printf("                #,,,,,,*#(,,,,,,,,,%,,,,,,,,,,,,,,   ,# (,,,,,,,,,,,,,#####%##*%////#,,,,,......................#                                         . ..\n");
+printf("                  (,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,.     ..   #,,,,,,,,,,(,,,(/(,,,,,,,,,,,,,,,,,,,,...........                                            \n");
+printf("                    .&*,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,**,,,#,,,,,,,,,,,,,,,(,,,,,,,,,,,,,,,,,,,,,,..........#                                         . \n");
+printf("                       (,,,,,,,,,,,,,,,,,,,,,,,/#/*/##/,,,,,,,*(,,,,,,,,/,,,,,,,,,,,,,,,,,,,,,,,,,,,.,,..,,......,                                          . \n");
+printf("                         %,,,,,,,,((,,,(####,,,.#   ,,,,,,,,,,,,,,,,(#(.    .######%%#*,,,,,,,,,,,,,,,,,,...,,,,,#                                       .    \n");
+printf("                                   #,,,,*#(//(/  ,,,,,,,,,,,,,,,*/          /#####((,.%#(#(%#*,,,,,,,,,,,,,,,,,,*                                            .\n");
+printf("                                                 /,,,,,,,,,,,*,            #######(.      ((#(#%(#,,,,,,,,,,,,,,.                                           . \n");
+printf("                                                *#%,,,,,,,*#              %(#(##((           .%#(#(*,,,,,,,,,,#                                          .  . \n");
+printf("                                               (#####(%((/.              #%%%##((.            /,*/*,,,,,,,,,/#                                              . \n");
+printf("                                              #(#####                    ,%%%%##                (,,,,,*(                                                    . \n");
+printf("                                           ,%%##%,                        %%%%#,                                                                         .  . \n");
+printf("                                          ##((%                                                                                                               \n");
+printf("                                       ,#(#((#                                                                                                               .\n");
+printf("                                       %%##%%                                                                                                            ..  .\n");
+printf("                                       ##,                                                                                                                     \n");
+
+
+
+                                                                                                                                     
+                                                                                                                                     
+printf("               AAA   VVVVVVVV           VVVVVVVV   AAA         TTTTTTTTTTTTTTTTTTTTTTT         AAA               RRRRRRRRRRRRRRRRR   \n");
+printf("              A:::A  V::::::V           V::::::V  A:::A        T:::::::::::::::::::::T        A:::A              R::::::::::::::::R  \n");
+printf("             A:::::A V::::::V           V::::::V A:::::A       T:::::::::::::::::::::T       A:::::A             R::::::RRRRRR:::::R \n");
+printf("            A:::::::AV::::::V           V::::::VA:::::::A      T:::::TT:::::::TT:::::T      A:::::::A            RR:::::R     R:::::R\n");
+printf("           A:::::::::AV:::::V           V:::::VA:::::::::A     TTTTTT  T:::::T  TTTTTT     A:::::::::A             R::::R     R:::::R\n");
+printf("          A:::::A:::::AV:::::V         V:::::VA:::::A:::::A            T:::::T            A:::::A:::::A            R::::R     R:::::R\n");
+printf("         A:::::A A:::::AV:::::V       V:::::VA:::::A A:::::A           T:::::T           A:::::A A:::::A           R::::RRRRRR:::::R \n");
+printf("        A:::::A   A:::::AV:::::V     V:::::VA:::::A   A:::::A          T:::::T          A:::::A   A:::::A          R:::::::::::::RR  \n");
+printf("       A:::::A     A:::::AV:::::V   V:::::VA:::::A     A:::::A         T:::::T         A:::::A     A:::::A         R::::RRRRRR:::::R \n");
+printf("      A:::::AAAAAAAAA:::::AV:::::V V:::::VA:::::AAAAAAAAA:::::A        T:::::T        A:::::AAAAAAAAA:::::A        R::::R     R:::::R\n");
+printf("     A:::::::::::::::::::::AV:::::V:::::VA:::::::::::::::::::::A       T:::::T       A:::::::::::::::::::::A       R::::R     R:::::R\n");
+printf("    A:::::AAAAAAAAAAAAA:::::AV:::::::::VA:::::AAAAAAAAAAAAA:::::A      T:::::T      A:::::AAAAAAAAAAAAA:::::A      R::::R     R:::::R\n");
+printf("   A:::::A             A:::::AV:::::::VA:::::A             A:::::A   TT:::::::TT   A:::::A             A:::::A   RR:::::R     R:::::R\n");
+printf("  A:::::A               A:::::AV:::::VA:::::A               A:::::A  T:::::::::T  A:::::A               A:::::A  R::::::R     R:::::R\n");
+printf(" A:::::A                 A:::::AV:::VA:::::A                 A:::::A T:::::::::T A:::::A                 A:::::A R::::::R     R:::::R\n");
+printf("AAAAAAA                   AAAAAAAVVVAAAAAAA                   AAAAAAATTTTTTTTTTTAAAAAAA                   AAAAAAARRRRRRRR     RRRRRRR\n");
+                                                                                                                                     
+                                                                                                                                     
+                                                                                                                                     
+                                                                                                                                     
+                                                                                                                                     
+                                                                                                                                     
+                                                                                                                                     
+
+
+
+
+
+printf("\n\n\n");
     // ALGORITMA
         printf("********** AVATAR WORLD WAR **********\n");
         printf("======================================\n");
@@ -240,7 +331,7 @@ int main()
         printf("Masukkan menu : ");
         scanf("%d", &menu);
 
-        //Validasi
+        //Validasi inputan menu
         while ((menu<1) || (menu>2)) {
             printf("inputan salah... Ulang lagi\n");
             printf("Masukkan menu : ");
@@ -270,27 +361,28 @@ int main()
             if (operationFailed) {
                 operationFailed = false;
             } else {
-                Push(&stackofstate, S); //tiap awal giliran di push state permainan, jadi bisa undo kapan aja
-                //nanti juga tiap akhir suatu aksi, jadiin perubahan di STATE, dan entar state di push ke stack of states, ini bsia gw implementasiin habis gamenya udh fungsional
+                Push(&stackofstate, S); 
             }
+            //nanti juga tiap akhir suatu aksi, setiap perubahannya dijadikkan ke dalam state
+            //Agar mempermudah skill dan undo
             printf("ENTER COMMAND: ");
             STARTSTDKATA();
             if (IsKataSama(CKata, Attk)) /* command == "ATTACK" */
             {
                   strcpy(S.lastaction,"ATTACK");
                   int j;
+                  //prosedur Sebelum(...) adalah prosedur yang digunakkan untuk mengecheck kondisi sebelom attack
+                  //prosedur Sesudah(...) adalah prosedur yang digunakkan untuk mengecheck kondisi setelah attack
+                  //GetSkill adakan diterima jika kondisi mendapatkan skill memenuhi
                   j = Info(First((*currentPlayer).bangunanPlayer));
-                //   printf("a");
                   Sebelum(*currentPlayer, *opposingPlayer, &PrevCurPlayer, &PrevOpsPlayer,S.listbtot);
-                //   printf("a");
                   booleanAttackUp=false;
                 //   printf("a");
                   Attack(S.Hubungan, &(S), currentPlayer, opposingPlayer, &S.flagAttack, booleanAttackUp);
                 //   printf("a");
                   Sesudah(*currentPlayer, *opposingPlayer, &AfterCurPlayer, &AfterOpsPlayer,S.listbtot);
-                //   printf("a");
                   GetSkill(currentPlayer,opposingPlayer,PrevCurPlayer,PrevOpsPlayer,AfterCurPlayer,AfterOpsPlayer);
-                  skillOff(currentPlayer);
+                  skillOffCH(currentPlayer);
                   if(IsEmptyL(opposingPlayer->bangunanPlayer)){
                       masihMain = false;
                       printf("ANDA MENANG");
@@ -316,7 +408,7 @@ int main()
                   Sesudah(*currentPlayer, *opposingPlayer, &AfterCurPlayer, &AfterOpsPlayer,S.listbtot);
                   GetSkillCH(currentPlayer,opposingPlayer,AfterCurPlayer);
                   }else{
-                      printf("Nggaa ADA SKILL ASU!!\n");
+                      printf("Nggaa ADA SKILL :( !!\n");
                   }
                 printf("\n");
             }else
