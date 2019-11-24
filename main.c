@@ -244,10 +244,6 @@ int main()
         } else {
             LoadFile(&S);
             InisialisasiQueue(currentPlayer,opposingPlayer);
-            AddQ(&(*currentPlayer).skillQueue,1);
-            AddQ(&(*currentPlayer).skillQueue,1);
-            AddQ(&(*currentPlayer).skillQueue,1);
-           // AddQ(&(*currentPlayer).skillQueue,7);
             InisialisasiStatus(&PrevCurPlayer);
             InisialisasiStatus(&PrevOpsPlayer);
             InisialisasiStatus(&AfterCurPlayer);
@@ -293,9 +289,9 @@ int main()
                   int skl;
                   if(!IsEmptyQ((*currentPlayer).skillQueue)){
                   DelQ(&(*currentPlayer).skillQueue,&skl);
-                  if (skl == 3) AddQ(&(currentPlayer->skillQueue),5);
-                //   PrintQueue(currentPlayer->skillQueue);
                   IntToSkill(skl,currentPlayer,opposingPlayer,&S.listbtot);
+                  Sesudah(*currentPlayer, *opposingPlayer, &AfterCurPlayer, &AfterOpsPlayer,S.listbtot);
+                  GetSkillCH(currentPlayer,opposingPlayer,AfterCurPlayer);
                   }else{
                       printf("Nggaa ADA SKILL ASU!!\n");
                   }
