@@ -216,7 +216,6 @@ int main()
         Status AfterOpsPlayer;
 
         STATE S;
-        printf("Hewo");
         Stack stackofstate;
         CreateEmpty(&stackofstate);     //Inisialisasi stack
         Player * currentPlayer;
